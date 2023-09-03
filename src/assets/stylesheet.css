@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Anek Malayalam';
+    src: url('AnekMalayalam-Medium.eot');
+    src: local('Anek Malayalam Medium'), local('AnekMalayalam-Medium'),
+        url('AnekMalayalam-Medium.eot?#iefix') format('embedded-opentype'),
+        url('AnekMalayalam-Medium.woff2') format('woff2'),
+        url('AnekMalayalam-Medium.woff') format('woff'),
+        url('AnekMalayalam-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
