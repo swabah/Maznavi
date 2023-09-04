@@ -1,31 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../layout/Navbar";
 import Footer from "../layout/Footer";
-import { useArticles, usePoems } from "../../hooks/posts";
+import { useArticles, useBlogs, usePoems } from "../../hooks/posts";
 import { Link } from "react-router-dom";
-import SinglePoem from "../posts/SinglePoem";
-import { PiArrowLineUpRightBold } from "react-icons/pi";
+import {
+  useToast,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalCloseButton,
+  useDisclosure,
+} from '@chakra-ui/react'
+import { FiXOctagon } from "react-icons/fi";
 
 export default function Explore() {
-  const {Articles} = useArticles()
-  const {Poems} = usePoems()
+  const { Articles } = useArticles()
+  const { Poems } = usePoems()
+  const { Blogs } = useBlogs()
+  const toast = useToast();
+
+  // Modal disclosure
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // State to track the selected blog image
+  const [selectedBlogImage, setSelectedBlogImage] = useState(null);
 
   // Create a mapping of unique topics to their associated articles
   const uniqueTopics = [...new Set(Articles?.map((Article) => Article.topic))];
 
+  // Function to open the modal with the selected blog image
+  const openModalWithImage = (blogImage) => {
+    setSelectedBlogImage(blogImage);
+    onOpen();
+  };
+
   return (
     <>
-    <Navbar/>
-       <div className="w-full text-[#3f2d23] min-h-screen bg-[#3f2d2311] shadow-sm h-full p-7 lg:px-10 py-16 lg:py-20 xl:px-32 ">
-          <div className='grid w-full min-h-[60vh] grid-cols-1 gap-5 md:grid-cols-2'>
-             <img className="object-cover w-full h-full bg-red-300 border rounded-md shadow-md" src="https://img.freepik.com/free-photo/creative-reels-composition_23-2149711507.jpg?w=1060&t=st=1692130595~exp=1692131195~hmac=8d08e95504f8b6d3393f331d747dec93cb89e45916a14bc7923c290a2f6c1060" alt="" />
-             <div className='grid w-full h-full grid-cols-1 gap-5 md:grid-cols-2'>
-                <img className="object-cover w-full h-full bg-red-300 border rounded-md shadow-md" src="https://img.freepik.com/free-photo/creative-reels-composition_23-2149711507.jpg?w=1060&t=st=1692130595~exp=1692131195~hmac=8d08e95504f8b6d3393f331d747dec93cb89e45916a14bc7923c290a2f6c1060" alt="" />
-                <img className="object-cover w-full h-full bg-red-300 border rounded-md shadow-md" src="https://img.freepik.com/free-photo/creative-reels-composition_23-2149711507.jpg?w=1060&t=st=1692130595~exp=1692131195~hmac=8d08e95504f8b6d3393f331d747dec93cb89e45916a14bc7923c290a2f6c1060" alt="" />
-                <img className="object-cover w-full h-full bg-red-300 border rounded-md shadow-md" src="https://img.freepik.com/free-photo/creative-reels-composition_23-2149711507.jpg?w=1060&t=st=1692130595~exp=1692131195~hmac=8d08e95504f8b6d3393f331d747dec93cb89e45916a14bc7923c290a2f6c1060" alt="" />
-                <img className="object-cover w-full h-full bg-red-300 border rounded-md shadow-md" src="https://img.freepik.com/free-photo/creative-reels-composition_23-2149711507.jpg?w=1060&t=st=1692130595~exp=1692131195~hmac=8d08e95504f8b6d3393f331d747dec93cb89e45916a14bc7923c290a2f6c1060" alt="" />
-             </div>
+      <Navbar />
+      <div className="w-full text-[#3f2d23] min-h-screen bg-[#fff] shadow-sm h-full p-7 lg:px-10 py-16 lg:py-20 xl:px-32 ">
+        <div className='grid w-full min-h-[60vh] grid-cols-1 gap-5 md:grid-cols-2'>
+          {Blogs?.slice(0, 1).map((blog) => (
+            <img
+              key={blog.id}
+              onClick={() => openModalWithImage(blog.BlogImgUrl)}
+              className="cursor-pointer object-cover w-full h-full bg-red-300 border rounded-md shadow-md"
+              src={blog?.BlogImgUrl}
+              alt=""
+            />
+          ))}
+          <div className='grid w-full h-full grid-cols-1 gap-5 md:grid-cols-2'>
+            {Blogs?.slice(1, 5).map((blog) => (
+              <img
+                key={blog.id}
+                onClick={() => openModalWithImage(blog.BlogImgUrl)}
+                className="cursor-pointer object-cover w-full h-full bg-red-300 border rounded-md shadow-md"
+                src={blog?.BlogImgUrl}
+                alt=""
+              />
+            ))}
           </div>
+        </div>
           <div className="w-full py-20 ">
             <div className='flex items-center gap-2 p-2 pb-7 md:pb-14'>
               <p className='text-sm md:text-lg lg:text-2xl uppercase bg-[#3f2d23] -skew-x-12 text-white font-medium  p-1 px-3 tracking-wider '>Topics</p>
@@ -59,7 +93,19 @@ export default function Explore() {
                 ))}
             </div>
           </div>
-          
+          <Modal size={"full"} isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay bg='whiteAlpha.600' backdropFilter='blur(60px) hue-rotate(90deg)' />
+            <ModalContent>
+              <ModalCloseButton>
+                <FiXOctagon className='absolute z-20 text-[#3f2d23] -top-10 md:top-0 md:-right-12 text-2xl' onClick={onClose} />
+              </ModalCloseButton>
+              {
+                selectedBlogImage && (
+                  <img src={selectedBlogImage} alt="" className="object-cover w-full h-full rounded-md" />
+                )
+              }
+            </ModalContent>
+          </Modal>
        </div>
     <Footer/>
     </>

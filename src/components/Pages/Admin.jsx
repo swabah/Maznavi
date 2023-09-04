@@ -26,12 +26,14 @@ import NewStory from '../posts/Items/NewStory';
 import NewArticle from '../posts/Items/NewArticle';
 import NewPoem from '../posts/Items/NewPoem';
 import NewQuote from '../posts/Items/NewQuote';
+import NewBlog from '../posts/Items/NewBlog';
 
 const adminItems = [
   { key: 'story', label: 'New Story', component: <NewStory/> },
   { key: 'Poem', label: 'New Poem', component: <NewPoem/> },
   { key: 'Article', label: 'New Article', component: <NewArticle/> },
   { key: 'quote', label: 'New Quote', component: <NewQuote/> },
+  { key: 'blog', label: 'New Blog', component: <NewBlog/> },
 ];
 
 const stats = [

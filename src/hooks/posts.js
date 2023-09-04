@@ -60,6 +60,18 @@ export function useAddPoem() {
 }
 
 
+export function useBlogs(uid = null) {
+    const q = uid
+        ? query(
+            collection(db, "blogs"),
+            orderBy("created", "desc"),
+            where("uid", "==", uid)
+        )
+        : query(collection(db, "blogs"), orderBy("created", "desc"));
+    const [Blogs, isBlogLoading, isError] = useCollectionData(q);
+    if (isError) throw isError;
+    return { Blogs, isBlogLoading ,isError};
+}
 export function useStories(uid = null) {
     const q = uid
         ? query(
@@ -128,6 +140,18 @@ export function usePoems(uid = null) {
   }
 
 
+export function useBlogToggleLike({ id, isLiked, uid }) {
+    const [isLoading, setLoading] = useState(false);
+    async function toggleBlogLike() {
+        setLoading(true);
+        const docRef = doc(db, "blogs", id);
+        await updateDoc(docRef, {
+            likes: isLiked ? arrayRemove(uid) : arrayUnion(uid),
+        });
+        setLoading(false);
+    }
+    return { toggleBlogLike, isLoading };
+}
 export function useStoryToggleLike({ id, isLiked, uid }) {
     const [isLoading, setLoading] = useState(false);
     async function toggleStoryLike() {
@@ -186,6 +210,27 @@ export function useDeleteQuote(id) {
         }
     }
     return { deleteQuote, isLoading };
+}
+export function useDeleteBlog(id) {
+    const [isLoading, setLoading] = useState(false);
+    const toast = useToast();
+    async function deleteBlog() {
+        const res = window.confirm("Are you sure you want to delete this Blog?");
+        if (res) {
+            setLoading(true);
+            // Delete Poem document
+            await deleteDoc(doc(db, "stories", id));
+            toast({
+                title: "Blog deleted!",
+                status: "info",
+                isClosable: true,
+                position: "top",
+                duration: 5000,
+            });
+            setLoading(false);
+        }
+    }
+    return { deleteBlog, isLoading };
 }
 export function useDeleteStory(id) {
     const [isLoading, setLoading] = useState(false);
