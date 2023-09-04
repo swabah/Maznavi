@@ -93,7 +93,7 @@ export default function Explore() {
                 ))}
             </div>
           </div>
-          <Modal size={"full"} isOpen={isOpen} onClose={onClose}>
+          <Modal size={"3xl"} isOpen={isOpen} onClose={onClose}>
             <ModalOverlay bg='whiteAlpha.600' backdropFilter='blur(60px) hue-rotate(90deg)' />
             <ModalContent>
               <ModalCloseButton>

@@ -82,6 +82,7 @@ function NewStory() {
               placeholder='Story Account'
               id="accountName"
               value={accountName}
+              required
               onChange={(e) => setAccountName(e.target.value)}
               className="w-full border rounded py-1 px-2"
             />
@@ -90,6 +91,7 @@ function NewStory() {
             <input
               type="file"
               id="File"
+              required
               onChange={(e) => setSelectedFile(e.target.files[0])}
               className="border rounded py-1 px-2"
             />

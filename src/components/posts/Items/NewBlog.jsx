@@ -35,7 +35,7 @@ function NewBlog() {
       const originalBlogImgname = selectedBlogImg.name.replace(/\s+/g, '');
       const documentId = `${originalBlogImgname}_${id}`;
 
-      const BlogImgRef = ref(storage, `stories/${documentId}`);
+      const BlogImgRef = ref(storage, `blogs/${documentId}`);
       await uploadBytes(BlogImgRef, selectedBlogImg);
       const BlogImgUrl = await getDownloadURL(BlogImgRef);
 
@@ -97,6 +97,7 @@ function NewBlog() {
           <input
             type="file"
             id="BlogImg"
+            required
             onChange={(e) => setSelectedBlogImg(e.target.files[0])}
             className="border mb-4 rounded py-1 px-2"
           />
