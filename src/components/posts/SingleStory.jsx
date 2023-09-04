@@ -25,6 +25,8 @@ export const SingleStory = ({ story,Loading,key }) => {
     isLiked,
     uid: user?.id,
   });
+  const isUserAdmin = user?.email === "maznaviofficial@gmail.com" || user?.password === "maznavi786";
+
 
   // Delete story functionality
   const { deleteStory, isLoading: deleteLoading } = useDeleteStory(id);
@@ -61,19 +63,19 @@ export const SingleStory = ({ story,Loading,key }) => {
     {Loading ? (
       <PostsDemo h="h-96" count={20} />
     ) : (
-    <div key={key} className="w-full h-full object-cover relative">
+    <div key={key} className="relative object-cover w-full h-full">
       {!story.isVideo &&
-        <img src={story.FileUrl} alt="" className="w-full h-full rounded-md object-cover" />
+        <img src={story.FileUrl} alt="" className="object-cover w-full h-full rounded-md" />
       }
       {story.isVideo &&
-        <video src={story.FileUrl} className="w-full h-full rounded-md object-cover"></video>
+        <video src={story.FileUrl} className="object-cover w-full h-full rounded-md"></video>
       }
       <div className="text-[#fff] z-10 absolute w-full items-start p-2 md:px-4 top-0 text-sm md:text-lg">
         <h2>{story.account}</h2>
         <p className="text-xs opacity-80">{story.created?.date}</p>
       </div>
 
-      <div className="absolute h-auto z-10 w-full gap-1 md:gap-3 flex justify-start items-center p-2 md:p-4 bottom-0">
+      <div className="absolute bottom-0 z-10 flex items-center justify-start w-full h-auto gap-1 p-2 md:gap-3 md:p-4">
         {user && (
           <LikeButton
             isUser={user}
@@ -86,9 +88,9 @@ export const SingleStory = ({ story,Loading,key }) => {
         )}
         <MazButton Link={copyFileUrl} Icon={<AiFillCopy />} />
         <MazButton Link={shareFileUrl} Icon={<AiOutlineShareAlt />} />
-        {/* {!authLoading && user?.email === 'maznaviofficial@gmail.com' (
+        {isUserAdmin && 
           <MazButton Link={deleteStory} Icon={<AiFillDelete className="text-xl font-thin" />} />
-        )} */}
+        }
       </div>
 
       <div onClick={onOpen} className="absolute opacity-100 lg:opacity-0 hover:opacity-100 text-[#3f2d23] transition-all w-full h-full bg-[#3f2d23] rounded-md bg-opacity-20 cursor-pointer inset-0">
@@ -101,10 +103,10 @@ export const SingleStory = ({ story,Loading,key }) => {
             <FiXOctagon className='absolute z-20 text-[#3f2d23] -top-10 md:top-0 md:-right-12 text-2xl' />
           </ModalCloseButton>
           {!story.isVideo &&
-            <img src={story.FileUrl} alt="" className="w-full h-full rounded-md object-cover" />
+            <img src={story.FileUrl} alt="" className="object-cover w-full h-full rounded-md" />
           }
           {story.isVideo &&
-            <video src={story.FileUrl} controls autoplay className="w-full h-full rounded-md object-cover"></video>
+            <video src={story.FileUrl} controls autoplay className="object-cover w-full h-full rounded-md"></video>
           }
         </ModalContent>
       </Modal>
