@@ -7,7 +7,7 @@ import {motion} from "framer-motion";
 import { Link, useLocation, useParams} from "react-router-dom";
 import {db} from "../../lib/firebase";
 import {doc, onSnapshot} from "firebase/firestore";
-import {AiFillCopy,  AiOutlineShareAlt} from "react-icons/ai";
+import {AiFillCopy,  AiOutlineRead,  AiOutlineShareAlt} from "react-icons/ai";
 import Navbar from "./Navbar";
 import MazButton from "../../assets/MazButton";
 import {FaFacebook, FaInstagram } from "react-icons/fa";
@@ -16,6 +16,7 @@ import Footer from "./Footer";
 import PostsDemo from "../Demo/PostsDemo";
 import { useArticles } from "../../hooks/posts";
 import { CgPentagonBottomLeft } from "react-icons/cg";
+import { ReadingTime } from "../../assets/ReadingTime";
 
 export default function CurrentArticle() {
   const {ArticleId} = useParams();
@@ -81,7 +82,6 @@ export default function CurrentArticle() {
     };
 
 
-
   return (
     <>
       <Navbar />
@@ -100,6 +100,10 @@ export default function CurrentArticle() {
                       <h2 className="uppercase md:text-lg font-medium ">{CurrentArticle.topic}</h2>
                       </Link>
                     <h2 className="text-3xl md:text-4xl xl:text-5xl font-medium mt-1">{CurrentArticle.title}</h2>                  
+                    <div className='  md:text-lg z-20 w-auto h-auto text-[#000] flex items-center gap-2 '>
+                      <AiOutlineRead/>
+                      <h2 className='text-sm font-sans font-extralight'>{ReadingTime(CurrentArticle?.content)} Minutes</h2>
+                    </div>
                     <div className='flex items-center justify-between w-full pt-7'>
                       <div className='md:w-1/2 flex items-center gap-1.5 md:gap-5' textDecoration="none" _hover={{ textDecoration: "none" }}>
                         <div className='w-8 h-8 md:w-12 rounded-3xl md:h-12 bg-black'></div>
@@ -166,7 +170,7 @@ export default function CurrentArticle() {
                   </div>
                 </div>
                 <form onSubmit={handleSubmit}  className='bg-[#3f2d2311] h-auto w-full gap-y-1.5  rounded-xl p-6 flex flex-col items-center'>
-                    <h2 className="text-2xl font-semibold w-full text-center">Never Miss A Update !</h2>
+                    <h2 className="text-2xl font-semibold w-full text-center">Never miss an Update !</h2>
                     <p className="text-base w-full text-center ">Sign up for free and be the first to <br /> get notified about updates.</p>
                     <input 
                       value={email}

@@ -128,7 +128,7 @@ export default function CurrentPoem() {
             </div>
           </div>
             <form onSubmit={handleSubmit}  className='bg-[#3f2d2311] h-auto w-full gap-y-1.5  rounded-xl p-6 flex flex-col items-center'>
-                <h2 className="text-2xl font-semibold w-full text-center">Never Miss A Update !</h2>
+                <h2 className="text-2xl font-semibold w-full text-center">Never miss an Update !</h2>
                 <p className="text-base w-full text-center ">Sign up for free and be the first to <br /> get notified about updates.</p>
                 <input 
                   value={email}

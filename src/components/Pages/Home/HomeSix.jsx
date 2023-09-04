@@ -27,7 +27,7 @@ function HomeSix() {
   return (
     <div className='w-full text-[#120f08] bg-[#fff] grid grid-cols-1 gap-5 md:grid-cols-5 h-full p-7 lg:px-10 py-8 md:py-16  xl:px-32'>
          <form onSubmit={handleSubmit}  className='bg-[#3f2d2311] md:col-span-3 h-auto w-full gap-y-1.5  rounded-xl p-6 md:px-10 lg:px-24  flex flex-col items-center'>
-            <h2 className="text-xl md:text-3xl lg:text-4xl w-full text-center">Never Miss A Update !</h2>
+            <h2 className="text-xl md:text-3xl lg:text-4xl w-full text-center">Never miss an Update !</h2>
             <input 
               value={email}
               required

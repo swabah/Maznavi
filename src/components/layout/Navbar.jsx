@@ -51,7 +51,7 @@ export default function Navbar() {
     { path: HOME, name: "Home" },
     { path: STORIES, name: "Stories" },
     { path: POEMS, name: "Poems" },
-    { path: ARTICLES, name: "Article" },
+    { path: ARTICLES, name: "Articles" },
     { path: AUTHORS, name: "Authors" },
   ];
 

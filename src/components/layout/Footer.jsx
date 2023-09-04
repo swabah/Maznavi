@@ -14,7 +14,7 @@ const Footer = () => {
     { path: POEMS, name: "Poems" },
     { path: AUTHORS, name: "Authors" },
     { path: STORIES, name: "Stories" },
-    { path: ARTICLES, name: "Article" },
+    { path: ARTICLES, name: "Articles" },
   ];
 
   if (!user) {

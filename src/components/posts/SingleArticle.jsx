@@ -4,6 +4,9 @@ import {useAuth} from "../../hooks/auths";
 import { useArticleToggleLike} from "../../hooks/posts";
 import { PiArrowUpRightBold,PiArrowLineUpRightThin } from "react-icons/pi";
 import PostsDemo from "../Demo/PostsDemo";
+import { ReadingTime } from "../../assets/ReadingTime";
+import { AiOutlineRead } from "react-icons/ai";
+import { RxReader } from "react-icons/rx";
 
 export const SingleArticle = ({Article,Loading,key}) => {
   const {user, isLoading: authLoading} = useAuth();
@@ -34,6 +37,10 @@ export const SingleArticle = ({Article,Loading,key}) => {
           >
            <img src={imageUrl} alt="" className="w-full h-52 hover:scale-110 duration-300 rounded-t-lg transition-all object-cover" />
            <div className='absolute inset-0 w-full h-full bg-[#0000003b] rounded-t-lg flex items-center opacity-0 hover:opacity-100 transition-all justify-center text-white text-5xl'><PiArrowLineUpRightThin/></div>
+           <div className='absolute backdrop-blur text-sm md:text-base bg-opacity-40 top-2 left-2 z-20 w-auto h-auto text-white bg-[#000] rounded-md flex items-center gap-2 p-1 px-2 '>
+            <AiOutlineRead/>
+            <h2 className='text-xs font-sans font-extralight'>{ReadingTime(Article?.content)} minutes</h2>
+           </div>
           </Link>
         </div>
         <div className=" text-[#3f2d23] h-full w-full gap-1 lg:gap-1.5 flex flex-col justify-start items-start ">
