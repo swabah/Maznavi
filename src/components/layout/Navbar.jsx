@@ -24,7 +24,7 @@ import { CiMenuKebab } from "react-icons/ci";
 import LogoSecondary from "../../assets/Images/Logo_secendary.png";
 import LogoThird from "../../assets/Images/Logo_third.png";
 import { useLogout, useAuth } from "../../hooks/auths";
-import { HOME, STORIES, ARTICLES, LOGIN, AUTHORS, POEMS } from "../../App";
+import { HOME, STORIES,EXPLORE, ARTICLES, LOGIN, AUTHORS, POEMS } from "../../App";
 
 export default function Navbar() {
   const { logout } = useLogout();
@@ -49,6 +49,7 @@ export default function Navbar() {
 
   const links = [
     { path: HOME, name: "Home" },
+    { path: EXPLORE, name: "Explore" },
     { path: STORIES, name: "Stories" },
     { path: POEMS, name: "Poems" },
     { path: ARTICLES, name: "Articles" },
@@ -74,21 +75,21 @@ export default function Navbar() {
       <Link as={RouterLink} to={HOME}>
         <img src={location.pathname === "/" ? LogoThird : LogoSecondary} className="w-[4.5rem] md:w-20" alt="MAZNAVI._" />
       </Link>
-      <nav className="flex justify-center items-center">
-        <ul className="w-full h-auto hidden lg:flex items-center space-x-6">
+      <nav className="flex items-center justify-center">
+        <ul className="items-center hidden w-full h-auto space-x-6 lg:flex">
           {renderLinks()}
           {user && (
-            <div className="cursor-pointer font-thin text-lg" onClick={openAlert}>
+            <div className="text-lg font-thin cursor-pointer" onClick={openAlert}>
               Log out
             </div>
           )}
           {isUserAdmin && (
             <RouterLink to="/Admin">
-              <h2  className="cursor-pointer font-thin text-lg">Admin</h2>
+              <h2  className="text-lg font-thin cursor-pointer">Admin</h2>
             </RouterLink>
           )}
           <button className={`${location.pathname === "/" ? "bg-[#3f2d23] text-[#fff]" : "bg-[#fff] text-[#3f2d23]"}  transition-all hover:scale-95 px-4 py-1.5 rounded-sm`}>
-            <a href={"https://chat.whatsapp.com/IIYgLv7Jq8P478SrMrXk7a"} className="font-normal rounded-md text-lg">
+            <a href={"https://chat.whatsapp.com/IIYgLv7Jq8P478SrMrXk7a"} className="text-lg font-normal rounded-md">
               Join
             </a>
           </button>
@@ -114,15 +115,15 @@ function LogoutAlertDialog({ isOpen, onClose, logout }) {
       <AlertDialogOverlay />
 
       <AlertDialogContent>
-        <AlertDialogHeader><h2 className='font-normal text-2xl tracking-wide'>Confirm Logout !</h2></AlertDialogHeader>
+        <AlertDialogHeader><h2 className='text-2xl font-normal tracking-wide'>Confirm Logout !</h2></AlertDialogHeader>
         <AlertDialogCloseButton />
         <AlertDialogBody>Are you sure you want to log out? If you proceed, you will be signed out of your account.</AlertDialogBody>
         <AlertDialogFooter>
           <Button ref={cancelRef} onClick={onClose}>
-          <h2 className='font-normal text-xl tracking-wide'>No</h2>
+          <h2 className='text-xl font-normal tracking-wide'>No</h2>
           </Button>
           <Button onClick={logout} colorScheme="red" ml={3}>
-          <h2 className='font-normal text-xl tracking-wide'>Yes</h2>
+          <h2 className='text-xl font-normal tracking-wide'>Yes</h2>
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
@@ -138,26 +139,26 @@ function MobileDrawer({ isOpen, onClose, links, user, isUserAdmin,openAlert }) {
         <DrawerCloseButton m={2} fontSize={"lg"} className="text-[#3f2d23]" />
         <img src={LogoThird} className="w-[4.5rem] md:w-20 ml-4" alt="" />
         <DrawerBody>
-          <ul className="w-full h-full flex flex-col space-y-3">
+          <ul className="flex flex-col w-full h-full space-y-3">
             {links.map((link, index) => (
               <RouterLink to={link.path} className="decoration-none" key={index}>
                 <li className={`text-lg tracking-wide cursor-pointer text-[#3f2d23] active:text-[#3f2d239a] transition font-normal drop-shadow-sm capitalize`}>{link.name}</li>
               </RouterLink>
             ))}
             {user && (
-              <div className="font-medium text-lg cursor-pointer" onClick={openAlert}>
+              <div className="text-lg font-medium cursor-pointer" onClick={openAlert}>
                 Log Out
               </div>
             )}
             {isUserAdmin && (
               <RouterLink to='/admin' className="decoration-none" >
-                <div className="font-medium text-lg cursor-pointer" >
+                <div className="text-lg font-medium cursor-pointer" >
                   Admin
                 </div>
               </RouterLink>
             )}
             <button className={`bg-[#3f2d23] text-[#fff] transition-all hover:scale-95 px-4 py-1.5 rounded-sm`}>
-              <a href={"https://chat.whatsapp.com/IIYgLv7Jq8P478SrMrXk7a"} className="font-normal rounded-md text-lg">
+              <a href={"https://chat.whatsapp.com/IIYgLv7Jq8P478SrMrXk7a"} className="text-lg font-normal rounded-md">
                 Join
               </a>
             </button>
