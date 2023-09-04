@@ -45,7 +45,7 @@ export default function Explore() {
               onClick={() => openModalWithImage(blog.BlogImgUrl)}
               className="cursor-pointer object-cover w-full h-full bg-red-300 border rounded-md shadow-md"
               src={blog?.BlogImgUrl}
-              alt=""
+              alt="Blog image"
             />
           ))}
           <div className='grid w-full h-full grid-cols-1 gap-5 md:grid-cols-2'>
@@ -55,7 +55,7 @@ export default function Explore() {
                 onClick={() => openModalWithImage(blog.BlogImgUrl)}
                 className="cursor-pointer object-cover w-full h-full bg-red-300 border rounded-md shadow-md"
                 src={blog?.BlogImgUrl}
-                alt=""
+                alt="Blog image"
               />
             ))}
           </div>
