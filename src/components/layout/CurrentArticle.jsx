@@ -95,12 +95,12 @@ export default function CurrentArticle() {
           </Box> */}
           <div className="flex flex-col w-full h-full gap-5 lg:flex-row lg:gap-5 xl:gap-10">
             <div className='h-full w-full lg:w-[70%]'>
-                <div className="flex flex-col items-start w-full h-auto gap-3  rounded-xl">
+                <div className="flex flex-col items-start w-full h-auto gap-3 rounded-xl">
                       <Link to={`/Articles/${CurrentArticle?.topic}`} onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})} key={CurrentArticle?.id}>
                       <h2 className="font-medium uppercase md:text-lg ">{CurrentArticle.topic}</h2>
                       </Link>
                     <h2 className="mt-1 text-3xl font-medium md:text-4xl xl:text-5xl">{CurrentArticle.title}</h2>                  
-                    <div className='  md:text-lg z-20 w-auto h-auto text-[#000] flex items-center gap-2 py-2 md:py-5'>
+                    <div className='  md:text-lg z-20 w-auto h-auto text-[#000] flex items-center gap-2 py-2 md:py-3'>
                       <AiOutlineRead/>
                       <h2 className='font-sans text-sm font-extralight'>{ReadingTime(CurrentArticle?.content)} Minutes</h2>
                     </div>
