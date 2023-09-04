@@ -11,6 +11,9 @@ import PostsDemo from "../Demo/PostsDemo";
 import { useArticles } from "../../hooks/posts";
 import {Link} from "react-router-dom";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
+import { AiOutlineRead } from "react-icons/ai";
+import { ReadingTime } from "../../assets/ReadingTime";
+
 
 
 export default function Articles() {
@@ -24,9 +27,9 @@ export default function Articles() {
     return (
         <>
             <Navbar />
-            <div className="w-full h-full min-h-screen bg-white shadow-sm py-12 p-7 lg:px-10 md:py-20 xl:px-32 ">
-                <div className='h-auto py-5  relative w-full flex flex-col text-center gap-3 items-center justify-center '>
-                    <h2 className='text-3xl lg:text-4xl xl:text-5xl tracking-wider font-semibold'>
+            <div className="w-full h-full min-h-screen py-12 bg-white shadow-sm p-7 lg:px-10 md:py-20 xl:px-32 ">
+                <div className='relative flex flex-col items-center justify-center w-full h-auto gap-3 py-5 text-center '>
+                    <h2 className='text-3xl font-semibold tracking-wider lg:text-4xl xl:text-5xl'>
                         <span className='text-[#3f2d23]'>Spark Your Creativity</span> <br /> with Our Engaging Articles
                     </h2>
                     <p className='text-base lg:text-lg'> Discover Compelling Narratives, Beautiful Poetry, and Enthralling Articles Tailored for You.</p>
@@ -46,9 +49,9 @@ export default function Articles() {
                             ) : (
                                 Articles?.slice(0,1).map(Article => (
                                     <>
-                                    <img src={Article.imageUrl} alt="" className="w-full h-full object-cover" />
+                                    <img src={Article.imageUrl} alt="" className="object-cover w-full h-full" />
                                     <div className="absolute p-4 md:p-5 lg:p-14 w-full gap-1 lg:gap-2 flex flex-col bg-gradient-to-t from-[#3f2d23] bg-opacity-70 text-white to-transparent left-0 bottom-0">
-                                        <div className='text-sm lg:text-base gap-1 opacity-80 flex items-center'>
+                                        <div className='flex items-center gap-1 text-sm lg:text-base opacity-80'>
                                             <h2>{Article.created.date} </h2> 
                                             {Article.socialLinks?.instagram || Article.socialLinks?.facebook && 
                                             <>
@@ -58,13 +61,17 @@ export default function Articles() {
                                             </>
                                             }
                                         </div>
+                                        <div className='  md:text-lg z-20 w-auto h-auto text-[#fff] flex items-center gap-2 py-2 md:py-5'>
+                                            <AiOutlineRead/>
+                                            <h2 className='font-sans text-sm font-extralight'>{ReadingTime(Article?.content)} Minutes</h2>
+                                        </div>
                                         <Link
                                         to={`/Articles/id/${Article?.id}`}
                                         onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})}
                                         >
-                                            <h2 className="text-xl lg:text-3xl hover:underline font-semibold">{Article.title}</h2>
+                                            <h2 className="text-xl font-semibold lg:text-3xl hover:underline">{Article.title}</h2>
                                         </Link>
-                                        <p className="text-base lg:text-base leading-tight capitalize line-clamp-2 tracking-wider">{Article.content}</p>
+                                        <p className="text-base leading-tight tracking-wider capitalize lg:text-base line-clamp-2">{Article.content}</p>
                                         <div className="flex item-center text-sm lg:text-base mt-2 lg:mt-5 text-[#ffff] gap-3">
                                             <Link onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})} to={`/Articles/${Article?.topic}`}>
                                             <div className="rounded-3xl bg-white hover:bg-opacity-10 uppercase font-medium tracking-wider cursor-pointer bg-opacity-0 border-[0.2px] p-0.5 lg:p-1 px-4 lg:px-6">{Article.topic}</div>
@@ -75,15 +82,15 @@ export default function Articles() {
                                 ))
                             )}
                         </div>
-                        <div className='p-2 text-base md:text-lg lg:text-xl gap-3 flex items-center py-7 md:py-10'>
+                        <div className='flex items-center gap-3 p-2 text-base md:text-lg lg:text-xl py-7 md:py-10'>
                             <p className=' bg-[#3f2d23] uppercase -skew-x-12 text-white font-medium  p-1 px-3 tracking-wider '>Related</p>
                             <div className="h-[1px] bg-[#3f2d239e] w-full"></div>
                         </div>
                     </>
                     }
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-y-10 ">
+                <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-y-10 ">
                     {filteredArticles?.map(Article => (
-                        <motion.div className="w-full object-cover" layout>
+                        <motion.div className="object-cover w-full" layout>
                             <SingleArticle key={Article.id} Loading={isArticleLoading} Article={Article} />
                         </motion.div>
                     ))}

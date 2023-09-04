@@ -85,7 +85,7 @@ export default function CurrentArticle() {
   return (
     <>
       <Navbar />
-      <motion.div className='min-h-screen w-full' layout>
+      <motion.div className='w-full min-h-screen' layout>
       {Loading ? (
          <PostsDemo h="h-full" count={1} />
         ) : (
@@ -93,22 +93,22 @@ export default function CurrentArticle() {
           {/* <Box mb={4}>
               <Breadcrumbs one={'Articles'} oneTo={'/Articles'} currentPage={CurrentArticle.title} />
           </Box> */}
-          <div className="w-full h-full flex flex-col lg:flex-row gap-5  lg:gap-5 xl:gap-10">
+          <div className="flex flex-col w-full h-full gap-5 lg:flex-row lg:gap-5 xl:gap-10">
             <div className='h-full w-full lg:w-[70%]'>
-                <div className=" h-auto w-full gap-3 rounded-xl flex flex-col items-start">
+                <div className="flex flex-col items-start w-full h-auto gap-3  rounded-xl">
                       <Link to={`/Articles/${CurrentArticle?.topic}`} onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})} key={CurrentArticle?.id}>
-                      <h2 className="uppercase md:text-lg font-medium ">{CurrentArticle.topic}</h2>
+                      <h2 className="font-medium uppercase md:text-lg ">{CurrentArticle.topic}</h2>
                       </Link>
-                    <h2 className="text-3xl md:text-4xl xl:text-5xl font-medium mt-1">{CurrentArticle.title}</h2>                  
-                    <div className='  md:text-lg z-20 w-auto h-auto text-[#000] flex items-center gap-2 '>
+                    <h2 className="mt-1 text-3xl font-medium md:text-4xl xl:text-5xl">{CurrentArticle.title}</h2>                  
+                    <div className='  md:text-lg z-20 w-auto h-auto text-[#000] flex items-center gap-2 py-2 md:py-5'>
                       <AiOutlineRead/>
-                      <h2 className='text-sm font-sans font-extralight'>{ReadingTime(CurrentArticle?.content)} Minutes</h2>
+                      <h2 className='font-sans text-sm font-extralight'>{ReadingTime(CurrentArticle?.content)} Minutes</h2>
                     </div>
                     <div className='flex items-center justify-between w-full pt-7'>
                       <div className='md:w-1/2 flex items-center gap-1.5 md:gap-5' textDecoration="none" _hover={{ textDecoration: "none" }}>
-                        <div className='w-8 h-8 md:w-12 rounded-3xl md:h-12 bg-black'></div>
+                        <div className='w-8 h-8 bg-black md:w-12 rounded-3xl md:h-12'></div>
                         <Link className=" flex flex-col  text-[#3f2d23] ">
-                          <a className="text-sm md:text-lg truncate" href={CurrentArticle.writer?.writer_link}>{CurrentArticle.writer?.writer_name}</a>
+                          <a className="text-sm truncate md:text-lg" href={CurrentArticle.writer?.writer_link}>{CurrentArticle.writer?.writer_name}</a>
                           <p className="text-xs md:text-sm text-[#3f2d23] "> {CurrentArticle.created?.date}</p>
                         </Link>
                       </div>
@@ -125,7 +125,7 @@ export default function CurrentArticle() {
                     <img
                       src={CurrentArticle?.imageUrl}
                       alt='Article image'
-                      className='w-full h-full object-cover transition-all duration-500 cursor-move rounded-lg hover:scale-105'
+                      className='object-cover w-full h-full transition-all duration-500 rounded-lg cursor-move hover:scale-105'
                     />
                       {CurrentArticle.writer?.writer_name && 
                     <div className='absolute top-0 p-1.5 md:p-2.5 z-10 right-0 rounded-2xl flex items-center transition-all justify-center text-5xl'>
@@ -146,7 +146,7 @@ export default function CurrentArticle() {
                     :''
                       }
                   </div>
-                <h2 className="md:text-lg whitespace-pre-line  hyphens-auto align-middle pt-10 w-full text-start">
+                <h2 className="w-full pt-10 whitespace-pre-line align-middle md:text-lg hyphens-auto text-start">
                   {content?.map((line,index)=>(
                     <p key={index}>{line}</p>
                   ))}
@@ -154,14 +154,14 @@ export default function CurrentArticle() {
             </div>
             <div className='h-full w-full lg:w-[30%] flex flex-col gap-y-3 pt-5 lg:pt-0 lg:gap-y-5'>
                 <div className="bg-[#3f2d2311] rounded-xl p-6 flex flex-col md:flex-row items-center justify-between">
-                  <div className="text-start md:text-left w-full">
-                    <h2 className="text-2xl font-semibold w-full text-center">Popular on Articles</h2>
-                    <hr className="border-gray-200 w-full my-4" />
+                  <div className="w-full text-start md:text-left">
+                    <h2 className="w-full text-2xl font-semibold text-center">Popular on Articles</h2>
+                    <hr className="w-full my-4 border-gray-200" />
                     <div className="space-y-4">
                       {Articles?.slice(0, 5).map((Article) => (
                         <Link to={`/Articles/id/${Article?.id}`} onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})} key={Article?.id}>
                           <div className="p-2 rounded-md hover:underline active:shadow-sm">
-                            <h3 className="text-md font-medium">{Article.title}</h3>
+                            <h3 className="font-medium text-md">{Article.title}</h3>
                             <h4 className="text-sm text-gray-600 uppercase">{Article.topic}</h4>
                           </div>
                         </Link>
@@ -170,8 +170,8 @@ export default function CurrentArticle() {
                   </div>
                 </div>
                 <form onSubmit={handleSubmit}  className='bg-[#3f2d2311] h-auto w-full gap-y-1.5  rounded-xl p-6 flex flex-col items-center'>
-                    <h2 className="text-2xl font-semibold w-full text-center">Never miss an Update !</h2>
-                    <p className="text-base w-full text-center ">Sign up for free and be the first to <br /> get notified about updates.</p>
+                    <h2 className="w-full text-2xl font-semibold text-center">Never miss an Update !</h2>
+                    <p className="w-full text-base text-center ">Sign up for free and be the first to <br /> get notified about updates.</p>
                     <input 
                       value={email}
                       required
@@ -179,7 +179,7 @@ export default function CurrentArticle() {
                       onChange={(e) => setEmail(e.target.value)}
                       className="h-full rounded-3xl w-full bg-[#3f2d2319] mt-6 p-2.5 px-6 placeholder:text-black" type="email" name="Email" placeholder="Enter Your Email" id="Email" />
                       <button type="submit" className=' border-[#3f2d2319] bg-[#3f2d230c] active:bg-[#3f2d2319] border-2 font-medium rounded-3xl text-lg py-1 w-full mt-3 items-center justify-center flex h-auto'>
-                        {subscribed ? <p className="text-base py-1">Thanks For Your Subscription !</p> :<h2>Submit</h2> }
+                        {subscribed ? <p className="py-1 text-base">Thanks For Your Subscription !</p> :<h2>Submit</h2> }
                       </button>
                 </form>
             </div>
