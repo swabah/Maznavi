@@ -1,8 +1,8 @@
 import React from "react";
-import HomeImg from '../../../assets/Images/HomeImg.png'
-import { Link } from "react-router-dom";
+import HomeImg from '../../../assets/Images/art3.jpg'
 import { AUTHORS, ARTICLES, EXPLORE, POEMS, STORIES } from "../../../App";
-// import {Typewriter} from 'react-simple-typewriter'
+import { Link } from "react-router-dom";
+import {Typewriter,Cursor} from 'react-simple-typewriter'
 
 export default function HomeSection() {
   const items = [
@@ -33,14 +33,31 @@ export default function HomeSection() {
     },
   ]
   return (
-    <div className='w-full relative bg-center flex flex-col items-center justify-end object-cover bg-no-repeat bg-[#fff] text-[#f9f697] shadow-sm h-[100vh] p-3 lg:px-10 py-20 lg:py-12 xl:py-6 xl:px-32 '>
-      <div className='z-20  w-full flex items-center h-auto justify-center'>
-        {/* <img src={HomeImg} className="w-[40rem]"  alt="" /> */}
+    <div className='w-full relative  text-[#3f2d23] h-full flex flex-col items-center justify-start text-center gap-10   p-7 lg:px-10 py-20 lg:py-12 xl:py-6 xl:px-32'>
+      <div className="h-full flex flex-col items-center justify-start text-center w-full gap-3 md:gap-4 py-44">
+        <h2 className='w-9/12 text-7xl font-medium '>Exploring Lifе's Corе: Maznavi._ Guidеs You to Essеncе</h2>
+        <div className=" uppercase  text-xl font-extralight traking-wide">
+          <p className="">
+          <Typewriter
+              words = {[' A Treasury of Heartfelt Expressions ',' Stories from the Soul,',' The Power of Words to Ignite Inspiration ',' Your Gateway to Poetry, Prose, and More,',' Celebrating the Beauty of Written Creations', " A Journey Through the World of Literatur"]}
+              loop={0}
+              typeSpeed={80}
+              deleteSpeed={20}
+              delaySpeed={1000}
+              cursor
+              cursorColor="green"
+            />
+          </p>
+        </div>
+        <div className="flex items-center gap-4 mt-5">
+          <div className="uppercase p-3 px-4 text-sm text-white bg-green-600 rounded-md border-2 border-green-600">get started for free</div>
+          <div className="uppercase p-3 px-4 text-sm text-green-600 bg-tranparent border-2 border-green-600 rounded-md">get started for free</div>
+        </div>
       </div>
       <div className='z-20 w-full flex items-center overflow-hidden overflow-x-visible h-auto py-2 px-3 space-x-5 justify-between'>
         {items.map((item,index)=>(
           <Link to={item.url}>
-            <div key={index} className="w-full h-full hover:text-[#468641] text-[#3f2d23] flex flex-col items-center gap-3 md:gap-5">
+            <div key={index} className="w-full h-full hover:text-green-600 text-[#3f2d23] flex flex-col items-center gap-3 md:gap-5">
               <div className="w-36 h-24 lg:w-56 lg:h-32 rounded-lg  border-4 border-transparent ring-2 ring-[#3f2d234d] overflow-hidden">
                   <img src={item.img} className="w-full opacity-90 hover:opacity-100 h-full object-cover hover:scale-125 transition-all duration-300" alt="" />
               </div>

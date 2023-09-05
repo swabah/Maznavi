@@ -38,7 +38,7 @@ function HomeSix() {
                 {subscribed ? <p className="text-base py-1">Thanks For Your Subscription !</p> :<h2>Submit</h2> }
               </button>
         </form>
-        <a href='https://wa.me/+918714398351' className='w-full h-full bg-[#3f2d2311] gap-5 p-6 md:px-10 lg:px-16 flex items-center md:col-span-2 rounded-xl'>
+        <a href='https://wa.me/+918714398351' className='w-full h-full bg-green-600 text-white gap-5 p-6 md:px-10 lg:px-16 flex items-center md:col-span-2 rounded-xl'>
             <PiWhatsappLogoLight className='text-3xl md:text-5xl lg:text-6xl'/>
             <div className='flex flex-col items-start'>
                 <p className='text-sm md:text-lg font-thin'>Join Our</p>
