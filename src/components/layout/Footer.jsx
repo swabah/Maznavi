@@ -2,7 +2,7 @@ import React from 'react';
 import Logo from '../../assets/Images/Logo_primary.png'
 import { Link} from 'react-router-dom';
 import { CgFacebook, CgInstagram, CgMail, CgPhone, CgTwitter } from 'react-icons/cg';
-import { ARTICLES,HOME ,EXPLORE,AUTHORS,STORIES, POEMS, LOGIN} from '../../App';
+import { ARTICLES,HOME ,EXPLORE,AUTHORS,STORIES, POEMS, LOGIN, BLOGS} from '../../App';
 import { useAuth } from '../../hooks/auths';
 
 const Footer = () => {
@@ -11,7 +11,7 @@ const Footer = () => {
 
   const items = [
     { path: HOME, name: "Home" },
-    { path: EXPLORE, name: "Explore" },
+    { path: BLOGS, name: "Blogs" },
     { path: STORIES, name: "Stories" },
     { path: ARTICLES, name: "Articles" },
     { path: POEMS, name: "Poems" },

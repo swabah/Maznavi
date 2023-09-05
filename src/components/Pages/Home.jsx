@@ -14,11 +14,11 @@ export default function Home() {
     <div>
       <Navbar/>
       <HomeSection />
-      {/* <HomeFour/> */}
       <HomeOne/>
       <HomeFive/>
       <HomeTwo/>
       <HomeThree/>
+      {/* <HomeFour/> */}
       <HomeSix/>
       <Footer />
     </div>

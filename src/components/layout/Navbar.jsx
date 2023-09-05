@@ -24,7 +24,8 @@ import { CiMenuKebab } from "react-icons/ci";
 import LogoSecondary from "../../assets/Images/Logo_secendary.png";
 import LogoThird from "../../assets/Images/Logo_third.png";
 import { useLogout, useAuth } from "../../hooks/auths";
-import { HOME, STORIES,EXPLORE, ARTICLES, LOGIN, AUTHORS, POEMS } from "../../App";
+import { HOME, STORIES, ARTICLES, LOGIN, AUTHORS, POEMS, BLOGS } from "../../App";
+
 
 export default function Navbar() {
   const { logout } = useLogout();
@@ -49,7 +50,7 @@ export default function Navbar() {
 
   const links = [
     { path: HOME, name: "Home" },
-    { path: EXPLORE, name: "Explore" },
+    { path: BLOGS, name: "Blogs" },
     { path: STORIES, name: "Stories" },
     { path: POEMS, name: "Poems" },
     { path: ARTICLES, name: "Articles" },
@@ -88,11 +89,12 @@ export default function Navbar() {
               <h2  className="text-lg font-thin cursor-pointer">Admin</h2>
             </RouterLink>
           )}
-          <button className={`${location.pathname === "/" ? "bg-green-600 text-[#fff]" : "bg-[#fff] text-[#3f2d23]"}  transition-all hover:scale-95 px-4 py-1.5 rounded-sm`}>
+          <button className={`${location.pathname === "/" ? "bg-[#3f2d23] text-[#fff]" : "bg-[#fff] text-[#3f2d23]"}  transition-all hover:scale-95 px-4 py-1.5 rounded-sm`}>
             <a href={"https://chat.whatsapp.com/IIYgLv7Jq8P478SrMrXk7a"} className="text-lg font-normal rounded-md">
               Join
             </a>
           </button>
+            
         </ul>
         <div className="flex lg:hidden">
           <button type="button" className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onClick={openDrawer}>
@@ -162,6 +164,7 @@ function MobileDrawer({ isOpen, onClose, links, user, isUserAdmin,openAlert }) {
                 Join
               </a>
             </button>
+            
           </ul>
         </DrawerBody>
       </DrawerContent>

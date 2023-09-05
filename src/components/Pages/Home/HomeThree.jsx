@@ -9,6 +9,7 @@ import {Pagination ,Autoplay } from 'swiper/modules';
 
 import {SingleArticle} from "../../posts/SingleArticle";
 import { useArticles } from "../../../hooks/posts";
+import HeaderBtn from "../../../assets/HeaderBtn";
 
 
   export default function HomeThree () {
@@ -16,10 +17,7 @@ import { useArticles } from "../../../hooks/posts";
   
     return (
       <div className='w-full text-[#120f08] bg-[#fff]  shadow-sm h-full p-7 lg:px-10 md:py-12 lg:pt-20 xl:px-32 '>
-        <div className='p-2  gap-2 flex items-center pb-7 md:pb-14'>
-          <p className='text-sm md:text-lg lg:text-2xl uppercase bg-[#3f2d23] -skew-x-12 text-white font-medium  p-1 px-3 tracking-wider '>Articles</p>
-          <div className="h-[1px] bg-[#3f2d239e] w-full"></div>
-        </div>
+        <HeaderBtn Head='Articles' />
             <div
                 className='relative w-full h-full justify-between items-center gap-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
             >

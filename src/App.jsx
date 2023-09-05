@@ -15,22 +15,22 @@ import CurrentAuthor from "./components/layout/CurrentAuthor";
 import CurrentPoem from "./components/layout/CurrentPoem";
 import CurrentArticle from "./components/layout/CurrentArticle";
 import CurrentTopic from "./components/layout/CurrentTopic";
+import Blogs from "./components/Pages/Blogs";
 
 export const HOME = "/";
 export const LOGIN = "/login";
 export const REGISTER = "/register";
 export const ADMIN = "/Admin";
-export const EXPLORE = "/explore";
 export const AUTHORS = "/authors";
 export const POEMS = "/Poems";
 export const STORIES = "/stories";
+export const BLOGS = "/Blogs";
 export const ARTICLES = "/Articles";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate an API call or data loading
     setTimeout(() => {
       setIsLoading(false);
     }, 100);
@@ -49,9 +49,6 @@ function App() {
               {/* Login */}
               <Route path={LOGIN} element={<Login/>} />
 
-              {/* Explore */}
-              <Route path={EXPLORE} element={<Explore/>} />
-
               {/* Authors */}
               <Route  path={AUTHORS} element={<Authors/>} />
               <Route path={`${AUTHORS}/:authorName`} element={<CurrentAuthor/>} />
@@ -67,6 +64,9 @@ function App() {
 
               {/* Stories */}
               <Route path={STORIES} element={<Stories/>} />
+
+              {/* Blogs */}
+              <Route path={BLOGS} element={<Blogs/>} />
 
               {/* Register */}
               <Route path={REGISTER} element={<Register/>} />

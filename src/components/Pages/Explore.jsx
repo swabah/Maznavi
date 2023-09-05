@@ -12,12 +12,12 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { FiXOctagon } from "react-icons/fi";
+import HeaderBtn from "../../assets/HeaderBtn";
 
 export default function Explore() {
   const { Articles } = useArticles()
   const { Poems } = usePoems()
   const { Blogs } = useBlogs()
-  const toast = useToast();
 
   // Modal disclosure
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -61,10 +61,7 @@ export default function Explore() {
           </div>
         </div>
           <div className="w-full py-20 ">
-            <div className='flex items-center gap-2 p-2 pb-7 md:pb-14'>
-              <p className='text-sm md:text-lg lg:text-2xl uppercase bg-[#3f2d23] -skew-x-12 text-white font-medium  p-1 px-3 tracking-wider '>Topics</p>
-              <div className="h-[1px] bg-[#3f2d239e] w-full"></div>
-            </div>
+            <HeaderBtn Head='Topics' />
             <div className='z-20 flex items-center justify-start w-full h-auto gap-3 overflow-hidden overflow-x-visible md:gap-5'>
               {uniqueTopics.map((topic) => (
                 <div key={topic} className='relative overflow-hidden transition-all rounded-lg cursor-pointer h-44'>
@@ -77,10 +74,7 @@ export default function Explore() {
             </div>
           </div>
           <div className="w-full h-full">
-            <div className='flex items-center gap-2 p-2 pb-7 md:pb-14'>
-              <p className='text-sm md:text-lg lg:text-2xl uppercase bg-[#3f2d23] -skew-x-12 text-white font-medium  p-1 px-3 tracking-wider '>Poems</p>
-              <div className="h-[1px] bg-[#3f2d239e] w-full"></div>
-            </div>
+            <HeaderBtn Head='Poems' />
             <div className='grid w-full h-full grid-cols-1 gap-5 md:grid-cols-4'>
                 {Poems?.slice(0,8).map((Poem)=>(
                   <Link key={Poem.id} to={`/Poems/id/${Poem?.id}`} className='relative border-2 hover:border-0 hover:bg-[#3f2d2311] border-[#3f2d2318] hover:border-[#3f2d2328] rounded-md p-4 md:p-6 hover:shadow-md cursor-pointer transition-all' onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})} >
