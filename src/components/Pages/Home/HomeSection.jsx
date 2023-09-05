@@ -59,7 +59,7 @@ export default function HomeSection() {
           <Link to={item.url}>
             <div key={index} className="w-full h-full hover:text-green-600 text-[#3f2d23] flex flex-col items-center gap-3 md:gap-5">
               <div className="w-36 h-24 lg:w-56 lg:h-32 rounded-lg  border-4 border-transparent ring-2 ring-[#3f2d234d] overflow-hidden">
-                  <img src={item.img} className="w-full opacity-90 hover:opacity-100 h-full object-cover hover:scale-125 transition-all duration-300" alt="" />
+                  <img src={item.img} className="w-full rounded-md opacity-90 hover:opacity-100 h-full object-cover hover:scale-125 transition-all duration-300" alt="" />
               </div>
               <h2 className="text-base capitalize tracking-wide ">{item.Which}</h2>
             </div>

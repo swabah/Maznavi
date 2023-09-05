@@ -63,7 +63,7 @@ export default function Navbar() {
   const renderLinks = () => {
     return links.map((link, index) => (
       <RouterLink to={link.path} className="decoration-none" key={index}>
-        <li  className={`text-lg tracking-wide cursor-pointer ${location.pathname === "/" ? "hover:text-[#3f2d239a]" : "hover:text-[#ffffffa5]"} transition font-normal drop-shadow-sm capitalize`} onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})}>
+        <li  className={`text-lg tracking-wide cursor-pointer ${location.pathname === "/" ? "hover:text-green-600" : "hover:text-[#ffffffa5]"} transition font-normal drop-shadow-sm capitalize`} onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})}>
           {link.name}
         </li>
       </RouterLink>
@@ -88,7 +88,7 @@ export default function Navbar() {
               <h2  className="text-lg font-thin cursor-pointer">Admin</h2>
             </RouterLink>
           )}
-          <button className={`${location.pathname === "/" ? "bg-[#3f2d23] text-[#fff]" : "bg-[#fff] text-[#3f2d23]"}  transition-all hover:scale-95 px-4 py-1.5 rounded-sm`}>
+          <button className={`${location.pathname === "/" ? "bg-green-600 text-[#fff]" : "bg-[#fff] text-[#3f2d23]"}  transition-all hover:scale-95 px-4 py-1.5 rounded-sm`}>
             <a href={"https://chat.whatsapp.com/IIYgLv7Jq8P478SrMrXk7a"} className="text-lg font-normal rounded-md">
               Join
             </a>
@@ -157,7 +157,7 @@ function MobileDrawer({ isOpen, onClose, links, user, isUserAdmin,openAlert }) {
                 </div>
               </RouterLink>
             )}
-            <button className={`bg-[#3f2d23] text-[#fff] transition-all hover:scale-95 px-4 py-1.5 rounded-sm`}>
+            <button className={`bg-green-600 text-[#fff] transition-all hover:scale-95 px-4 py-1.5 rounded-sm`}>
               <a href={"https://chat.whatsapp.com/IIYgLv7Jq8P478SrMrXk7a"} className="text-lg font-normal rounded-md">
                 Join
               </a>

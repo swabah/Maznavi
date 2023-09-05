@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -27,7 +27,19 @@ export const STORIES = "/stories";
 export const ARTICLES = "/Articles";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate an API call or data loading
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 100);
+  }, []);
+
   return (
+    <>
+    {isLoading ? 'welcome to maznavi ' :
+    <>
     <Router>
       <ChakraProvider>
         <Routes>
@@ -64,6 +76,9 @@ function App() {
         </Routes>
       </ChakraProvider>
     </Router>
+    </> 
+    }
+    </>
   );
 }
 
