@@ -13,6 +13,7 @@ import { FaQuoteLeft } from "react-icons/fa";
 import parseEmphasis from "../../assets/parseEmphasis";
 import PostsDemo from "../Demo/PostsDemo";
 import {motion} from "framer-motion";
+import { PiWhatsappLogoLight } from "react-icons/pi";
 
 export default function CurrentPoem() {
   const { PoemId } = useParams();
@@ -106,7 +107,7 @@ export default function CurrentPoem() {
                   </Link>
                 </Box>
               </div>
-              <h2 className="md:text-lg whitespace-pre-line  align-middle pt-10 w-full hyphens-auto text-start">
+              <h2 className="text-lg whitespace-pre-line tracking-wide align-middle pt-10 w-full hyphens-auto text-start">
                 {content}
               </h2>
           </div>
@@ -127,6 +128,14 @@ export default function CurrentPoem() {
               </div>
             </div>
           </div>
+          <a href='https://wa.me/+918714398351' className='w-full h-full bg-[#3f2d2311] gap-5 p-6 md:px-10 lg:px-16 flex items-center md:col-span-2 rounded-xl'>
+              <PiWhatsappLogoLight className='text-3xl md:text-5xl lg:text-6xl'/>
+              <div className='flex flex-col items-start'>
+                  <p className='text-sm md:text-lg font-thin'>Join Our</p>
+                  <h2 className='text-xl md:text-2xl lg:text-4xl'>WhatsApp Group</h2>
+                  <p className='text-sm md:text-lg font-thin'>To get instant updates.</p>
+              </div>
+          </a>
             <form onSubmit={handleSubmit}  className='bg-[#3f2d2311] h-auto w-full gap-y-1.5  rounded-xl p-6 flex flex-col items-center'>
                 <h2 className="text-2xl font-semibold w-full text-center">Never miss an Update !</h2>
                 <p className="text-base w-full text-center ">Sign up for free and be the first to <br /> get notified about updates.</p>
