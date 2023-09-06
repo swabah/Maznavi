@@ -37,6 +37,7 @@ const Footer = () => {
           <ul className="flex flex-col items-start justify-between h-full space-y-3">
             {items.map((item, index) => (
               <li
+               onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})}  
                 key={index}
                 className="font-normal text-sm md:text-base hover:text-[#e8e59f] text-[#fff] tracking-wider text-start uppercase transition-all duration-200 ease-in cursor-pointer"
               >
@@ -73,13 +74,13 @@ const Footer = () => {
           © 2023 Maznavi._ All Rights Reserved Privacy Policy
         </h1>
         <div className="flex space-x-8 hover:text-[#e8e59f] text-xl items-center mt-5 md:mt-0">
-          <a href="#">
+          <a href="https://instagram.com/maznavi._?igshid=MzRlODBiNWFlZA==">
             <CgInstagram />
           </a>
           <a href="#">
             <CgFacebook />
           </a>
-          <a href="#">
+          <a href="https://www.threads.net/@maznavi._">
             <CgTwitter />
           </a>
         </div>

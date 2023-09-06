@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Link as RouterLink,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import {
   Link,
@@ -24,11 +25,19 @@ import { CiMenuKebab } from "react-icons/ci";
 import LogoSecondary from "../../assets/Images/Logo_secendary.png";
 import LogoThird from "../../assets/Images/Logo_third.png";
 import { useLogout, useAuth } from "../../hooks/auths";
-import { HOME, STORIES, ARTICLES, LOGIN, AUTHORS, POEMS, BLOGS } from "../../App";
-
+import { HOME, STORIES, ARTICLES, LOGIN, AUTHORS, POEMS, BLOGS, MYACCOUNT } from "../../App";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuGroup,
+  MenuDivider,
+} from '@chakra-ui/react'
+import { signOut } from "firebase/auth";
+import { auth } from "../../lib/firebase";
 
 export default function Navbar() {
-  const { logout } = useLogout();
   const { user } = useAuth();
   const [fix, setFix] = useState(false);
   const location = useLocation();
@@ -39,6 +48,15 @@ export default function Navbar() {
 
   const handleScroll = () => {
     setFix(window.scrollY >= 100);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate(LOGIN);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {
@@ -71,8 +89,9 @@ export default function Navbar() {
     ));
   };
 
+  const navigate = useNavigate()
   return (
-    <header className={`w-full z-50 text-[#3f2d23] ${fix ? "bg-white shadow-md" : `${location.pathname === "/" ? "fixed left-0 top-0 bg-transparent" : "bg-[#3f2d23] text-[#fff]"} `} ${location.pathname === "/" ? "fixed left-0 top-0" : ""} py-1 md:h-20 lg:h-24 p-3 px-7 lg:px-10 md:py-12 xl:px-32 flex items-center justify-between`}>
+    <header className={`w-full z-50 text-[#3f2d23] ${fix ? "bg-white shadow-md" : `${location.pathname === "/" ? "fixed left-0 top-0 bg-transparent" : "bg-[#3f2d23] text-[#fff]"} `} ${location.pathname === "/" ? "fixed left-0 top-0" : ""} py-1 md:h-20 lg:h-24 p-3 px-7 lg:px-10 md:py-10 xl:px-32 flex items-center justify-between`}>
       <Link as={RouterLink} to={HOME}>
         <img src={location.pathname === "/" ? LogoThird : LogoSecondary} className="w-[4.5rem] md:w-20" alt="MAZNAVI._" />
       </Link>
@@ -90,11 +109,36 @@ export default function Navbar() {
             </RouterLink>
           )}
           <button className={`${location.pathname === "/" ? "bg-[#3f2d23] text-[#fff]" : "bg-[#fff] text-[#3f2d23]"}  transition-all hover:scale-95 px-4 py-1.5 rounded-sm`}>
-            <a href={"https://chat.whatsapp.com/IIYgLv7Jq8P478SrMrXk7a"} className="text-lg font-normal rounded-md">
+            <a href={"https://wa.me/+918714398351"} className="text-lg font-normal rounded-md">
               Join
             </a>
           </button>
-            
+          {/* {user && (
+          <Menu>
+            <MenuButton>
+              {user?.userPhoto ? (
+                <img
+                  src={user?.userPhoto}
+                  className="w-10 h-10 rounded-full"
+                  alt=""
+                />
+              ) : (
+                <div className={` ${location.pathname === "/" ? 'bg-[#3f2d23dc]': 'bg-[#fff]'} w-10 h-10  rounded-full`}></div>
+              )}
+            </MenuButton>
+            <MenuList>
+              <MenuGroup title='Profile'>
+                <MenuItem onClick={() => navigate(MYACCOUNT)}>My Account </MenuItem>
+              </MenuGroup>
+              <MenuDivider />
+              <MenuGroup title='Help'>
+                <MenuItem>Docs</MenuItem>
+                <MenuItem>FAQ</MenuItem>
+              </MenuGroup>
+            </MenuList>
+          </Menu>
+          )} */}
+
         </ul>
         <div className="flex lg:hidden">
           <button type="button" className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onClick={openDrawer}>
@@ -103,7 +147,7 @@ export default function Navbar() {
           </button>
         </div>
       </nav>
-      <LogoutAlertDialog isOpen={isAlertOpen} onClose={closeAlert} logout={logout} />
+      <LogoutAlertDialog isOpen={isAlertOpen} onClose={closeAlert} logout={handleLogout} />
       <MobileDrawer openAlert={openAlert} isOpen={isDrawerOpen} onClose={closeDrawer} links={links} user={user} isUserAdmin={isUserAdmin} />
     </header>
   );
@@ -160,7 +204,7 @@ function MobileDrawer({ isOpen, onClose, links, user, isUserAdmin,openAlert }) {
               </RouterLink>
             )}
             <button className={`bg-green-600 text-[#fff] transition-all hover:scale-95 px-4 py-1.5 rounded-sm`}>
-              <a href={"https://chat.whatsapp.com/IIYgLv7Jq8P478SrMrXk7a"} className="text-lg font-normal rounded-md">
+              <a href={"https://wa.me/+918714398351"} className="text-lg font-normal rounded-md">
                 Join
               </a>
             </button>

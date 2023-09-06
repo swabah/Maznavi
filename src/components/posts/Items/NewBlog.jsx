@@ -37,7 +37,7 @@ function NewBlog() {
 
       const BlogImgRef = ref(storage, `blogs/${documentId}`);
       await uploadBytes(BlogImgRef, selectedBlogImg);
-      const BlogImgUrl = await getDownloadURL(BlogImgRef);
+    const BlogImgUrl = await getDownloadURL(BlogImgRef);
 
       const date = new Date();
       const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });

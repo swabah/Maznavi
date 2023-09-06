@@ -35,7 +35,7 @@ export default function CurrentPoem() {
     const fullPath = useLocation();
 
     const copyPoemUrl =()=>{
-      navigator.clipboard.writeText(fullPath.pathname).then(()=>{
+      navigator.clipboard.writeText(window.location.href).then(()=>{
         toast({
           title: "URL Copied",
           status: "success",
@@ -83,7 +83,7 @@ export default function CurrentPoem() {
       {isPoemLoading ? (
          <PostsDemo h="h-full" count={1} />
         ) : (
-        <div className="w-full h-full p-3  text-[#3f2d23] lg:px-10 py-16 lg:py-20 xl:px-32">
+        <div className="w-full h-full p-7  text-[#3f2d23] lg:px-10 py-16 lg:py-20 xl:px-32">
           <Box mb={4}>
             <Breadcrumbs one={'Poems'} oneTo={'/Poems'} currentPage={currentPoem.author} />
           </Box>
@@ -107,7 +107,7 @@ export default function CurrentPoem() {
                   </Link>
                 </Box>
               </div>
-              <h2 className="text-lg whitespace-pre-line tracking-wide align-middle pt-10 w-full hyphens-auto text-start">
+              <h2 className="text-xl whitespace-pre-line tracking-wide align-middle pt-10 w-full hyphens-auto text-center md:text-start">
                 {content}
               </h2>
           </div>

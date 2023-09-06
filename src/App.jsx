@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ChakraProvider } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Pages/Home";
 import Login from "./components/auth/Login";
-import Explore from "./components/Pages/Explore";
 import Authors from "./components/Pages/Authors";
 import Poems from "./components/Pages/Poems";
 import Stories from "./components/Pages/Stories";
@@ -16,6 +15,9 @@ import CurrentPoem from "./components/layout/CurrentPoem";
 import CurrentArticle from "./components/layout/CurrentArticle";
 import CurrentTopic from "./components/layout/CurrentTopic";
 import Blogs from "./components/Pages/Blogs";
+import MyAccound from "./components/Pages/User/MyAccound";
+import MainLoader from "./assets/MainLoader";
+import Donate from "./assets/Donate";
 
 export const HOME = "/";
 export const LOGIN = "/login";
@@ -26,22 +28,26 @@ export const POEMS = "/Poems";
 export const STORIES = "/stories";
 export const BLOGS = "/Blogs";
 export const ARTICLES = "/Articles";
+export const MYACCOUNT = "/My Accound";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 100);
-  }, []);
+    }, 50);
+    setTimeout(() => {
+      onOpen()
+    }, 30000);
+  }, [onOpen,setTimeout]);
 
   return (
     <>
-    {isLoading ? 'welcome to maznavi ' :
+    {isLoading ? (<MainLoader/>) :
     <>
     <Router>
-      <ChakraProvider>
         <Routes>
               {/* Home */}
               <Route exact path={HOME} element={<Home/>} />
@@ -65,6 +71,9 @@ function App() {
               {/* Stories */}
               <Route path={STORIES} element={<Stories/>} />
 
+              {/* My-Account */}
+              <Route path={MYACCOUNT} element={<MyAccound/>} />
+
               {/* Blogs */}
               <Route path={BLOGS} element={<Blogs/>} />
 
@@ -74,8 +83,8 @@ function App() {
               {/* Admin */}
               <Route path={ADMIN} element={<Admin/>} />
         </Routes>
-      </ChakraProvider>
     </Router>
+    <Donate isOpen={isOpen} onClose={onClose}/>
     </> 
     }
     </>

@@ -131,7 +131,6 @@ export function usePoems(uid = null) {
         desc: Poem.desc,
         PhotoUrl : Poem.PhotoUrl,
         date: Poem.created.date,
-        time: Poem.created.time
         // ... include other properties if needed
       })) : [];
     

@@ -23,7 +23,7 @@ export default function Blogs() {
                     {Blogs?.slice(0, 1).map((blog) => (
                         <img
                         key={blog.id}
-                        className="object-cover w-full h-full bg-red-300 border rounded-md shadow-md"
+                        className="object-cover w-full h-full bg-[#3f2d23] border rounded-md shadow-md"
                         src={blog?.BlogImgUrl}
                         alt="Blog image"
                         />
@@ -32,7 +32,7 @@ export default function Blogs() {
                         {Blogs?.slice(1, 5).map((blog) => (
                         <img
                             key={blog.id}
-                            className=" object-cover w-full h-full bg-red-300 border rounded-md shadow-md"
+                            className=" object-cover w-full h-full bg-[#3f2d23] border rounded-md shadow-md"
                             src={blog?.BlogImgUrl}
                             alt="Blog image"
                         />

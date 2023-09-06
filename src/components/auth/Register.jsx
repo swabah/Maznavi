@@ -1,134 +1,131 @@
-import React  from "react";
-import {
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Stack,
-  Button,
-  Heading,
-  Text,
-  useColorModeValue,
-  Link,
-  FormErrorMessage,
-  Tooltip,
-} from "@chakra-ui/react";
+import React, { useState } from "react";
 import { LOGIN, HOME } from "../../App";
-import { Link as routerLink } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import {
-  usernameValidate,
-  passwordValidate,
-  emailValidate,
-} from "../../utils/form-validation";
-import { useRegister } from "../../hooks/auths";
+import { uuidv4 } from "@firebase/util";
+import { Link, useNavigate } from "react-router-dom";
+import { addDoc, doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../../lib/firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 export default function Register() {
-  const { register: signup, isLoading } = useRegister();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const [userName, setUserName] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [userBio, setUserBio] = useState("");
+  const [userMobNumber, setUserMobNumber] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  async function handleRegister(data) {
-    signup({
-      username: data.username,
-      email: data.email,
-      password: data.password,
-      redirectTo: HOME,
-    });
-  }
-  const labelBtn = "Don't be a stranger, sign up!";
+  console.log(userEmail, userBio, userName, userPassword);
+
+  const navigate = useNavigate();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    createUserWithEmailAndPassword(auth, userEmail, userPassword)
+      .then(async (result) => {
+        await updateProfile(result.user, {
+          displayName: userName,
+          email: result.user?.email,
+        });
+
+        const userDocRef = doc(db, "users", result.user?.uid);
+
+        // Set user data in the 'users' collection
+        await setDoc(userDocRef, {
+          uid: result.user?.uid,
+          id: uuidv4(),
+          fullName: fullName,
+          username: userName,
+          email: userEmail,
+          password: userPassword,
+          bio: userBio,
+          mobNumber: userMobNumber,
+          userPhoto: result.user?.photoURL,
+          LastLogin: "",
+          date: new Date(),
+        });
+
+        alert("Successful signup");
+        setIsLoading(false);
+        navigate(HOME);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        alert(error);
+      });
+  };
+
   return (
-    <Flex
-      minH={"100vh"}
-      align={"center"}
-      justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
-    >
-      <Stack
-        spacing={8}
-        mx={"auto"}
-        maxW={"xl"}
-        minW={350}
-        px={6}
-        py={12}
-        rounded={"xl"}
-        boxShadow={"lg"}
-        bg={useColorModeValue("white", "gray.700")}
-      >
-        <Stack align={"center"} mb={6}>
-          <Heading fontSize={"4xl"} textAlign={"center"}>
-            Join Us Today!
-          </Heading>
-          <Text fontSize={"lg"} color={"gray.600"}>
-            Create your account and get started.
-          </Text>
-        </Stack>
-        <form onSubmit={handleSubmit(handleRegister)}>
-          <Stack spacing={4}>
-            <FormControl id="username" isInvalid={errors.username}>
-              <FormLabel>Username</FormLabel>
-              <Input
-                type="text"
-                placeholder="Username"
-                {...register("username", usernameValidate)}
-                borderRadius="md"
-              />
-              <FormErrorMessage>
-                {errors.username && errors.username.message}
-              </FormErrorMessage>
-            </FormControl>
-
-            <FormControl id="email" isInvalid={errors.email}>
-              <FormLabel>Email Address</FormLabel>
-              <Input
-                type="email"
-                placeholder="user@example.com"
-                {...register("email", emailValidate)}
-                borderRadius="md"
-              />
-              <FormErrorMessage>
-                {errors.email && errors.email.message}
-              </FormErrorMessage>
-            </FormControl>
-
-            <FormControl id="password" isInvalid={errors.password}>
-              <FormLabel>Password</FormLabel>
-              <Input
-                type="password"
-                placeholder="Password"
-                {...register("password", passwordValidate)}
-                borderRadius="md"
-              />
-              <FormErrorMessage>
-                {errors.password && errors.password.message}
-              </FormErrorMessage>
-            </FormControl>
-
-            <Stack spacing={6}>
-              <Tooltip label={labelBtn}>
-                <Button
-                  loadingText="Submitting"
-                  size="lg"
-                  colorScheme="blue"
-                  type="submit"
-                  isLoading={isLoading}
-                >
-                  Sign up
-                </Button>
-              </Tooltip>
-              <Text align="center">
-                Already have an account?{" "}
-                <Link color="blue.500" as={routerLink} to={LOGIN}>
-                  Log in
-                </Link>
-              </Text>
-            </Stack>
-          </Stack>
+    <div className="w-full min-h-screen h-full flex items-center justify-center bg-gray-50  lg:p-7">
+      <div className="lg:max-w-3xl flex flex-col items-center text-center justify-center gap-10 lg:gap-20 w-full h-full bg-white shadow-xl rounded-md p-10 py-16 md:p-16 xl:p-24 lg:px-32 xl:px-44">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium">Join Maznavi._</h2>
+        <form className="flex w-full md:w-9/12 text-center flex-col gap-4" onSubmit={handleRegister}>
+          <input
+            type="text"
+            placeholder="Enter User Name"
+            value={userName}
+            required
+            onChange={(e) => setUserName(e.target.value)}
+            className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
+          />
+          <input
+            type="text"
+            placeholder="Enter Full Name"
+            value={fullName}
+            required
+            onChange={(e) => setFullName(e.target.value)}
+            className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
+          />
+          <input
+            type="Email"
+            placeholder="Enter Email"
+            value={userEmail}
+            required
+            onChange={(e) => setUserEmail(e.target.value)}
+            className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
+          />
+          <input
+            type="Password"
+            placeholder="Enter Password"
+            value={userPassword}
+            required
+            onChange={(e) => setUserPassword(e.target.value)}
+            className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
+          />
+          <input
+            type="number"
+            placeholder="Enter Mobile Number"
+            value={userMobNumber}
+            required
+            onChange={(e) => setUserMobNumber(e.target.value)}
+            className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
+          />
+          <textarea
+            placeholder="Enter Your Bio"
+            value={userBio}
+            required
+            onChange={(e) => setUserBio(e.target.value)}
+            className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
+          />
+          <button
+            type="submit"
+            className={`text-sm md:text-base ring-[#3f2d23da] my-8 text-[#3f2d23da] bg-transparent ring-1 rounded-3xl py-2 px-4 ${
+              isLoading && "opacity-75 cursor-not-allowed"
+            }`}
+            disabled={isLoading}
+          >
+            {isLoading ? "Loading..." : "REGISTER ACCOUNT"}
+          </button>
         </form>
-      </Stack>
-    </Flex>
+        <div className="flex items-center justify-center  w-full text-center gap-1 text-sm md:text-base lg:text-lg capitalize">
+          <h2>Already have an account?</h2>
+          <Link className="font-medium text-green-600" to={LOGIN}>
+            Log in
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }

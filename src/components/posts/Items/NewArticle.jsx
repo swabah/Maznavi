@@ -58,14 +58,12 @@ function NewArticle() {
       const imageUrl = await getDownloadURL(imageRef);
 
       const date = new Date();
-      const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-      const formattedTime = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
       await setDoc(doc(db, "Articles", id), {  // Using setDoc correctly
         uid: user.id,
         id,
         imageUrl,
-        created: { date: formattedDate, time: formattedTime },
+        created: new Date(),
         content: data.content,
         title: data.title,
         socialLinks: {

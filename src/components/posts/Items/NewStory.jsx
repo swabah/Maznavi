@@ -39,8 +39,8 @@ function NewStory() {
       await setDoc(doc(db, "stories", id), {
         uid: user.id,
         id,
-        FileUrl: fileUrl,
-        created: { date: formattedDate, time: formattedTime },
+        FileUrl: fileUrl, 
+        created:new Date(),
         account: accountName,
         isVideo,
         likes: [],

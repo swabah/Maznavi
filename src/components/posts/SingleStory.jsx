@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { FiXOctagon } from "react-icons/fi";
 import PostsDemo from "../Demo/PostsDemo";
+import formatTimeDifference from "../../assets/formatTimeDifference";
 
 export const SingleStory = ({ story,Loading,key }) => {
   // Auth-related state and functions
@@ -72,7 +73,7 @@ export const SingleStory = ({ story,Loading,key }) => {
       }
       <div className="text-[#fff] z-10 absolute w-full items-start p-2 md:px-4 top-0 text-sm md:text-lg">
         <h2>{story.account}</h2>
-        <p className="text-xs opacity-80">{story.created?.date}</p>
+        <p className="text-xs opacity-80">{formatTimeDifference(story?.created)}</p>
       </div>
 
       <div className="absolute bottom-0 z-10 flex items-center justify-start w-full h-auto gap-1 p-2 md:gap-3 md:p-4">

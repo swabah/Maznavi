@@ -94,7 +94,7 @@ function Admin() {
         </div>
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5 mt-5'>
           {adminItems.map((item) => (
-            <AdminItem key={item.key} item={item} onClick={() => openModal(item.key)} />
+            <AdminItem key={item.key} item={item} onClick={() => openModal(item?.key)} />
           ))}
         </div>
         <div className='w-full pt-20 grid grid-cols-2 gap-5 justify-items-center md:grid-cols-4'>
@@ -116,13 +116,13 @@ function Admin() {
                 <h2>
                   <AccordionButton>
                     <Box as="span" flex='1' textAlign='left'>
-                      {acc.label}
+                      {acc?.label}
                     </Box>
                     <AccordionIcon />
                   </AccordionButton>
                 </h2>
                 <AccordionPanel pb={4}>
-                  {acc.content}
+                  {acc?.content}
                 </AccordionPanel>
               </AccordionItem>
             ))}
@@ -133,7 +133,7 @@ function Admin() {
           <ModalContent>
             <ModalCloseButton my={2} />
             <ModalBody py={5}>
-              {selectedItem && adminItems.find((item) => item.key === selectedItem).component}
+              {selectedItem && adminItems.find((item) => item.key === selectedItem)?.component}
             </ModalBody>
           </ModalContent>
         </Modal>

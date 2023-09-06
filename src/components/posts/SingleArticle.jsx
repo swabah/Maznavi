@@ -4,6 +4,7 @@ import { PiArrowUpRightBold,PiArrowLineUpRightThin } from "react-icons/pi";
 import PostsDemo from "../Demo/PostsDemo";
 import { ReadingTime } from "../../assets/ReadingTime";
 import { AiOutlineRead } from "react-icons/ai";
+import formatTimeDifference from "../../assets/formatTimeDifference";
 
 export const SingleArticle = ({Article,Loading,key}) => {
 
@@ -38,7 +39,7 @@ export const SingleArticle = ({Article,Loading,key}) => {
                      <h2 className="font-semibold uppercase ">{Article.topic}</h2>
                   </Link>
                   |
-                  <p className="text-xs md:text-base text-[#3f2d23] "> {Article.created.date}</p>
+                  <p className="text-xs md:text-base text-[#3f2d23] ">{formatTimeDifference(Article?.created)}</p>
                 </div>
                <Link
                   to={`/Articles/id/${Article?.id}`}
