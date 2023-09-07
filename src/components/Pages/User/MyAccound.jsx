@@ -1,20 +1,13 @@
 import React from 'react'
 import Navbar from '../../layout/Navbar'
 import Footer from '../../layout/Footer'
-import { FiPlus } from 'react-icons/fi'
-import { Box, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react'
-import { useAuth } from '../../../hooks/auths'
-import NewPoemDemo from './NewPoemDemo'
-import ListPoemsDemo from './ListPoemsDemo'
 
 function MyAccound() {
-    const {user} = useAuth()
-    const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
     <Navbar/>
-    <div className='w-full text-[#120f08] bg-[#fff]  min-h-full p-7 lg:px-10 py-8 md:py-16  xl:px-32'>
+    {/* <div className='w-full text-[#120f08] bg-[#fff]  min-h-full p-7 lg:px-10 py-8 md:py-16  xl:px-32'>
         My Accound <br />
         {user?.username} <br />
         {user?.email} <br />
@@ -46,7 +39,7 @@ function MyAccound() {
         <div>
            <ListPoemsDemo/>
         </div>
-    </div>
+    </div> */}
     <Footer/>
     </>
   )

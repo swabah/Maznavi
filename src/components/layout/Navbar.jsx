@@ -30,15 +30,15 @@ import {
 import { CiMenuKebab } from "react-icons/ci";
 import LogoSecondary from "../../assets/Images/Logo_secendary.png";
 import LogoThird from "../../assets/Images/Logo_third.png";
-import DonatHand from "../../assets/Images/Icons/donation.gif";
-import LoginIcon from "../../assets/Images/Icons/enter.png";
-import BlogIcon from "../../assets/Images/Icons/blogging.png";
-import joinIcon from "../../assets/Images/Icons/join.png";
-import articleIcon from "../../assets/Images/Icons/article.png";
-import storyIcon from "../../assets/Images/Icons/story.png";
-import poetryIcon from "../../assets/Images/Icons/poetry.png";
-import logoutIcon from "../../assets/Images/Icons/logout.png";
-import Icon from "../../assets/Images/Icons/user.png";
+// import DonatHand from "../../assets/Images/Icons/donation.gif";
+// import LoginIcon from "../../assets/Images/Icons/enter.png";
+// import BlogIcon from "../../assets/Images/Icons/blogging.png";
+// import joinIcon from "../../assets/Images/Icons/join.png";
+// import articleIcon from "../../assets/Images/Icons/article.png";
+// import storyIcon from "../../assets/Images/Icons/story.png";
+// import poetryIcon from "../../assets/Images/Icons/poetry.png";
+// import logoutIcon from "../../assets/Images/Icons/logout.png";
+// import Icon from "../../assets/Images/Icons/user.png";
 import { useAuth } from "../../hooks/auths";
 import { HOME, STORIES, ARTICLES, LOGIN, AUTHORS, POEMS, BLOGS, MYACCOUNT, ADMIN } from "../../App";
 import { signOut } from "firebase/auth";
@@ -53,6 +53,7 @@ export default function Navbar() {
 
   const { isOpen: isAlertOpen, onOpen: openAlert, onClose: closeAlert } = useDisclosure();
   const { isOpen: isDrawerOpen, onOpen: openDrawer, onClose: closeDrawer } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleScroll = () => {
     setFix(window.scrollY >= 100);
@@ -92,7 +93,7 @@ export default function Navbar() {
   const renderLinks = () => {
     return links.map((link, index) => (
       <RouterLink to={link?.path} className="decoration-none" key={index}>
-        <li onClick={link?.click} className={`text-lg tracking-wide cursor-pointer ${location.pathname === "/" ? "hover:text-green-600" : "hover:text-[#ffffffa5]"} transition font-normal drop-shadow-sm capitalize`} onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})}>
+        <li className={`text-lg tracking-wide cursor-pointer ${location.pathname === "/" ? "hover:text-green-600" : "hover:text-[#ffffffa5]"} transition font-normal drop-shadow-sm capitalize`} onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})}>
           {link.name}
         </li>
       </RouterLink>
@@ -120,7 +121,7 @@ export default function Navbar() {
              Join
             </a>
           </button>
-          {user && (
+          {isUserAdmin && (
             <MenuDropdown user={user}/>
           )}
         </ul>
@@ -222,7 +223,9 @@ function MenuDropdown({ user }) {
       </MenuButton>
       <MenuList>
         <MenuGroup title='Profile'>
-          <MenuItem onClick={() => navigate(`/${user.username}`)}>My Account </MenuItem>
+            <MenuItem onClick={() => navigate(`/${user.username}`)}>
+              My Account 
+            </MenuItem>
           {isUserAdmin && (
             <MenuItem onClick={() => navigate(ADMIN)}>Admin Portel </MenuItem>
           )}

@@ -1,7 +1,5 @@
-// ...
 import { differenceInMinutes, differenceInSeconds, differenceInHours, differenceInDays, differenceInYears } from 'date-fns';
 
-// ...
 
 export default function formatTimeDifference(created) {
   const currentTime = new Date();
