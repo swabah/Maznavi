@@ -1,6 +1,6 @@
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, useToast } from '@chakra-ui/react'
 import Qrcode from '../assets/Images/Qr-code.jpeg'
-import QrcodeSvg from '../assets/Images/qr-code.svg'
+import QrcodeSvg from '../assets/Images/Icons/qr-code.svg'
 
 
 export default function Donate({isOpen,onClose}) {

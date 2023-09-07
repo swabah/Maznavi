@@ -71,7 +71,7 @@ function NewPoemDemo() {
   return (
     <>
       <div className="flex flex-col items-center text-center justify-center gap-10 lg:gap-20 w-full h-full p-10">
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium">Add Story.</h2>
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium">Add Poem.</h2>
         <form className="flex w-full md:w-9/12 text-center flex-col gap-4" onSubmit={handleAddPoemDemo}>
           <input
             type="text"

@@ -18,6 +18,7 @@ import Blogs from "./components/Pages/Blogs";
 import MyAccound from "./components/Pages/User/MyAccound";
 import MainLoader from "./assets/MainLoader";
 import Donate from "./assets/Donate";
+import CurrentProfile from "./components/Pages/User/CurrentProfile";
 
 export const HOME = "/";
 export const LOGIN = "/login";
@@ -28,7 +29,7 @@ export const POEMS = "/Poems";
 export const STORIES = "/stories";
 export const BLOGS = "/Blogs";
 export const ARTICLES = "/Articles";
-export const MYACCOUNT = "/My Accound";
+export const MYACCOUNT = "/My-Accound";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,9 +39,9 @@ const { isOpen, onOpen, onClose } = useDisclosure();
     setTimeout(() => {
       setIsLoading(false);
     }, 50);
-    setTimeout(() => {
-      onOpen()
-    }, 30000);
+    // setTimeout(() => {
+    //   onOpen()
+    // }, 30000);
   }, [onOpen,setTimeout]);
 
   return (
@@ -51,6 +52,9 @@ const { isOpen, onOpen, onClose } = useDisclosure();
         <Routes>
               {/* Home */}
               <Route exact path={HOME} element={<Home/>} />
+
+              {/* Profile */}
+              <Route path={`${HOME}:profileName`} element={<CurrentProfile/>}/>
 
               {/* Login */}
               <Route path={LOGIN} element={<Login/>} />

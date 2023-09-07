@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth } from "../../hooks/auths";
-import { AiFillCopy, AiFillDelete, AiOutlineShareAlt } from "react-icons/ai";
+import { AiFillCopy, AiFillDelete, AiFillLike, AiOutlineShareAlt } from "react-icons/ai";
 import { useDeleteStory, useStoryToggleLike } from "../../hooks/posts";
 import MazButton from "../../assets/MazButton";
 import LikeButton from "../../assets/LikeButton";
@@ -77,16 +77,15 @@ export const SingleStory = ({ story,Loading,key }) => {
       </div>
 
       <div className="absolute bottom-0 z-10 flex items-center justify-start w-full h-auto gap-1 p-2 md:gap-3 md:p-4">
-        {user && (
-          <LikeButton
-            isUser={user}
-            one={authLoading}
-            two={isLoading}
-            isLiked={isLiked}
-            Link={toggleStoryLike}
-            count={likes.length}
-          />
-        )}
+        <LikeButton
+          isUser={user}
+          one={authLoading}
+          two={isLoading}
+          isLiked={isLiked}
+          user={user}
+          toggleStoryLike={toggleStoryLike}
+          count={likes.length}
+        />
         <MazButton Link={copyFileUrl} Icon={<AiFillCopy />} />
         <MazButton Link={shareFileUrl} Icon={<AiOutlineShareAlt />} />
         {isUserAdmin && 

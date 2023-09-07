@@ -20,22 +20,30 @@ import {
   DrawerBody,
   DrawerContent,
   Button,
-} from "@chakra-ui/react";
-import { CiMenuKebab } from "react-icons/ci";
-import LogoSecondary from "../../assets/Images/Logo_secendary.png";
-import LogoThird from "../../assets/Images/Logo_third.png";
-import { useLogout, useAuth } from "../../hooks/auths";
-import { HOME, STORIES, ARTICLES, LOGIN, AUTHORS, POEMS, BLOGS, MYACCOUNT } from "../../App";
-import {
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
   MenuGroup,
   MenuDivider,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
+import { CiMenuKebab } from "react-icons/ci";
+import LogoSecondary from "../../assets/Images/Logo_secendary.png";
+import LogoThird from "../../assets/Images/Logo_third.png";
+import DonatHand from "../../assets/Images/Icons/donation.gif";
+import LoginIcon from "../../assets/Images/Icons/enter.png";
+import BlogIcon from "../../assets/Images/Icons/blogging.png";
+import joinIcon from "../../assets/Images/Icons/join.png";
+import articleIcon from "../../assets/Images/Icons/article.png";
+import storyIcon from "../../assets/Images/Icons/story.png";
+import poetryIcon from "../../assets/Images/Icons/poetry.png";
+import logoutIcon from "../../assets/Images/Icons/logout.png";
+import Icon from "../../assets/Images/Icons/user.png";
+import { useAuth } from "../../hooks/auths";
+import { HOME, STORIES, ARTICLES, LOGIN, AUTHORS, POEMS, BLOGS, MYACCOUNT, ADMIN } from "../../App";
 import { signOut } from "firebase/auth";
 import { auth } from "../../lib/firebase";
+import Donate from "../../assets/Donate";
 
 export default function Navbar() {
   const { user } = useAuth();
@@ -68,28 +76,29 @@ export default function Navbar() {
 
   const links = [
     { path: HOME, name: "Home" },
-    { path: BLOGS, name: "Blogs" },
-    { path: STORIES, name: "Stories" },
-    { path: POEMS, name: "Poems" },
-    { path: ARTICLES, name: "Articles" },
-    { path: AUTHORS, name: "Authors" },
+    { path: BLOGS, name: "Blogs"},
+    { path: STORIES, name: "Stories"},
+    { path: POEMS, name: "Poems"},
+    { path: ARTICLES, name: "Articles"},
+    { path: AUTHORS, name: "Authors"},
   ];
 
   if (!user) {
     links.push({ path: LOGIN, name: "Login" });
   }
 
+  const navigate = useNavigate();
+
   const renderLinks = () => {
     return links.map((link, index) => (
-      <RouterLink to={link.path} className="decoration-none" key={index}>
-        <li  className={`text-lg tracking-wide cursor-pointer ${location.pathname === "/" ? "hover:text-green-600" : "hover:text-[#ffffffa5]"} transition font-normal drop-shadow-sm capitalize`} onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})}>
+      <RouterLink to={link?.path} className="decoration-none" key={index}>
+        <li onClick={link?.click} className={`text-lg tracking-wide cursor-pointer ${location.pathname === "/" ? "hover:text-green-600" : "hover:text-[#ffffffa5]"} transition font-normal drop-shadow-sm capitalize`} onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})}>
           {link.name}
         </li>
       </RouterLink>
     ));
   };
 
-  const navigate = useNavigate()
   return (
     <header className={`w-full z-50 text-[#3f2d23] ${fix ? "bg-white shadow-md" : `${location.pathname === "/" ? "fixed left-0 top-0 bg-transparent" : "bg-[#3f2d23] text-[#fff]"} `} ${location.pathname === "/" ? "fixed left-0 top-0" : ""} py-1 md:h-20 lg:h-24 p-3 px-7 lg:px-10 md:py-10 xl:px-32 flex items-center justify-between`}>
       <Link as={RouterLink} to={HOME}>
@@ -98,47 +107,22 @@ export default function Navbar() {
       <nav className="flex items-center justify-center">
         <ul className="items-center hidden w-full h-auto space-x-6 lg:flex">
           {renderLinks()}
-          {user && (
-            <div className="text-lg font-thin cursor-pointer" onClick={openAlert}>
-              Log out
-            </div>
-          )}
           {isUserAdmin && (
             <RouterLink to="/Admin">
               <h2  className="text-lg font-thin cursor-pointer">Admin</h2>
             </RouterLink>
           )}
+          {user && (
+              <h2 onClick={openAlert} className="text-lg font-thin cursor-pointer">Logout</h2>
+          )}
           <button className={`${location.pathname === "/" ? "bg-[#3f2d23] text-[#fff]" : "bg-[#fff] text-[#3f2d23]"}  transition-all hover:scale-95 px-4 py-1.5 rounded-sm`}>
             <a href={"https://wa.me/+918714398351"} className="text-lg font-normal rounded-md">
-              Join
+             Join
             </a>
           </button>
-          {/* {user && (
-          <Menu>
-            <MenuButton>
-              {user?.userPhoto ? (
-                <img
-                  src={user?.userPhoto}
-                  className="w-10 h-10 rounded-full"
-                  alt=""
-                />
-              ) : (
-                <div className={` ${location.pathname === "/" ? 'bg-[#3f2d23dc]': 'bg-[#fff]'} w-10 h-10  rounded-full`}></div>
-              )}
-            </MenuButton>
-            <MenuList>
-              <MenuGroup title='Profile'>
-                <MenuItem onClick={() => navigate(MYACCOUNT)}>My Account </MenuItem>
-              </MenuGroup>
-              <MenuDivider />
-              <MenuGroup title='Help'>
-                <MenuItem>Docs</MenuItem>
-                <MenuItem>FAQ</MenuItem>
-              </MenuGroup>
-            </MenuList>
-          </Menu>
-          )} */}
-
+          {user && (
+            <MenuDropdown user={user}/>
+          )}
         </ul>
         <div className="flex lg:hidden">
           <button type="button" className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onClick={openDrawer}>
@@ -149,6 +133,7 @@ export default function Navbar() {
       </nav>
       <LogoutAlertDialog isOpen={isAlertOpen} onClose={closeAlert} logout={handleLogout} />
       <MobileDrawer openAlert={openAlert} isOpen={isDrawerOpen} onClose={closeDrawer} links={links} user={user} isUserAdmin={isUserAdmin} />
+      <Donate isOpen={isOpen} onClose={onClose}/>
     </header>
   );
 }
@@ -177,7 +162,7 @@ function LogoutAlertDialog({ isOpen, onClose, logout }) {
   );
 }
 
-function MobileDrawer({ isOpen, onClose, links, user, isUserAdmin,openAlert }) {
+function MobileDrawer({ isOpen, onClose, links, user, isUserAdmin, openAlert }) {
   return (
     <Drawer className="bg-[#3f2d23]" onClose={onClose} isOpen={isOpen} size={"sm"}>
       <DrawerOverlay />
@@ -187,14 +172,15 @@ function MobileDrawer({ isOpen, onClose, links, user, isUserAdmin,openAlert }) {
         <DrawerBody>
           <ul className="flex flex-col w-full h-full space-y-3">
             {links.map((link, index) => (
-              <RouterLink to={link.path} className="decoration-none" key={index}>
+              <RouterLink to={link?.path} className="decoration-none" key={index}>
                 <li className={`text-lg tracking-wide cursor-pointer text-[#3f2d23] active:text-[#3f2d239a] transition font-normal drop-shadow-sm capitalize`}>{link.name}</li>
               </RouterLink>
             ))}
             {user && (
-              <div className="text-lg font-medium cursor-pointer" onClick={openAlert}>
-                Log Out
-              </div>
+              <h2 onClick={openAlert} className="text-lg font-thin cursor-pointer">Logout</h2>
+            )}
+            {user && (
+            <MenuDropdown user={user}/>
             )}
             {isUserAdmin && (
               <RouterLink to='/admin' className="decoration-none" >
@@ -214,4 +200,39 @@ function MobileDrawer({ isOpen, onClose, links, user, isUserAdmin,openAlert }) {
       </DrawerContent>
     </Drawer>
   );
+}
+
+function MenuDropdown({ user }) {
+  const isUserAdmin = user?.email === "maznaviofficial@gmail.com" || user?.password === "maznavi786";
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  return (
+    <Menu>
+      <MenuButton>
+        {user?.userPhoto ? (
+          <img
+            src={user?.userPhoto}
+            className="w-10 h-10 rounded-full"
+            alt=""
+          />
+        ) : (
+          <div className={` ${location.pathname === "/" ? 'bg-[#3f2d23dc]' : 'bg-[#fff]'} w-10 h-10  rounded-full`}></div>
+        )}
+      </MenuButton>
+      <MenuList>
+        <MenuGroup title='Profile'>
+          <MenuItem onClick={() => navigate(`/${user.username}`)}>My Account </MenuItem>
+          {isUserAdmin && (
+            <MenuItem onClick={() => navigate(ADMIN)}>Admin Portel </MenuItem>
+          )}
+        </MenuGroup>
+        <MenuDivider />
+        <MenuGroup title='Help'>
+          <MenuItem>Docs</MenuItem>
+          <MenuItem>FAQ</MenuItem>
+        </MenuGroup>
+      </MenuList>
+    </Menu>
+  )
 }
