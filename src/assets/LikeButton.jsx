@@ -1,7 +1,7 @@
 import React from 'react';
 import { AiOutlineLike, AiFillLike, AiOutlineLoading } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
-import { LOGIN } from '../App';
+import { REGISTER } from '../App';
 
 function LikeButton({ one, isLiked, two, toggleStoryLike, count, user }) {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ function LikeButton({ one, isLiked, two, toggleStoryLike, count, user }) {
     if (user) {
       toggleStoryLike();
     } else {
-      navigate(LOGIN);
+      navigate(REGISTER);
     }
   }
 

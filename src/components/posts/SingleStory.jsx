@@ -15,6 +15,7 @@ import {
 import { FiXOctagon } from "react-icons/fi";
 import PostsDemo from "../Demo/PostsDemo";
 import formatTimeDifference from "../../assets/formatTimeDifference";
+import { ifUserAdmin } from "../../utils/isCheck";
 
 export const SingleStory = ({ story,Loading,key }) => {
   // Auth-related state and functions
@@ -26,7 +27,7 @@ export const SingleStory = ({ story,Loading,key }) => {
     isLiked,
     uid: user?.id,
   });
-  const isUserAdmin = user?.email === "maznaviofficial@gmail.com" || user?.password === "maznavi786";
+  const isAdmin = ifUserAdmin(user)
 
 
   // Delete story functionality
@@ -88,7 +89,7 @@ export const SingleStory = ({ story,Loading,key }) => {
         />
         <MazButton Link={copyFileUrl} Icon={<AiFillCopy />} />
         <MazButton Link={shareFileUrl} Icon={<AiOutlineShareAlt />} />
-        {isUserAdmin && 
+        {isAdmin && 
           <MazButton Link={deleteStory} Icon={<AiFillDelete className="text-xl font-thin" />} />
         }
       </div>

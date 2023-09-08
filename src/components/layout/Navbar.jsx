@@ -27,7 +27,7 @@ import { CiMenuKebab } from "react-icons/ci";
 import LogoSecondary from "../../assets/Images/Logo_secendary.png";
 import LogoThird from "../../assets/Images/Logo_third.png";
 import { useAuth } from "../../hooks/auths";
-import { HOME, STORIES, ARTICLES, LOGIN, AUTHORS, POEMS, BLOGS, MYACCOUNT, ADMIN } from "../../App";
+import { HOME, STORIES, ARTICLES, LOGIN, AUTHORS, POEMS, BLOGS, ADMIN } from "../../App";
 import { signOut } from "firebase/auth";
 import { auth } from "../../lib/firebase";
 import Donate from "../../assets/Donate";
@@ -127,6 +127,9 @@ export default function Navbar() {
               Logout
             </h2>
           )}
+            <h2 onClick={onOpen} className="text-lg font-thin cursor-pointer">
+              Donate
+            </h2>
           <button
             className={`${
               location.pathname === "/"
@@ -138,7 +141,7 @@ export default function Navbar() {
               Join
             </a>
           </button>
-          {isAdmin && <MenuDropdown user={user} />}
+          {user && <MenuDropdown user={user} />}
         </ul>
         <div className="flex lg:hidden">
           <button
@@ -208,7 +211,7 @@ function MobileDrawer({ isOpen, onClose, links, user, isAdmin, openAlert }) {
             {user && (
               <h2 onClick={openAlert} className="text-lg font-thin cursor-pointer">Logout</h2>
             )}
-            {isAdmin && <MenuDropdown user={user} />}
+            {user && <MenuDropdown user={user} />}
             <button className={`bg-green-600 text-[#fff] transition-all hover:scale-95 px-4 py-1.5 rounded-sm`}>
               <a href={"https://wa.me/+918714398351"} className="text-lg font-normal rounded-md">
                 Join
