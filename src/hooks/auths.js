@@ -1,32 +1,60 @@
-import React,{ useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../lib/firebase";
-import {  doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 
-
-// This code is for fatching User data
+// This code is for fetching user data
 export function useAuth() {
-    const [authUser, authLoading, error] = useAuthState(auth);
-    const [isLoading, setLoading] = useState(true);
-    const [user, setUser] = useState(null);
+  const [authUser, authLoading, error] = useAuthState(auth);
+  const [isLoading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      if (authUser) {
+        const userRef = doc(db, "users", authUser.uid);
+        const docSnap = await getDoc(userRef);
+        setUser(docSnap.data());
+      }
+      setLoading(false);
+    }
 
-    useEffect(() => {
-        async function fetchData() {
-            setLoading(true);
-            const ref = doc(db, "users", authUser.uid);
-            const docSnap = await getDoc(ref);
-            setUser(docSnap.data());
-            setLoading(false);
-        }
+    if (!authLoading) {
+      fetchData();
+    }
+  }, [authLoading, authUser]);
 
-        if (!authLoading) {
-            if (authUser) fetchData();
-            else setLoading(false); // Not signed in
-        }
-    }, [authLoading]);
+  return { user, isLoading, error };
+}
 
-    return { user, isLoading, error };
+// This code is for fetching all users
+export function useUsers() {
+  const [authUser, authLoading, error] = useAuthState(auth);
+  const [isLoading, setLoading] = useState(true);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      if (authUser) {
+        const usersRef = collection(db, "users");
+        const querySnapshot = await getDocs(usersRef);
+        const usersData = [];
+        querySnapshot.forEach((doc) => {
+          usersData.push(doc.data());
+        });
+        setUsers(usersData);
+      }
+      setLoading(false);
+    }
+
+    if (!authLoading) {
+      fetchData();
+    }
+  }, [authLoading, authUser]);
+
+  return { users, isLoading, error };
 }
 
 

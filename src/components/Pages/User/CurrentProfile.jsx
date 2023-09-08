@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../../layout/Navbar';
 import Footer from '../../layout/Footer';
-import { FiPlus } from 'react-icons/fi';
 import {
   Box,
   Divider,
@@ -19,13 +18,18 @@ import { db } from '../../../lib/firebase';
 import formatTimeDifference from '../../../assets/formatTimeDifference';
 import NewPoemDemo from './NewPoemDemo';
 import { usePoemsDemo } from './usePoemsDemo';
+import { FaPlus } from 'react-icons/fa';
+import { ifUserAdmin } from '../../../utils/isCheck';
 
 function CurrentProfile() {
   const { profileName } = useParams();
   const { user, isLoading } = useAuth();
-  const { poems, isPoemLoading } = usePoemsDemo();
+  const { poems } = usePoemsDemo();
   const [profiles, setProfiles] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const isAdmin = ifUserAdmin(user);
+
 
   useEffect(() => {
     const fetchUserPoems = async () => {
@@ -55,32 +59,17 @@ function CurrentProfile() {
 
   console.log(poems);
 
-  const renderPoems = (poemsArray) => {
-    return (
-      <ul>
-        {poemsArray?.map((poem) => (
-          <li className='flex md:border-md:2 rounded flex-col gap-2 p-5' key={poem.id}>
-            <h3>{poem?.poemTitle}</h3>
-            <p>{poem?.poemDesc}</p>
-            <h1>{poem?.author}</h1>
-            <h1>{formatTimeDifference(poem?.created)}</h1> 
-            {/* Render other poem details here */}
-          </li>
-        ))}
-      </ul>
-    );
-  };
-
   return (
     <>
       <Navbar />
       <div className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 text-[#120f08] bg-[#fff] h-full p-7 lg:px-10 py-8 md:py-16 xl:px-32'>
         <div className='md:order-1 col-span-1 md:col-span-2 lg:col-span-3 flex flex-col gap-10  w-full h-auto'>
-          <div className='w-full flex gap-5 md:gap-8 lg:gap-10 items-center justify-between md:justify-start h-full p-5 rounded-3xl md:border md:shadow-md'>
+          <div className='w-full flex flex-col md:flex-row gap-5 md:gap-8 lg:gap-10 items-start justify-start h-full md:p-5 rounded-3xl md:border md:shadow-md'>
             <img className='w-20 bg-gray-100 rounded-full h-20' src={user?.userPhoto} alt='' />
-            <div className='flex flex-col  items-center gap-4 items-center'>
+            <div className='flex flex-col gap-4 items-pcenter'>
               <div className='w-full'>
                <h2 className='text-2xl font-medium'>{profileName}</h2>
+               <p className='text-sm md:text-base font-medium'>{user?.bio}</p>
               </div>
               <div className='grid w-full text-center grid-cols-2 gap-3'>
                 <div className='col-span-1 p-1 cursor-pointer px-5 rounded-md bg-gray-100'>Edit Profile</div>
@@ -89,12 +78,12 @@ function CurrentProfile() {
               </div>
             </div>
           </div>
-          <div className='w-full h-full p-5 rounded-3xl md:border md:shadow-md'>
+          <div className='w-full h-auto md:p-5 rounded-3xl md:border md:shadow-md'>
               <h2 className='font-medium text-xl'>{profileName}'s Poems</h2>
               <Divider my={3}/>
               {isLoading ? <p>Loading...</p> : (
-              <ul className='w-full h-[50vh] overflow-hidden overflow-y-visible flex gap-3 pt-2 md:pt-5 flex-col items-start text-start'>
-              {profiles?.map((poem) => (
+              <ul className='w-full h-auto overflow-hidden overflow-y-visible flex gap-3 pt-2 md:pt-5 flex-col items-start text-start'>
+              {profiles?.slice(0,5).map((poem) => (
                 <li className='flex hover:opacity-80 cursor-pointer flex-col gap-0.5' key={poem.id}>
                   <h3 className='text-base md:text-xl'>{poem?.poemTitle}</h3>
                   <p className='text-sm md:text-base line-clamp-2 whitespace-pre-line'>{poem?.poemDesc}</p>
@@ -105,21 +94,20 @@ function CurrentProfile() {
             )}
           </div>
         </div>
-        <div className='order-2 lg:col-span-2 flex flex-col gap-5 w-full h-auto'>
-          <div className='w-full h-full p-5 rounded-3xl md:border md:shadow-md'>
+        {isAdmin && (
+        <div className='order-2 lg:col-span-2 flex flex-col gap-5 w-full h-full'>
              <Box
-                borderWidth='1px'
-                borderRadius='lg'
-                className={`hover:shadow-sm p-5 w-full h-full md:p-10 flex flex-col items-center justify-between backdrop-blur-xl bg-white active:bg-gray-50 cursor-pointer`}
-                onClick={() => onOpen()}
+                className={` p-5 py-8 md:py-14 w-full gap-3 bg-gray-50 h-auto rounded-md border-dashed border-[1px] border-green-600 md:border-2  md:p-10 flex flex-col items-center justify-center backdrop-blur-xl bg-white active:bg-gray-50 cursor-pointer`}
               >
-                <FiPlus className='text-3xl' />
-                <h2 className='md:text-lg lg:text-2xl font-normal tracking-wide'>
-                  New Poem
+                <div className='rounded-full p-5 bg-green-100'>
+                  <FaPlus className='rounded-full text-2xl bg-green-600 p-1 text-white ' />
+                </div>
+                <h2  onClick={() => onOpen()} className='hover:shadow-md text-sm lg:text-base  rounded-3xl hover:bg-gray-50 font-medium tracking-wider cursor-pointer border-[0.2px] p-0.5 lg:p-1 px-4 lg:px-6'>
+                  Write Your Poem
                 </h2>
               </Box>
-          </div>
         </div> 
+        )}
       </div>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
@@ -130,63 +118,6 @@ function CurrentProfile() {
             </ModalBody>
           </ModalContent>
         </Modal>
-      <div className='w-full h-full text-[#120f08] bg-[#fff] p-7 lg:px-10 py-8 md:py-16 xl:px-32'>
-        {/* User Profile information */}
-        {/* My Account <br />
-        {profileName} <br />
-        {user?.email} <br />
-        {user?.fullName} <br />
-        {user?.bio} <br />
-        {user?.mobNumber} <br />
-        <img className='w-10 h-10' src={user?.userPhoto} alt='' /> */}
-
-        {/* New Poem Button */}
-        {/* <Box
-          borderWidth='1px'
-          borderRadius='lg'
-          className='hover:shadow-sm p-5 w-full h-full md:p-10 flex flex-col items-center justify-between backdrop-blur-xl bg-white active:bg-gray-50 cursor-pointer'
-          onClick={() => onOpen()}
-        >
-          <FiPlus className='text-3xl' />
-          <h2 className='md:text-lg lg:text-2xl font-normal tracking-wide'>
-            New Poem
-          </h2>
-        </Box> */}
-        
-        {/* Modal for creating a new poem */}
-        {/* <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
-          <ModalContent>
-            <ModalCloseButton my={2} />
-            <ModalBody py={5}>
-              <NewPoemDemo />
-            </ModalBody>
-          </ModalContent>
-        </Modal> */}
-
-        {/* List of poems */}
-        {/* <div className='mt-10 grid grid-cols-2 gap-10'>
-          <div className='md:border-md:2 p-8 flex flex-col gap-5'>
-            <h2 className='font-semibold text-2xl'>{profileName}'s Poems</h2>
-            {isLoading ? <p>Loading...</p> : (
-              <ul>
-              {profiles?.map((poem) => (
-                <li className='flex md:border-md:2 rounded flex-col gap-2 p-5' key={poem.id}>
-                  <h3>{poem?.poemTitle}</h3>
-                  <p>{poem?.poemDesc}</p>
-                  <h1>{poem?.author}</h1>
-                  <h1>{formatTimeDifference(poem?.created)}</h1>
-                </li>
-              ))}
-            </ul>
-            )}
-          </div>
-          <div className='md:border-md:2 p-8 flex flex-col gap-5'>
-            <h2 className='font-semibold text-2xl'>All User's Poems</h2>
-            {isPoemLoading ? <p>Loading...</p> : renderPoems(poems)}
-          </div>
-        </div> */}
-      </div>
       <Footer />
     </>
   );

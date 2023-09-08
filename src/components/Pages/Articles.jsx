@@ -62,7 +62,7 @@ export default function Articles() {
                                             </>
                                             :''}
                                         </div>
-                                        <div className='  md:text-lg z-20 w-auto h-auto text-[#fff] flex items-center gap-2 py-2 md:py-5'>
+                                        <div className='  md:text-lg z-20 w-auto h-auto text-[#fff] flex items-center gap-2 md:py-1'>
                                             <AiOutlineRead/>
                                             <h2 className='font-sans text-sm font-extralight'>{ReadingTime(Article?.content)} Minutes</h2>
                                         </div>

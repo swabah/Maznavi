@@ -19,6 +19,14 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
 } from '@chakra-ui/react';
 import { FiPlus } from 'react-icons/fi';
 import { MdAdminPanelSettings } from 'react-icons/md';
@@ -27,6 +35,8 @@ import NewArticle from '../posts/Items/NewArticle';
 import NewPoem from '../posts/Items/NewPoem';
 import NewQuote from '../posts/Items/NewQuote';
 import NewBlog from '../posts/Items/NewBlog';
+import { useUsers } from '../../hooks/auths';
+import formatTimeDifference from '../../assets/formatTimeDifference' 
 
 const adminItems = [
   { key: 'story', label: 'New Story', component: <NewStory/> },
@@ -71,6 +81,7 @@ function AdminItem({ item, onClick }) {
 function Admin() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedItem, setSelectedItem] = useState(null);
+  const {users} = useUsers()
 
   const openModal = (itemKey) => {
     setSelectedItem(itemKey);
@@ -93,12 +104,12 @@ function Admin() {
           <MdAdminPanelSettings /> <h2> Admin Dashboard</h2>
         </div>
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5 mt-5'>
-          {adminItems.map((item) => (
+          {adminItems?.map((item) => (
             <AdminItem key={item.key} item={item} onClick={() => openModal(item?.key)} />
           ))}
         </div>
         <div className='w-full pt-20 grid grid-cols-2 gap-5 justify-items-center md:grid-cols-4'>
-          {stats.map((stat, index) => (
+          {stats?.map((stat, index) => (
             <Stat key={index}>
               <StatLabel>{stat.label}</StatLabel>
               <StatNumber>{stat.total}</StatNumber>
@@ -109,6 +120,37 @@ function Admin() {
             </Stat>
           ))}
         </div>
+        <TableContainer className='mt-10 border-2 p-5 '>
+          <Table variant='simple'>
+            <TableCaption>Maznavi._ Web Users Table</TableCaption>
+            <Thead>
+              <Tr>
+                <Th>No : {users?.length}</Th>
+                <Th>Date</Th>
+                <Th>User Name</Th>
+                <Th>Email</Th>
+                <Th>Full Name</Th>
+                <Th>Mobile</Th>
+                <Th>Bio</Th>
+                <Th>UID</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {users?.map((user,index)=>(
+                <Tr>
+                  <Td>{index + 1}</Td>
+                  <Td >{formatTimeDifference(user?.created)}</Td>
+                  <Td>{user.username}</Td>
+                  <Td>{user.email}</Td>
+                  <Td>{user.fullName}</Td>
+                  <Td>{user.mobNumber}</Td>
+                  <Td>{user.bio}</Td>
+                  <Td>{user.uid}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
         <div className='w-full pt-20 '>
           <Accordion allowToggle>
             {accordionItems.map((acc, index) => (
