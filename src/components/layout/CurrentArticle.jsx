@@ -148,7 +148,7 @@ export default function CurrentArticle() {
                     :''
                       }
                   </div>
-                <h2 className="w-full pt-10 whitespace-pre-line align-middle text-xl tracking-wide hyphens-auto text-center md:text-start">
+                <h2 className="w-full pt-10 whitespace-pre-line align-middle text-lg tracking-wide hyphens-auto text-center md:text-start">
                   {content?.map((line,index)=>(
                     <p key={index}>{line}</p>
                   ))}

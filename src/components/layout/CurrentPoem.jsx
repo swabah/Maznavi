@@ -107,7 +107,7 @@ export default function CurrentPoem() {
                   </Link>
                 </Box>
               </div>
-              <h2 className="text-xl whitespace-pre-line tracking-wide align-middle pt-10 w-full hyphens-auto text-center md:text-start">
+              <h2 className="text-lg whitespace-pre-line tracking-wide align-middle pt-10 w-full hyphens-auto text-start">
                 {content}
               </h2>
           </div>

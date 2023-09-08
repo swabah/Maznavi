@@ -71,12 +71,12 @@ export const SingleStory = ({ story,Loading,key }) => {
       {story.isVideo &&
         <video src={story.FileUrl} className="object-cover w-full h-full rounded-md"></video>
       }
-      <div className="text-[#fff] z-10 absolute w-full items-start p-2 md:px-4 top-0 text-sm md:text-lg">
+      <div className="text-[#fff] z-10 absolute w-full items-start p-2 md:px-3 top-0 text-sm md:text-lg">
         <h2>{story.account}</h2>
         <p className="text-xs opacity-80">{formatTimeDifference(story?.created)}</p>
       </div>
 
-      <div className="absolute bottom-0 z-10 flex items-center justify-start w-full h-auto gap-1 p-2 md:gap-3 md:p-4">
+      <div className="absolute bottom-0 z-10 flex items-center justify-start w-full h-auto gap-1 p-2 md:gap-3 md:p-3">
         <LikeButton
           isUser={user}
           one={authLoading}

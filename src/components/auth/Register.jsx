@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { addDoc, doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../../lib/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { useToast } from "@chakra-ui/react";
+import { isUsernameExists } from "../../utils/isCheck";
 
 export default function Register() {
   const [userName, setUserName] = useState("");
@@ -18,6 +20,7 @@ export default function Register() {
   console.log(userEmail, userBio, userName, userPassword);
 
   const navigate = useNavigate();
+  const toast =useToast()
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -30,26 +33,39 @@ export default function Register() {
           email: result.user?.email,
         });
 
+        const userNameExists = await isUsernameExists(userName);
+
         const userDocRef = doc(db, "users", result.user?.uid);
 
         // Set user data in the 'users' collection
-        await setDoc(userDocRef, {
-          uid: result.user?.uid,
-          id: uuidv4(),
-          fullName: fullName,
-          username: userName,
-          email: userEmail,
-          password: userPassword,
-          bio: userBio,
-          mobNumber: userMobNumber,
-          userPhoto: result.user?.photoURL,
-          LastLogin: "",
-          date: new Date(),
-        });
-
-        alert("Successful signup");
-        setIsLoading(false);
-        navigate(HOME);
+        if (userNameExists) {
+          toast({
+              title: "Username already exists",
+              status: "error",
+              isClosable: true,
+              position: "top",
+              duration: 5000,
+          });
+          setIsLoading(false);
+        }else{
+            await setDoc(userDocRef, {
+              uid: result.user?.uid,
+              id: uuidv4(),
+              fullName: fullName,
+              username: userName,
+              email: userEmail,
+              password: userPassword,
+              bio: userBio,
+              mobNumber: userMobNumber,
+              userPhoto: result.user?.photoURL,
+              LastLogin: "",
+              date: new Date(),
+            });
+    
+            alert("Successful signup");
+            setIsLoading(false);
+            navigate(HOME);
+        }
       })
       .catch((error) => {
         setIsLoading(false);

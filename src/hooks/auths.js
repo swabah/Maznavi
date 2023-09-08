@@ -1,10 +1,7 @@
 import React,{ useEffect, useState } from "react";
-import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../lib/firebase";
-import { useToast } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import { setDoc, doc, getDoc } from "firebase/firestore";
-import {  HOME } from "../App";
+import {  doc, getDoc } from "firebase/firestore";
 
 
 // This code is for fatching User data
