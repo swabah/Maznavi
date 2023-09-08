@@ -12,6 +12,7 @@ import { useAuth } from '../../../hooks/auths';
 import PostsDemo from '../../Demo/PostsDemo';
 import EditProfile from './EditProfile';
 import { ifUserAdmin } from '../../../utils/isCheck';
+import ViewProfile from './ViewProfile';
 
 function ModalComponent({ isOpen, onClose, children }) {
   return (
@@ -31,6 +32,7 @@ function CurrentProfile() {
   const [profiles, setProfiles] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen:isEditOpen, onOpen:onEditOpen, onClose:onEditClose } = useDisclosure();
+  const { isOpen:isViewOpen, onOpen:onViewOpen, onClose:onViewClose } = useDisclosure();
 
   // const isAdmin = ifUserAdmin(user);
 
@@ -68,7 +70,7 @@ function CurrentProfile() {
       <div className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 text-[#120f08] bg-[#fff] h-full p-7 lg:px-10 py-8 md:py-16 xl:px-32'>
         <div className='md:order-1 col-span-1 md:col-span-2 lg:col-span-3 flex flex-col gap-10  w-full h-auto'>
           <div className='w-full flex flex-col md:flex-row gap-5 md:gap-8 lg:gap-10 items-start justify-start h-full md:p-5 rounded-3xl md:border md:shadow-md'>
-            <img className='w-20 bg-gray-100 rounded-full h-20 lg:w-28 lg:h-28' src={user?.userPhoto} alt='' />
+            <img className='w-20 bg-gray-100 rounded-full h-20 lg:w24 lg:h-24 xl:w-28 xl:h-28' src={user?.userPhoto} alt='' />
             <div className='flex flex-col w-full md:w-2/3 lg:w-3/4 gap-4 items-start'>
               <div className='w-full'>
                 <div className='w-full text-2xl pb-3  flex gap-3 items-center'>
@@ -85,7 +87,7 @@ function CurrentProfile() {
                 >
                   Edit Profile
                 </div>
-                <div className='col-span-1 p-1 cursor-pointer px-5 rounded-md bg-gray-100 hover:bg-gray-200'>
+                <div  onClick={() => onViewOpen()} className='col-span-1 p-1 cursor-pointer px-5 rounded-md bg-gray-100 hover:bg-gray-200'>
                   View Profile
                 </div>
                 <div
@@ -136,6 +138,9 @@ function CurrentProfile() {
       </ModalComponent>
       <ModalComponent isOpen={isEditOpen} onClose={onEditClose}>
         <EditProfile user={user} />
+      </ModalComponent>
+      <ModalComponent isOpen={isViewOpen} onClose={onViewClose}>
+        <ViewProfile user={user} />
       </ModalComponent>
       <Footer />
     </>

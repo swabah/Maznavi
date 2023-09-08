@@ -38,7 +38,7 @@ const { isOpen, onOpen, onClose } = useDisclosure();
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 3000);
     setTimeout(() => {
       onOpen()
     }, 5000);
