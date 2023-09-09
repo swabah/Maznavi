@@ -30,6 +30,7 @@ function NewQuote({ onModalClose }) {
       uid: user.id,
       quote: data.Quote,
       Quote_writer: data.Quote_writer,
+      created:new Date()
     });
     reset();
     onModalClose();

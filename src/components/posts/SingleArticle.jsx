@@ -4,7 +4,7 @@ import { PiArrowUpRightBold,PiArrowLineUpRightThin } from "react-icons/pi";
 import PostsDemo from "../Demo/PostsDemo";
 import { ReadingTime } from "../../assets/ReadingTime";
 import { AiOutlineRead } from "react-icons/ai";
-import formatTimeDifference from "../../assets/formatTimeDifference";
+import formatTimeDifference from "../../assets/formatTime";
 
 export const SingleArticle = ({Article,Loading,key}) => {
 

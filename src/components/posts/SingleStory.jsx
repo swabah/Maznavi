@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth } from "../../hooks/auths";
-import { AiFillCopy, AiFillDelete, AiFillLike, AiOutlineShareAlt } from "react-icons/ai";
+import { AiFillCopy, AiFillDelete, AiOutlineShareAlt } from "react-icons/ai";
 import { useDeleteStory, useStoryToggleLike } from "../../hooks/posts";
 import MazButton from "../../assets/MazButton";
 import LikeButton from "../../assets/LikeButton";
@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { FiXOctagon } from "react-icons/fi";
 import PostsDemo from "../Demo/PostsDemo";
-import formatTimeDifference from "../../assets/formatTimeDifference";
+import formatTime from "../../assets/formatTime";
 import { ifUserAdmin } from "../../utils/isCheck";
 
 export const SingleStory = ({ story,Loading,key }) => {
@@ -74,7 +74,7 @@ export const SingleStory = ({ story,Loading,key }) => {
       }
       <div className="text-[#fff] z-10 absolute w-full items-start p-2 md:px-3 top-0 text-sm md:text-lg">
         <h2>{story.account}</h2>
-        <p className="text-xs opacity-80">{formatTimeDifference(story?.created)}</p>
+        <p className="text-xs opacity-80">{formatTime(story?.created)}</p>
       </div>
 
       <div className="absolute bottom-0 z-10 flex items-center justify-start w-full h-auto gap-1 p-2 md:gap-3 md:p-3">

@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../lib/firebase';
+import { useToast } from '@chakra-ui/react';
 
-function EditProfile({ user }) {
+function UpdateProfile({ user }) {
+  const toast = useToast()
   const [formData, setFormData] = useState({
     username: user.username ,
     fullName: user.fullName ,
     bio: user.bio ,
     InstagramLink: user.InstagramLink || '',
-    created: user.created,
+    date: user.created,
   });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,19 +29,30 @@ function EditProfile({ user }) {
     const userRef = doc(db, 'users', user?.uid);
 
     try {
-      // Send the entire formData object to update the user's profile
       await updateDoc(userRef, formData);
       setIsLoading(false);
-      alert('Profile updated successfully!');
+      toast({
+        title: 'Profile Updated Succesfully.',
+        status: 'success',
+        isClosable: true,
+        position: 'top',
+        duration: 5000,
+      });
     } catch (error) {
-      console.error('Error updating profile:', error);
+      toast({
+        title: 'Error Uplading Profile.',
+        status: 'error',
+        isClosable: true,
+        position: 'top',
+        duration: 5000,
+      });
       setIsLoading(false);
     }
   };
 
   return (
     <div className="flex flex-col items-center text-center justify-center gap-10 lg:gap-20 w-full h-full p-10">
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium">Edit Profile.</h2>
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium">Update Profile.</h2>
       <form className="flex w-full md:w-9/12 text-center flex-col gap-4" onSubmit={updateUserProfile}>
         <input
           type="text"
@@ -69,6 +82,7 @@ function EditProfile({ user }) {
           className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
         />
         <input
+          type='url'
           name="InstagramLink"
           placeholder="Enter Instagram Link"
           value={formData.InstagramLink}
@@ -89,4 +103,4 @@ function EditProfile({ user }) {
   );
 }
 
-export default EditProfile;
+export default UpdateProfile;

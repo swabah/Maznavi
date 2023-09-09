@@ -13,7 +13,7 @@ import {Link} from "react-router-dom";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { AiOutlineRead } from "react-icons/ai";
 import { ReadingTime } from "../../assets/ReadingTime";
-import formatTimeDifference from "../../assets/formatTimeDifference";
+import formatTime from "../../assets/formatTime";
 
 
 
@@ -53,7 +53,7 @@ export default function Articles() {
                                     <img src={Article.imageUrl} alt="" className="object-cover w-full h-full" />
                                     <div className="absolute p-4 md:p-5 lg:p-14 w-full gap-1 lg:gap-2 flex flex-col bg-gradient-to-t from-[#3f2d23] bg-opacity-70 text-white to-transparent left-0 bottom-0">
                                         <div className='flex items-center gap-1 text-sm lg:text-base opacity-80'>
-                                            <h2>{formatTimeDifference(Article?.created)} </h2> 
+                                            <h2>{formatTime(Article?.created)} </h2> 
                                             {Article.socialLinks?.instagram || Article.socialLinks?.facebook ? 
                                             <>
                                                 <p className="text-[10px] pl-3">Open</p>

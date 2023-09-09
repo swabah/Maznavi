@@ -39,15 +39,11 @@ function NewBlog() {
       await uploadBytes(BlogImgRef, selectedBlogImg);
     const BlogImgUrl = await getDownloadURL(BlogImgRef);
 
-      const date = new Date();
-      const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-      const formattedTime = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-
       await setDoc(doc(db, "blogs", id), {
         uid: user.id,
         id,
         BlogImgUrl: BlogImgUrl,
-        created: { date: formattedDate, time: formattedTime },
+        created:new Date(),
         socialLinks: {
             instagram: InstaUrl || ''
         },

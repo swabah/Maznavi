@@ -36,7 +36,7 @@ import NewPoem from '../posts/Items/NewPoem';
 import NewQuote from '../posts/Items/NewQuote';
 import NewBlog from '../posts/Items/NewBlog';
 import { useUsers } from '../../hooks/auths';
-import formatTimeDifference from '../../assets/formatTimeDifference' 
+import formatTimeDifference from '../../assets/formatTime' 
 
 const adminItems = [
   { key: 'story', label: 'New Story', component: <NewStory/> },

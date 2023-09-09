@@ -41,7 +41,7 @@ const { isOpen, onOpen, onClose } = useDisclosure();
     }, 3000);
     setTimeout(() => {
       onOpen()
-    }, 5000);
+    }, 10000);
   }, [onOpen,setTimeout]);
 
   return (

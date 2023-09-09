@@ -59,7 +59,7 @@ export default function Register() {
               mobNumber: userMobNumber,
               userPhoto: result.user?.photoURL,
               LastLogin: "",
-              date: new Date(),
+              created: new Date(),
             });
     
             alert("Successful signup");

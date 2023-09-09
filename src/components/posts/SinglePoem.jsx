@@ -3,6 +3,7 @@ import {useAuth} from "../../hooks/auths";
 import {Link} from "react-router-dom";
 import { PiArrowLineUpRightBold } from "react-icons/pi";
 import PostsDemo from "../Demo/PostsDemo";
+import formatTime from "../../assets/formatTime";
 
 function SinglePoem({ Poem,Loading,key }) {
   const { user, isLoading: authLoading } = useAuth();
@@ -25,7 +26,7 @@ function SinglePoem({ Poem,Loading,key }) {
             <Link to={`/authors/${Poem?.author}`} >
              <p className="text-sm text-[#462e21] ">{Poem.author}</p>
             </Link>
-            <p className="text-xs text-[#3f2d23] ">{Poem.date}</p>
+            <p className="text-xs text-[#3f2d23] ">{formatTime(Poem.created)}</p>
           </div>
           <Link
             to={`/Poems/id/${Poem?.id}`}

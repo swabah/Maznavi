@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../lib/firebase";
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs, query, orderBy } from "firebase/firestore";
 
 // This code is for fetching user data
 export function useAuth() {
@@ -39,11 +39,11 @@ export function useUsers() {
       setLoading(true);
       if (authUser) {
         const usersRef = collection(db, "users");
-        const querySnapshot = await getDocs(usersRef);
+        const q = query(usersRef, orderBy("created", "desc")); // Order by "created" field in descending order
+        const querySnapshot = await getDocs(q);        
         const usersData = [];
-        querySnapshot.forEach((doc) => {
-          usersData.push(doc.data());
-        });
+        const queryData = querySnapshot.docs.map((doc) => doc.data());
+        usersData.push(...queryData);
         setUsers(usersData);
       }
       setLoading(false);

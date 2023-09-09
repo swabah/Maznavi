@@ -18,7 +18,7 @@ import { useArticles } from "../../hooks/posts";
 import { CgPentagonBottomLeft } from "react-icons/cg";
 import { ReadingTime } from "../../assets/ReadingTime";
 import { PiWhatsappLogoLight } from "react-icons/pi";
-import formatTimeDifference from "../../assets/formatTimeDifference";
+import formatTime from "../../assets/formatTime";
 
 export default function CurrentArticle() {
   const {ArticleId} = useParams();
@@ -111,7 +111,7 @@ export default function CurrentArticle() {
                         <div className='w-8 h-8 bg-black md:w-12 rounded-3xl md:h-12'></div>
                         <Link className=" flex flex-col  text-[#3f2d23] ">
                           <a className="text-sm truncate md:text-lg" href={CurrentArticle.writer?.writer_link}>{CurrentArticle.writer?.writer_name}</a>
-                          <p className="text-xs md:text-sm text-[#3f2d23] ">{formatTimeDifference(CurrentArticle?.created)}</p>
+                          <p className="text-xs md:text-sm text-[#3f2d23] ">{formatTime(CurrentArticle?.created)}</p>
                         </Link>
                       </div>
                       <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
