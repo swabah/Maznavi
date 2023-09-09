@@ -26,7 +26,7 @@ function SinglePoem({ Poem,Loading,key }) {
             <Link to={`/authors/${Poem?.author}`} >
              <p className="text-sm text-[#462e21] ">{Poem.author}</p>
             </Link>
-            <p className="text-xs text-[#3f2d23] ">{formatTime(Poem.created)}</p>
+            <p className="text-xs text-[#3f2d23] ">{formatTime(Poem?.created)}</p>
           </div>
           <Link
             to={`/Poems/id/${Poem?.id}`}
