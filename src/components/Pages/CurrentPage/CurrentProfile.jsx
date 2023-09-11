@@ -92,12 +92,12 @@ function CurrentProfile() {
                 <div  onClick={() => onViewOpen()} className='col-span-1 p-1 cursor-pointer px-5 rounded-md bg-gray-100 hover:bg-gray-200'>
                 View Profile
                 </div>
-                // <div
-                // onClick={() => onShareOpen()}
-                // className='col-span-1 p-1 cursor-pointer px-5 rounded-md bg-gray-100 hover:bg-gray-200'
-                // >
-                // Share Profile
-                // </div>
+                <div
+                onClick=''
+                className='col-span-1 p-1 cursor-pointer px-5 rounded-md bg-gray-100 hover:bg-gray-200'
+                >
+                Share Profile
+                </div>
                 {CurrentUser?.username === user?.username && (
                   <div
                     onClick={() => onUpdateOpen()}
