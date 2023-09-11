@@ -5,20 +5,20 @@ import {
 } from "@chakra-ui/react";
 import {motion} from "framer-motion";
 import { Link, useLocation, useParams} from "react-router-dom";
-import {db} from "../../lib/firebase";
+import {db} from "../../../lib/firebase";
 import {doc, onSnapshot} from "firebase/firestore";
 import {AiFillCopy,  AiOutlineRead,  AiOutlineShareAlt} from "react-icons/ai";
-import Navbar from "./Navbar";
-import MazButton from "../../assets/MazButton";
+import Navbar from "../../layout/Navbar";
+import MazButton from "../../../assets/MazButton";
 import {FaFacebook, FaInstagram } from "react-icons/fa";
-import parseEmphasis from "../../assets/parseEmphasis";
-import Footer from "./Footer";
-import PostsDemo from "../Demo/PostsDemo";
-import { useArticles } from "../../hooks/posts";
+import parseEmphasis from "../../../assets/parseEmphasis";
+import Footer from "../../layout/Footer";
+import PostsDemo from "../../Demo/PostsDemo";
+import { useArticles } from "../../../hooks/posts";
 import { CgPentagonBottomLeft } from "react-icons/cg";
-import { ReadingTime } from "../../assets/ReadingTime";
+import { ReadingTime } from "../../../assets/ReadingTime";
 import { PiWhatsappLogoLight } from "react-icons/pi";
-import formatTime from "../../assets/formatTime";
+import formatTime from "../../../assets/formatTime";
 
 export default function CurrentArticle() {
   const {ArticleId} = useParams();

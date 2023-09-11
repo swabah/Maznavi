@@ -7,7 +7,7 @@ import formatTime from "../../assets/formatTime";
 
 function SinglePoem({ Poem,Loading,key }) {
   const { user, isLoading: authLoading } = useAuth();
-  const { id, likes = [], uid } = Poem; // Initialize likes array if it's undefined
+  const { likes = [], uid } = Poem; // Initialize likes array if it's undefined
   const isLiked = likes.includes(user?.id);
 
   
@@ -23,21 +23,21 @@ function SinglePoem({ Poem,Loading,key }) {
       >
         <div className="w-full text-start justify-start flex flex-col h-full grid-item">
           <div className="mb-2 ">
-            <Link to={`/authors/${Poem?.author}`} >
+            <Link to={`/${Poem?.author}`} >
              <p className="text-sm text-[#462e21] ">{Poem.author}</p>
             </Link>
             <p className="text-xs text-[#3f2d23] ">{formatTime(Poem?.created)}</p>
           </div>
           <Link
-            to={`/Poems/id/${Poem?.id}`}
+            to={`/Poems/id/${Poem?.uid}`}
             className='flex items-center hover:underline justify-between w-full mb-2'
             onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})}
           >
-              <h2 className="text-xl font-bold w-11/12 truncate ">{Poem.title}</h2>
+              <h2 className="text-xl font-bold w-11/12 truncate ">{Poem?.poemTitle}</h2>
               <PiArrowLineUpRightBold className="md:text-lg"/>
           </Link>
             <div className="overflow-hidden text-sm md:text-base tracking-wide line-clamp-6">
-              {Poem.desc.substring(0, 150).split("\n")}
+              {Poem.poemDesc?.substring(0, 150).split("\n")}
             </div>
         </div>
       </div>

@@ -10,15 +10,13 @@ import Stories from "./components/Pages/Stories";
 import Articles from "./components/Pages/Articles";
 import Register from "./components/auth/Register";
 import Admin from "./components/Pages/Admin";
-import CurrentAuthor from "./components/layout/CurrentAuthor";
-import CurrentPoem from "./components/layout/CurrentPoem";
-import CurrentArticle from "./components/layout/CurrentArticle";
-import CurrentTopic from "./components/layout/CurrentTopic";
+import CurrentPoem from "./components/Pages/CurrentPage/CurrentPoem";
+import CurrentArticle from "./components/Pages/CurrentPage/CurrentArticle";
+import CurrentTopic from "./components/Pages/CurrentPage/CurrentTopic";
 import Blogs from "./components/Pages/Blogs";
-import MyAccound from "./components/Pages/User/MyAccound";
 import MainLoader from "./assets/MainLoader";
 import Donate from "./assets/Donate";
-import CurrentProfile from "./components/Pages/User/CurrentProfile";
+import CurrentProfile from "./components/Pages/CurrentPage/CurrentProfile";
 
 export const HOME = "/";
 export const LOGIN = "/login";
@@ -29,7 +27,6 @@ export const POEMS = "/Poems";
 export const STORIES = "/stories";
 export const BLOGS = "/Blogs";
 export const ARTICLES = "/Articles";
-export const MYACCOUNT = "/My-Accound";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -61,7 +58,6 @@ const { isOpen, onOpen, onClose } = useDisclosure();
 
               {/* Authors */}
               <Route  path={AUTHORS} element={<Authors/>} />
-              <Route path={`${AUTHORS}/:authorName`} element={<CurrentAuthor/>} />
 
               {/* Poems */}
               <Route  path={POEMS} element={<Poems/>} />
@@ -74,9 +70,6 @@ const { isOpen, onOpen, onClose } = useDisclosure();
 
               {/* Stories */}
               <Route path={STORIES} element={<Stories/>} />
-
-              {/* My-Account */}
-              <Route path={MYACCOUNT} element={<MyAccound/>} />
 
               {/* Blogs */}
               <Route path={BLOGS} element={<Blogs/>} />

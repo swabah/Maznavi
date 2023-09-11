@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link as routerLink, useLocation, useParams } from "react-router-dom";
-import { db } from "../../lib/firebase";
+import { db } from "../../../lib/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { AiFillCopy, AiOutlineShareAlt } from "react-icons/ai";
-import Navbar from "./Navbar";
-import MazButton from "../../assets/MazButton";
-import Footer from "./Footer";
+import Navbar from "../../layout/Navbar";
+import MazButton from "../../../assets/MazButton";
+import Footer from "../../layout/Footer";
 import { Box, Divider, Link, useToast } from "@chakra-ui/react";
-import { usePoems } from "../../hooks/posts";
-import Breadcrumbs from "../../assets/Breadcrumbs";
+import { usePoems } from "../../../hooks/posts";
+import Breadcrumbs from "../../../assets/Breadcrumbs";
 import { FaQuoteLeft } from "react-icons/fa";
-import parseEmphasis from "../../assets/parseEmphasis";
-import PostsDemo from "../Demo/PostsDemo";
+import parseEmphasis from "../../../assets/parseEmphasis";
+import PostsDemo from "../../Demo/PostsDemo";
 import {motion} from "framer-motion";
 import { PiWhatsappLogoLight } from "react-icons/pi";
 
@@ -30,7 +30,7 @@ export default function CurrentPoem() {
     return () => unsubscribe();
   }, [PoemId]);
 
-    const content = parseEmphasis(currentPoem.desc)
+    const content = parseEmphasis(currentPoem.poemDesc)
 
     const fullPath = useLocation();
 
@@ -93,8 +93,8 @@ export default function CurrentPoem() {
                 <div className="rounded-full p-4 text-xl font-bold text-[#3f2d23] bg-white">
                 <FaQuoteLeft/>
                 </div>
-                <h2 className="text-4xl font-medium pt-3">{currentPoem.title}</h2>
-                <Link as={routerLink} to={`/authors/${currentPoem?.author}`} onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})} key={currentPoem?.id}>
+                <h2 className="text-4xl font-medium pt-3">{currentPoem.poemTitle}</h2>
+                <Link as={routerLink} to={`/${currentPoem?.author}`} onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})} key={currentPoem?.id}>
                   <p className="cursor-pointer text-[#120f08] text-base">{currentPoem.author}</p>
                 </Link>
                 <Divider mt="5" />
@@ -120,7 +120,7 @@ export default function CurrentPoem() {
                 {Poems.slice(0, 5).map((Poem) => (
                   <Link as={routerLink} to={`/Poems/id/${Poem?.id}`} onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})} key={Poem?.id}>
                     <div className="p-2 rounded-md active:shadow-sm">
-                      <h3 className="text-md font-medium mb-1">{Poem.title}</h3>
+                      <h3 className="text-md font-medium mb-1">{Poem.poemTitle}</h3>
                       <h4 className="text-sm text-gray-600">{Poem.author}</h4>
                     </div>
                   </Link>

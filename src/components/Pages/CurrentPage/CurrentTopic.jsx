@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { db } from "../../lib/firebase";
+import { db } from "../../../lib/firebase";
 import { onSnapshot, collection, query, where } from "firebase/firestore";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import { SingleArticle } from "../posts/SingleArticle";
-import PostsDemo from "../Demo/PostsDemo";
+import Navbar from "../../layout/Navbar";
+import Footer from "../../layout/Footer";
+import { SingleArticle } from "../../posts/SingleArticle";
+import PostsDemo from "../../Demo/PostsDemo";
 import { motion } from "framer-motion";
 
 export default function CurrentTopic() {

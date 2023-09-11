@@ -70,7 +70,7 @@ export const SingleStory = ({ story,Loading,key }) => {
         <img src={story.FileUrl} alt="" className="object-cover w-full h-full rounded-md" />
       }
       {story.isVideo &&
-        <video src={story.FileUrl} className="object-cover w-full h-full rounded-md"></video>
+        <video autoPlay muted loop src={story.FileUrl} className="object-cover w-full h-full rounded-md"></video>
       }
       <div className="text-[#fff] z-10 absolute w-full items-start p-2 md:px-3 top-0 text-sm md:text-lg">
         <h2>{story.account}</h2>
@@ -107,7 +107,7 @@ export const SingleStory = ({ story,Loading,key }) => {
             <img src={story.FileUrl} alt="" className="object-cover w-full h-full rounded-md" />
           }
           {story.isVideo &&
-            <video src={story.FileUrl} controls autoplay className="object-cover w-full h-full rounded-md"></video>
+            <video src={story.FileUrl} loop autoplay className="object-cover w-full h-full rounded-md"></video>
           }
         </ModalContent>
       </Modal>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { LOGIN, HOME } from "../../App";
 import { uuidv4 } from "@firebase/util";
 import { Link, useNavigate } from "react-router-dom";
-import { addDoc, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../../lib/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useToast } from "@chakra-ui/react";
@@ -12,6 +12,8 @@ export default function Register() {
   const [userName, setUserName] = useState("");
   const [fullName, setFullName] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [InstagramLink, setInstagramLink] = useState("");
+  const [DOB, setDOB] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [userBio, setUserBio] = useState("");
   const [userMobNumber, setUserMobNumber] = useState("");
@@ -58,6 +60,8 @@ export default function Register() {
               bio: userBio,
               mobNumber: userMobNumber,
               userPhoto: result.user?.photoURL,
+              DOB:DOB,
+              InstagramLink:InstagramLink,
               LastLogin: "",
               created: new Date(),
             });
@@ -87,14 +91,6 @@ export default function Register() {
             className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
           />
           <input
-            type="text"
-            placeholder="Enter Full Name"
-            value={fullName}
-            required
-            onChange={(e) => setFullName(e.target.value)}
-            className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
-          />
-          <input
             type="Email"
             placeholder="Enter Email"
             value={userEmail}
@@ -111,6 +107,22 @@ export default function Register() {
             className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
           />
           <input
+          type="text"
+          placeholder="Enter Full Name"
+          value={fullName}
+          required
+          onChange={(e) => setFullName(e.target.value)}
+          className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
+          />
+          <input
+            type="date"
+            placeholder="Enter Date Of Birth"
+            value={DOB}
+            required
+            onChange={(e) => setDOB(e.target.value)}
+            className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
+          />
+          <input
             type="number"
             placeholder="Enter Mobile Number"
             value={userMobNumber}
@@ -123,6 +135,13 @@ export default function Register() {
             value={userBio}
             required
             onChange={(e) => setUserBio(e.target.value)}
+            className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
+          />
+          <input
+            type="number"
+            placeholder="Enter Instagram LInk"
+            value={InstagramLink}
+            onChange={(e) => setInstagramLink(e.target.value)}
             className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
           />
           <button

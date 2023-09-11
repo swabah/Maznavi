@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../lib/firebase";
-import { doc, getDoc, collection, getDocs, query, orderBy } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs, query, orderBy, where } from "firebase/firestore";
 
 // This code is for fetching user data
 export function useAuth() {
@@ -56,6 +56,9 @@ export function useUsers() {
 
   return { users, isLoading, error };
 }
+
+
+
 
 
 

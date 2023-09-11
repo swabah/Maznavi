@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../lib/firebase';
 import { useToast } from '@chakra-ui/react';
+import { isUsernameExists } from '../../../utils/isCheck';
 
 function UpdateProfile({ user }) {
   const toast = useToast()
@@ -9,6 +10,7 @@ function UpdateProfile({ user }) {
     username: user.username ,
     fullName: user.fullName ,
     bio: user.bio ,
+    DOB: user.DOB || '',
     InstagramLink: user.InstagramLink || '',
     date: user.created,
   });
@@ -26,27 +28,40 @@ function UpdateProfile({ user }) {
     e.preventDefault();
     setIsLoading(true);
 
+    const userNameExists = await isUsernameExists(formData.username);
+
     const userRef = doc(db, 'users', user?.uid);
 
-    try {
-      await updateDoc(userRef, formData);
-      setIsLoading(false);
+    if (userNameExists) {
       toast({
-        title: 'Profile Updated Succesfully.',
-        status: 'success',
+        title: "Username already exists",
+        status: "error",
         isClosable: true,
-        position: 'top',
-        duration: 5000,
-      });
-    } catch (error) {
-      toast({
-        title: 'Error Uplading Profile.',
-        status: 'error',
-        isClosable: true,
-        position: 'top',
+        position: "top",
         duration: 5000,
       });
       setIsLoading(false);
+    }else{
+        try {
+          await updateDoc(userRef, formData);
+          setIsLoading(false);
+          toast({
+            title: 'Profile Updated Succesfully.',
+            status: 'success',
+            isClosable: true,
+            position: 'top',
+            duration: 5000,
+          });
+        } catch (error) {
+          toast({
+            title: 'Error Uplading Profile.',
+            status: 'error',
+            isClosable: true,
+            position: 'top',
+            duration: 5000,
+          });
+          setIsLoading(false);
+        }
     }
   };
 
@@ -69,6 +84,14 @@ function UpdateProfile({ user }) {
           placeholder="Enter Full Name"
           value={formData.fullName}
           required
+          onChange={handleChange}
+          className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
+        />
+        <input
+          type='date'
+          name="DOB"
+          placeholder="Date Of Birth"
+          value={formData.DOB}
           onChange={handleChange}
           className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
         />

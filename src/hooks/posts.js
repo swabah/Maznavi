@@ -32,33 +32,6 @@ export function useAddQuote() {
 
     return { addQuote, isLoading };
 }
-export function useAddPoem() {
-    const [isLoading, setLoading] = useState(false);
-    const toast = useToast();
-    async function addPoem(Poem) {
-        setLoading(true);
-        const id = uuidv4();
-        const date = new Date()
-        const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-        const formattedTime = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-        await setDoc(doc(db, "Poems", id), {
-            ...Poem,
-            id,
-            created: { date: formattedDate, time: formattedTime },
-            likes: [],
-        });
-        toast({
-            title: "Poem added successfully!",
-            status: "success",
-            isClosable: true,
-            position: "top",
-            duration: 5000,
-        });
-        setLoading(false);
-    }
-    return { addPoem, isLoading };
-}
-
 
 export function useBlogs(uid = null) {
     const q = uid
@@ -125,17 +98,39 @@ export function usePoems(uid = null) {
       : query(collection(db, 'Poems'), orderBy('created', 'desc'));
     const [Poems, isPoemLoading, error] = useCollectionData(q);
     const transformedPoems = Poems ? Poems.map(Poem => ({
-        id: Poem.id,
+        uid: Poem.uid,
         author: Poem.author,
-        title: Poem.title,
-        desc: Poem.desc,
+        poemTitle: Poem.poemTitle,
+        poemDesc: Poem.poemDesc,
         PhotoUrl : Poem.PhotoUrl,
-        date: Poem.created.date,
+        created: Poem.created,
         // ... include other properties if needed
       })) : [];
     
       if (error) throw error;
       return { Poems: transformedPoems, isPoemLoading };
+  }
+export function usePoemsDemo(uid = null) {
+    const q = uid
+      ? query(
+          collection(db, 'PoemsDemo'),
+          orderBy('created', 'desc'),
+          where('uid', '==', uid)
+        )
+      : query(collection(db, 'PoemsDemo'), orderBy('created', 'desc'));
+    const [PoemsDemo, isPoemLoading, error] = useCollectionData(q);
+    const transformedPoemsDemo = PoemsDemo ? PoemsDemo.map(Poem => ({
+        uid: Poem.uid,
+        author: Poem.author,
+        poemTitle: Poem.poemTitle,
+        poemDesc: Poem.poemDesc,
+        PhotoUrl : Poem.PhotoUrl,
+        created: Poem.created,
+        // ... include other properties if needed
+      })) : [];
+    
+      if (error) throw error;
+      return { PoemsDemo: transformedPoemsDemo, isPoemLoading };
   }
 
 

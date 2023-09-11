@@ -100,18 +100,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`w-full z-50 text-[#3f2d23] ${
-        fix
-          ? "bg-white shadow-md"
-          : `${
-              location.pathname === "/"
-                ? "fixed left-0 top-0 bg-transparent"
-                : "bg-[#3f2d23] text-[#fff]"
-            } `
-      } ${
-        location.pathname === "/" ? "fixed left-0 top-0" : ""
-      } py-1 md:h-20 lg:h-24 p-3 px-7 lg:px-10 md:py-10 xl:px-32 flex items-center justify-between`}
-    >
+      className={`w-full z-50 text-[#3f2d23] ${fix? "bg-white shadow-md": `${location.pathname === "/"? "fixed left-0 top-0 bg-transparent" : "bg-[#3f2d23] text-[#fff]"} `} ${location.pathname === "/" ? "fixed left-0 top-0" : ""} py-1 md:h-20 lg:h-24 p-3 px-7 lg:px-10 md:py-10 xl:px-32 flex items-center justify-between`}>
       <Link as={RouterLink} to={HOME}>
         <img
           src={location.pathname === "/" ? LogoThird : LogoSecondary}
@@ -122,23 +111,7 @@ export default function Navbar() {
       <nav className="flex items-center justify-center">
         <ul className="items-center hidden w-full h-auto space-x-6 lg:flex">
           {renderLinks()}
-          {user && (
-            <h2 onClick={openAlert} className="text-lg font-thin cursor-pointer">
-              Logout
-            </h2>
-          )}
-          <button
-            className={`${
-              location.pathname === "/"
-                ? "bg-[#3f2d23] text-[#fff]"
-                : "bg-[#fff] text-[#3f2d23]"
-            }  transition-all hover:scale-95 px-4 py-1.5 rounded-sm`}
-          >
-            <a href={"https://wa.me/+918714398351"} className="text-lg font-normal rounded-md">
-              Join
-            </a>
-          </button>
-          {isAdmin && <MenuDropdown user={user} />}
+          {user && <MenuDropdown openAlert={openAlert} user={user} />}
         </ul>
         <div className="flex lg:hidden">
           <button
@@ -191,7 +164,7 @@ function LogoutAlertDialog({ isOpen, onClose, logout }) {
   );
 }
 
-function MobileDrawer({ isOpen, onClose, links, user, isAdmin, openAlert }) {
+function MobileDrawer({ isOpen, onClose, links, user, isAdmin,openAlert }) {
   return (
     <Drawer className="bg-[#3f2d23]" onClose={onClose} isOpen={isOpen} size={"sm"}>
       <DrawerOverlay />
@@ -205,10 +178,7 @@ function MobileDrawer({ isOpen, onClose, links, user, isAdmin, openAlert }) {
                 <li className={`text-lg tracking-wide cursor-pointer text-[#3f2d23] active:text-[#3f2d239a] transition font-normal drop-shadow-sm capitalize`}>{link.name}</li>
               </RouterLink>
             ))}
-            {user && (
-              <h2 onClick={openAlert} className="text-lg font-thin cursor-pointer">Logout</h2>
-            )}
-            {isAdmin && <MenuDropdown user={user} />}
+            {isAdmin && <MenuDropdown openAlert={openAlert} user={user} />}
             <button className={`bg-green-600 text-[#fff] transition-all hover:scale-95 px-4 py-1.5 rounded-sm`}>
               <a href={"https://wa.me/+918714398351"} className="text-lg font-normal rounded-md">
                 Join
@@ -221,7 +191,7 @@ function MobileDrawer({ isOpen, onClose, links, user, isAdmin, openAlert }) {
   );
 }
 
-function MenuDropdown({ user }) {
+function MenuDropdown({ user , openAlert}) {
   const isAdmin = ifUserAdmin(user);
   const navigate = useNavigate();
   const location = useLocation();
@@ -232,7 +202,7 @@ function MenuDropdown({ user }) {
         {user?.userPhoto ? (
           <img
             src={user?.userPhoto}
-            className="w-10 h-10 rounded-full"
+            className={`w-12 p-1 h-12 object-cover ${location.pathname === "/" ? 'bg-transparent':'bg-white '} rounded-full`}
             alt=""
           />
         ) : (
@@ -240,18 +210,26 @@ function MenuDropdown({ user }) {
         )}
       </MenuButton>
       <MenuList>
-        <MenuGroup title='Profile'>
-            <MenuItem onClick={() => navigate(`/${user.username}`)}>
-              My Account
+        <MenuGroup>
+            <MenuItem>
+              <h2  className="text-[#3f2d23] w-full text-lg " onClick={() => navigate(`/${user.username}`)}> {user.username}'s Profile  </h2>
             </MenuItem>
-          {isAdmin && (
-            <MenuItem onClick={() => navigate(ADMIN)}>Admin Portel </MenuItem>
-          )}
-        </MenuGroup>
-        <MenuDivider />
-        <MenuGroup title='Help'>
-          <MenuItem>Docs</MenuItem>
-          <MenuItem>FAQ</MenuItem>
+            {isAdmin && (
+            <MenuItem >
+              <h2  className="text-[#3f2d23] w-full text-lg" onClick={() => navigate(ADMIN)}> Admin Dashboard</h2>
+            </MenuItem>
+            )}
+            {user && (
+            <MenuItem>
+              <h2  className="text-[#3f2d23] w-full text-lg" onClick={openAlert} >Logout</h2>
+            </MenuItem>
+            )}
+            <MenuDivider/>
+            <MenuItem>
+              <a href={"https://wa.me/+918714398351"} className="bg-[#3f2d23] text-white w-full text-center tracking-wider py-2  ">
+                JOIN 
+              </a>
+            </MenuItem>
         </MenuGroup>
       </MenuList>
     </Menu>

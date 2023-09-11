@@ -2,7 +2,7 @@ import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 import { db } from '../../../lib/firebase';
 import { useAuth } from '../../../hooks/auths';
 
-export default async function usePoemsDemo() {
+export default async function useDemo() {
   const { user } = useAuth();
 
   try {
