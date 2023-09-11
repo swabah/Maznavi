@@ -91,6 +91,7 @@ function UpdateProfile({ user }) {
           type='date'
           name="DOB"
           placeholder="Date Of Birth"
+          required
           value={formData.DOB}
           onChange={handleChange}
           className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
@@ -109,6 +110,7 @@ function UpdateProfile({ user }) {
           name="InstagramLink"
           placeholder="Enter Instagram Link"
           value={formData.InstagramLink}
+          required
           onChange={handleChange}
           className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
         />

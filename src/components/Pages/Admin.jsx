@@ -128,9 +128,11 @@ function Admin() {
                 <Th>No : {users?.length}</Th>
                 <Th>Date</Th>
                 <Th>User Name</Th>
+                <Th>User Photo</Th>
                 <Th>Email</Th>
                 <Th>Full Name</Th>
                 <Th>Mobile</Th>
+                <Th>DOB</Th>
                 <Th>Bio</Th>
                 <Th>UID</Th>
               </Tr>
@@ -140,10 +142,12 @@ function Admin() {
                 <Tr>
                   <Td>{index + 1}</Td>
                   <Td >{formatTimeDifference(user?.created)}</Td>
+                  <Td><img className='w-10 h-10' src={user?.userPhoto}/></Td>
                   <Td>{user.username}</Td>
                   <Td>{user.email}</Td>
                   <Td>{user.fullName}</Td>
                   <Td>{user.mobNumber}</Td>
+                  <Td>{user.DOB}</Td>
                   <Td>{user.bio}</Td>
                   <Td>{user.uid}</Td>
                 </Tr>

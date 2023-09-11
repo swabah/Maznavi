@@ -66,6 +66,7 @@ function UploadProPicture({ user }) {
         <input
           name="Picture"
           type='file'
+          required
           placeholder="Select an image"
           onChange={(e) => setPicture(e.target.files[0])}
           className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"

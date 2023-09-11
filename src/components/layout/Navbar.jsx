@@ -211,9 +211,11 @@ function MenuDropdown({ user , openAlert}) {
       </MenuButton>
       <MenuList>
         <MenuGroup>
-            <MenuItem>
-              <h2  className="text-[#3f2d23] w-full text-lg " onClick={() => navigate(`/${user.username}`)}> {user.username}'s Profile  </h2>
-            </MenuItem>
+            {isAdmin && 
+              <MenuItem>
+                <h2  className="text-[#3f2d23] w-full text-lg " onClick={() => navigate(`/${user.username}`)}> {user.username}'s Profile  </h2>
+              </MenuItem>
+            }
             {isAdmin && (
             <MenuItem >
               <h2  className="text-[#3f2d23] w-full text-lg" onClick={() => navigate(ADMIN)}> Admin Dashboard</h2>
