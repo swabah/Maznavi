@@ -27,7 +27,6 @@ export default function Authors() {
                 {filteredAuthors.map((auth)=>(
                   <div className="border-2 border-[#3f2d2318] hover:border-[#3f2d2328] rounded-md p-3 md:p-6 hover:inner-shadow w-full h-auto">
                     <RouterLink
-                      to={`/${auth.author}`}
                       className="text-[#3f2d23] no-underline"
                     >
                       <h2 className="md:text-lg hover:underline lg:text-xl truncate font-semibold tracking-wide">
@@ -36,7 +35,6 @@ export default function Authors() {
                     </RouterLink>
                     <div className="flex flex-col md:flex-row items-start gap-3 md:gap-5 mt-1 md:mt-3 w-full h-auto">
                       <RouterLink
-                        to={`/${auth.author}`}
                         className="text-[#3f2d23] no-underline h-10 w-10 md:w-20 md:h-16 rounded-full"
                       >
                       <img

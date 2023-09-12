@@ -98,7 +98,7 @@ function CurrentProfile() {
                 >
                 Share Profile
                 </div>
-                {CurrentUser?.username === user?.username && (
+                {isAdmin || user?.username === "sw_abah" && (
                   <div
                     onClick={() => onUpdateOpen()}
                     className='col-span-2 p-1 cursor-pointer px-5 rounded-md bg-gray-100 hover:bg-gray-200'

@@ -66,10 +66,10 @@ export default function Navbar() {
 
   const links = [
     { path: HOME, name: "Home" },
-    { path: BLOGS, name: "Blogs" },
-    { path: STORIES, name: "Stories" },
+    // { path: BLOGS, name: "Blogs" },
+    // { path: STORIES, name: "Stories" },
     { path: POEMS, name: "Poems" },
-    { path: ARTICLES, name: "Articles" },
+    // { path: ARTICLES, name: "Articles" },
     { path: AUTHORS, name: "Authors" },
   ];
 
@@ -108,11 +108,18 @@ export default function Navbar() {
           alt="MAZNAVI._"
         />
       </Link>
-      <nav className="flex items-center justify-center">
+      <nav className="flex space-x-6 items-center justify-center">
         <ul className="items-center hidden w-full h-auto space-x-6 lg:flex">
           {renderLinks()}
-          {user && <MenuDropdown openAlert={openAlert} user={user} />}
+          {/*{user && <MenuDropdown openAlert={openAlert} user={user} />}*/}
         </ul>
+        {user && (
+            <h2  className={`text-lg tracking-wide cursor-pointer ${
+              location.pathname === "/"
+                ? "hover:text-green-600"
+                : "hover:text-[#ffffffa5]"
+            } transition font-normal drop-shadow-sm capitalize`} onClick={openAlert} >Logout</h2>
+          )}
         <div className="flex lg:hidden">
           <button
             type="button"
@@ -178,7 +185,9 @@ function MobileDrawer({ isOpen, onClose, links, user, isAdmin,openAlert }) {
                 <li className={`text-lg tracking-wide cursor-pointer text-[#3f2d23] active:text-[#3f2d239a] transition font-normal drop-shadow-sm capitalize`}>{link.name}</li>
               </RouterLink>
             ))}
-            {isAdmin && <MenuDropdown openAlert={openAlert} user={user} />}
+            {user && (
+                <h2  className="text-[#3f2d23] w-full text-lg" onClick={openAlert} >Logout</h2>
+            )}
             <button className={`bg-green-600 text-[#fff] transition-all hover:scale-95 px-4 py-1.5 rounded-sm`}>
               <a href={"https://wa.me/+918714398351"} className="text-lg font-normal rounded-md">
                 Join

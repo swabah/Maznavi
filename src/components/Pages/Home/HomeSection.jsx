@@ -55,7 +55,7 @@ export default function HomeSection() {
           <a href="https://wa.me/+918714398351" className="tracking-wide uppercase p-1 lg:p-3  px-2 lg:px-4 text-xs lg:text-sm text-green-600 bg-tranparent border md:border-2 border-green-600 rounded-md">join our community</a>
         </div>
       </div>
-      <div className='z-20 lg:pt-16 w-full flex items-center overflow-hidden overflow-x-visible h-auto py-2 px-3 space-x-5 justify-between'>
+      {/*<div className='z-20 lg:pt-16 w-full flex items-center overflow-hidden overflow-x-visible h-auto py-2 px-3 space-x-5 justify-between'>
         {items.map((item,index)=>(
           <Link to={item.url}>
             <div key={index} className="w-full h-full hover:text-green-600 text-[#3f2d23] flex flex-col items-center gap-3 md:gap-5">
@@ -66,7 +66,7 @@ export default function HomeSection() {
             </div>
           </Link>
         ))}
-      </div>
+      </div>*/}
     </div>
   );
 }

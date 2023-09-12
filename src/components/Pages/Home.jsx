@@ -13,11 +13,11 @@ export default function Home() {
   return (
     <div>
       <Navbar/>
-      <HomeSection />
-      <HomeOne/>
+       <HomeSection />
+       {/*<HomeOne/>*/}
       <HomeFive/>
       <HomeTwo/>
-      <HomeThree/>
+       {/*<HomeThree/>*/}
       {/* <HomeFour/> */}
       <HomeSix/>
       <Footer />
