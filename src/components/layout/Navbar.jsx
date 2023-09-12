@@ -69,7 +69,7 @@ export default function Navbar() {
     // { path: BLOGS, name: "Blogs" },
     // { path: STORIES, name: "Stories" },
     { path: POEMS, name: "Poems" },
-    // { path: ARTICLES, name: "Articles" },
+    { path: ARTICLES, name: "Articles"},
     { path: AUTHORS, name: "Authors" },
   ];
 

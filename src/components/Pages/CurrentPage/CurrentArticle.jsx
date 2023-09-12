@@ -123,7 +123,7 @@ export default function CurrentArticle() {
                     </div>
                     <Divider mt="5" />
                   </div>
-                  <div className="w-full h-[50vh] relative md:h-[60vh] lg:h-[70vh] rounded-lg overflow-hidden mt-10 lg:mt-14 xl:mt-16" >
+                  {/* <div className="w-full h-[50vh] relative md:h-[60vh] lg:h-[70vh] rounded-lg overflow-hidden mt-10 lg:mt-14 xl:mt-16" >
                     <img
                       src={CurrentArticle?.imageUrl}
                       alt='Article image'
@@ -147,7 +147,7 @@ export default function CurrentArticle() {
                     </div>
                     :''
                       }
-                  </div>
+                    </div>*/}
                 <h2 className="w-full pt-10 whitespace-pre-line align-middle text-lg tracking-wide hyphens-auto text-center md:text-start">
                   {content?.map((line,index)=>(
                     <p key={index}>{line}</p>

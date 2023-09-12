@@ -42,7 +42,7 @@ export default function Articles() {
                     className="outline-[#3f2d2328] w-full mb-10  outline-dashed outline-2 p-2 px-5 rounded"
                     onChange={(e) => setSearchQuery(e.target.value)}
                     />
-                    {!searchQuery &&
+                    {/*{!searchQuery &&
                     <>
                         <div className='relative  w-full bg-gray-100 h-72 md:h-96 lg:h-[90vh]'>
                             {isArticleLoading ? (
@@ -88,7 +88,7 @@ export default function Articles() {
                             <div className="h-[1px] bg-[#3f2d239e] w-full"></div>
                         </div>
                     </>
-                    }
+                    }*/}
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-y-10 ">
                     {filteredArticles?.map(Article => (
                         <motion.div className="object-cover w-full" layout>

@@ -16,7 +16,7 @@ import HeaderBtn from "../../../assets/HeaderBtn";
     const {Articles, isArticleLoading} = useArticles();
   
     return (
-      <div className='w-full text-[#120f08] bg-[#fff]  shadow-sm h-full p-7 lg:px-10 md:py-12 lg:pt-20 xl:px-32 '>
+      <div className='w-full text-[#120f08] bg-[#fff]  shadow-sm h-full p-7 lg:px-10 md:py-12 lg:pb-20 xl:px-32 '>
         <HeaderBtn Head='Articles' />
             <div
                 className='relative w-full h-full justify-between items-center gap-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'

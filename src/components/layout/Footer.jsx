@@ -11,8 +11,8 @@ const Footer = () => {
 
   const items = [
     { path: HOME, name: "Home" },
-    { path: BLOGS, name: "Blogs" },
-    { path: STORIES, name: "Stories" },
+    // { path: BLOGS, name: "Blogs" },
+    // { path: STORIES, name: "Stories" },
     { path: ARTICLES, name: "Articles" },
     { path: POEMS, name: "Poems" },
     { path: AUTHORS, name: "Authors" },
