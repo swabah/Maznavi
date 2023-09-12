@@ -112,14 +112,14 @@ export default function Navbar() {
         <ul className="items-center hidden w-full h-auto space-x-6 lg:flex">
           {renderLinks()}
           {/*{user && <MenuDropdown openAlert={openAlert} user={user} />}*/}
+          {user && (
+              <h2  className={`text-lg tracking-wide cursor-pointer ${
+                location.pathname === "/"
+                  ? "hover:text-green-600"
+                  : "hover:text-[#ffffffa5]"
+              } transition font-normal drop-shadow-sm capitalize`} onClick={openAlert} >Logout</h2>
+            )}
         </ul>
-        {user && (
-            <h2  className={`text-lg tracking-wide cursor-pointer ${
-              location.pathname === "/"
-                ? "hover:text-green-600"
-                : "hover:text-[#ffffffa5]"
-            } transition font-normal drop-shadow-sm capitalize`} onClick={openAlert} >Logout</h2>
-          )}
         <div className="flex lg:hidden">
           <button
             type="button"
