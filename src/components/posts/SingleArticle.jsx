@@ -2,15 +2,12 @@ import React from "react";
 import {Link} from "react-router-dom";
 import { PiArrowUpRightBold,PiArrowLineUpRightThin } from "react-icons/pi";
 import PostsDemo from "../Demo/PostsDemo";
-import { AiOutlineRead } from "react-icons/ai";
 import formatTimeDifference from "../../assets/formatTime";
-import { calculate } from "calculate-readtime";
 
 export const SingleArticle = ({Article,Loading,key}) => {
 
 
   const imageUrl = Article.imageUrl;
-  const readtime = calculate(Article.content)
 
 
   return (
@@ -27,10 +24,7 @@ export const SingleArticle = ({Article,Loading,key}) => {
           >
           <img src={imageUrl} alt="" className="object-cover w-full transition-all duration-300 rounded-t-lg h-52 hover:scale-110" />
            <div className='absolute inset-0 w-full h-full bg-[#0000003b] rounded-t-lg flex items-center opacity-0 hover:opacity-100 transition-all justify-center text-white text-5xl'><PiArrowLineUpRightThin/></div>
-           <div className='absolute backdrop-blur text-sm md:text-base bg-opacity-40 top-2 left-2 z-20 w-auto h-auto text-white bg-[#000] rounded-md flex items-center gap-2 p-1 px-2 '>
-            <AiOutlineRead/>
-            <h2 className='font-sans text-xs font-extralight'>{readtime}</h2>
-           </div>
+
         </Link>
         </div>
         <div className=" text-[#3f2d23] h-full w-full gap-1 lg:gap-1.5 flex flex-col justify-start items-start ">

@@ -17,7 +17,6 @@ import { useArticles } from "../../../hooks/posts";
 import { CgPentagonBottomLeft } from "react-icons/cg";
 import { PiWhatsappLogoLight } from "react-icons/pi";
 import formatTime from "../../../assets/formatTime";
-import { calculate } from "calculate-readtime";
 
 export default function CurrentArticle() {
   const {ArticleId} = useParams();
@@ -33,7 +32,7 @@ export default function CurrentArticle() {
   }, [ArticleId]);
 
 
-  const readtime = calculate(CurrentArticle?.content)
+
   const toast = useToast();
 
   console.log(CurrentArticle);
@@ -100,10 +99,6 @@ export default function CurrentArticle() {
                       <h2 className="font-medium uppercase md:text-lg ">{CurrentArticle.topic}</h2>
                       </Link>
                     <h2 className="mt-1 text-3xl font-medium md:text-4xl xl:text-5xl">{CurrentArticle.title}</h2>                  
-                    <div className='  md:text-lg z-20 w-auto h-auto text-[#000] flex items-center gap-2 py-2 md:py-3'>
-                      <AiOutlineRead/>
-                      <h2 className='font-sans text-sm font-extralight'>{readtime}</h2>
-                    </div>
                     <div className='flex items-center justify-between w-full pt-7'>
                       <div className='md:w-1/2 flex items-center gap-1.5 md:gap-5' textDecoration="none" _hover={{ textDecoration: "none" }}>
                         <div className='w-8 h-8 bg-black md:w-12 rounded-3xl md:h-12'></div>

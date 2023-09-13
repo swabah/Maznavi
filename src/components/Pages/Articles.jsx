@@ -12,7 +12,6 @@ import {Link} from "react-router-dom";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { AiOutlineRead } from "react-icons/ai";
 import formatTime from "../../assets/formatTime";
-import { calculate } from "calculate-readtime";
 
 
 export default function Articles() {
