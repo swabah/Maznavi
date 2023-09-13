@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Navbar from "../layout/Navbar";
 import Footer from "../layout/Footer";
 import {
-    Box,
     Divider,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
@@ -12,9 +11,8 @@ import { useArticles } from "../../hooks/posts";
 import {Link} from "react-router-dom";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { AiOutlineRead } from "react-icons/ai";
-import { ReadingTime } from "../../assets/ReadingTime";
 import formatTime from "../../assets/formatTime";
-
+import { calculate } from "calculate-readtime";
 
 
 export default function Articles() {
@@ -24,6 +22,7 @@ export default function Articles() {
     const filteredArticles = Articles?.filter((Article) =>
       Article.topic.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
 
     return (
         <>
@@ -42,7 +41,7 @@ export default function Articles() {
                     className="outline-[#3f2d2328] w-full mb-10  outline-dashed outline-2 p-2 px-5 rounded"
                     onChange={(e) => setSearchQuery(e.target.value)}
                     />
-                    {/*{!searchQuery &&
+                    {!searchQuery &&
                     <>
                         <div className='relative  w-full bg-gray-100 h-72 md:h-96 lg:h-[90vh]'>
                             {isArticleLoading ? (
@@ -64,7 +63,7 @@ export default function Articles() {
                                         </div>
                                         <div className='  md:text-lg z-20 w-auto h-auto text-[#fff] flex items-center gap-2 md:py-1'>
                                             <AiOutlineRead/>
-                                            <h2 className='font-sans text-sm font-extralight'>{ReadingTime(Article?.content)} Minutes</h2>
+                                            <h2 className='font-sans text-sm font-extralight'>3 minutes</h2>
                                         </div>
                                         <Link
                                         to={`/Articles/id/${Article?.id}`}
@@ -88,7 +87,7 @@ export default function Articles() {
                             <div className="h-[1px] bg-[#3f2d239e] w-full"></div>
                         </div>
                     </>
-                    }*/}
+                    }
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-y-10 ">
                     {filteredArticles?.map(Article => (
                         <motion.div className="object-cover w-full" layout>

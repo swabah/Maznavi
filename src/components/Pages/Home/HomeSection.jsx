@@ -32,7 +32,7 @@ export default function HomeSection() {
     },
   ]
   return (
-    <div className='w-full relative  text-[#3f2d23] min-h-screen h-full flex flex-col items-center justify-start text-center gap-10   p-7 lg:px-10 py-20 lg:py-12 xl:py-6 xl:px-32'>
+    <div className='w-full relative  text-[#3f2d23] min-h-screen h-full flex flex-col items-center justify-start text-center gap-10   p-7 lg:px-10  md:py-12 xl:py-6 xl:px-32'>
       <div className="h-full flex flex-col items-center justify-start text-center w-full gap-3 md:gap-4 pt-24 md:pt-32 xl:pt-44">
         <h2 className='md:w-11/12 lg:w-9/12 text-5xl lg:text-6xl xl:text-7xl font-medium '>Exploring Lifе's Corе: Maznavi._ Guidеs You to Essеncе</h2>
         <div className=" uppercase text-base xl:text-xl font-extralight traking-wide">
@@ -50,7 +50,7 @@ export default function HomeSection() {
         </div>
         <div className="flex items-center flex-col justify-between md:flex-row gap-3 md:gap-4 mt-5">
           <Link to={REGISTER}>
-          <div className="tracking-wide uppercase p-1 lg:p-3  px-2 lg:px-4 text-xs lg:text-sm text-white bg-green-600 rounded-md border-2 border border-green-600 md:border-green-600">get started for free</div>
+          <div className="tracking-wide uppercase p-1 lg:p-3  px-2 lg:px-4 text-xs lg:text-sm text-white bg-green-600 rounded-md border-2 border-green-600 md:border-green-600">get started for free</div>
           </Link>
           <a href="https://wa.me/+918714398351" className="tracking-wide uppercase p-1 lg:p-3  px-2 lg:px-4 text-xs lg:text-sm text-green-600 bg-tranparent border md:border-2 border-green-600 rounded-md">join our community</a>
         </div>

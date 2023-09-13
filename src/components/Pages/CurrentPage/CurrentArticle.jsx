@@ -11,14 +11,13 @@ import {AiFillCopy,  AiOutlineRead,  AiOutlineShareAlt} from "react-icons/ai";
 import Navbar from "../../layout/Navbar";
 import MazButton from "../../../assets/MazButton";
 import {FaFacebook, FaInstagram } from "react-icons/fa";
-import parseEmphasis from "../../../assets/parseEmphasis";
 import Footer from "../../layout/Footer";
 import PostsDemo from "../../Demo/PostsDemo";
 import { useArticles } from "../../../hooks/posts";
 import { CgPentagonBottomLeft } from "react-icons/cg";
-import { ReadingTime } from "../../../assets/ReadingTime";
 import { PiWhatsappLogoLight } from "react-icons/pi";
 import formatTime from "../../../assets/formatTime";
+import { calculate } from "calculate-readtime";
 
 export default function CurrentArticle() {
   const {ArticleId} = useParams();
@@ -34,11 +33,11 @@ export default function CurrentArticle() {
   }, [ArticleId]);
 
 
+  const readtime = calculate(CurrentArticle?.content)
   const toast = useToast();
 
   console.log(CurrentArticle);
 
-  const content = parseEmphasis(CurrentArticle.content)
   const fullPath = useLocation();
 
   const copyArticleUrl =()=>{
@@ -74,7 +73,6 @@ export default function CurrentArticle() {
 
         if (response.ok) {
           setSubscribed(true);
-          // setSubscribed(false);
         } else {
           console.error('Error sending email');
         }
@@ -104,7 +102,7 @@ export default function CurrentArticle() {
                     <h2 className="mt-1 text-3xl font-medium md:text-4xl xl:text-5xl">{CurrentArticle.title}</h2>                  
                     <div className='  md:text-lg z-20 w-auto h-auto text-[#000] flex items-center gap-2 py-2 md:py-3'>
                       <AiOutlineRead/>
-                      <h2 className='font-sans text-sm font-extralight'>{ReadingTime(CurrentArticle?.content)} Minutes</h2>
+                      <h2 className='font-sans text-sm font-extralight'>{readtime}</h2>
                     </div>
                     <div className='flex items-center justify-between w-full pt-7'>
                       <div className='md:w-1/2 flex items-center gap-1.5 md:gap-5' textDecoration="none" _hover={{ textDecoration: "none" }}>
@@ -123,7 +121,7 @@ export default function CurrentArticle() {
                     </div>
                     <Divider mt="5" />
                   </div>
-                  {/* <div className="w-full h-[50vh] relative md:h-[60vh] lg:h-[70vh] rounded-lg overflow-hidden mt-10 lg:mt-14 xl:mt-16" >
+                  <div className="w-full h-[50vh] relative md:h-[60vh] lg:h-[70vh] rounded-lg overflow-hidden mt-10 lg:mt-14 xl:mt-16" >
                     <img
                       src={CurrentArticle?.imageUrl}
                       alt='Article image'
@@ -147,12 +145,12 @@ export default function CurrentArticle() {
                     </div>
                     :''
                       }
-                    </div>*/}
-                <h2 className="w-full pt-10 whitespace-pre-line align-middle text-lg tracking-wide hyphens-auto text-center md:text-start">
-                  {content?.map((line,index)=>(
-                    <p key={index}>{line}</p>
-                  ))}
-                </h2>
+                    </div>
+                    <h2 className="w-full pt-10 text-lg tracking-wide text-center md:text-start">
+                      {CurrentArticle?.content?.split('\n').map((line, index) => (
+                        <p key={index}>{line}</p>
+                      ))}
+                    </h2>
             </div>
             <div className='h-full w-full lg:w-[30%] flex flex-col gap-y-3 pt-5 lg:pt-0 lg:gap-y-5'>
                 <div className="bg-[#3f2d2311] rounded-xl p-6 flex flex-col md:flex-row items-center justify-between">
