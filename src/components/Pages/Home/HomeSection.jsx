@@ -35,14 +35,14 @@ export default function HomeSection() {
             />
           </p>
         </div>
-        {!user && 
-          <div className="flex items-center flex-col justify-between md:flex-row gap-3 md:gap-4 mt-5">
+        <div className="flex items-center flex-col justify-between md:flex-row gap-3 md:gap-4 mt-5">
+            {!user && 
             <Link to={REGISTER}>
             <div className="tracking-wide uppercase p-2 lg:p-3  px-3 lg:px-4 text-sm text-white bg-green-600 rounded-md border border-green-600 md:border-green-600">get started for free</div>
             </Link>
+             }
             <a href="https://wa.me/+918714398351" className="tracking-wide uppercase p-2 lg:p-3  px-3 lg:px-4 text-sm text-green-600 bg-tranparent border border-green-600 rounded-md">join our community</a>
           </div>
-        }
       </div>
       <div className='md:hidden z-20 lg:pt-16 w-full flex items-center overflow-hidden overflow-x-visible h-auto py-2 px-3 space-x-5 justify-between'>
         {items.map((item,index)=>(

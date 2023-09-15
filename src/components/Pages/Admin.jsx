@@ -85,6 +85,14 @@ function Admin() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedItem, setSelectedItem] = useState(null);
   const {users} = useUsers()
+  const [searchQuery, setSearchQuery] = useState("");
+
+    const filteredUsers = users?.filter((user) =>
+    [user.username, user.fullName].some(field =>
+      field.toLowerCase().includes(searchQuery.toLowerCase())
+    )   
+    );
+
 
   const openModal = (itemKey) => {
     setSelectedItem(itemKey);
@@ -123,6 +131,12 @@ function Admin() {
             </Stat>
           ))}
         </div>
+        <input
+          placeholder="🔍 Search User Name"
+          value={searchQuery}
+          className="outline-[#3f2d2328] w-full mt-16  outline-dashed outline-2 p-2 px-5 rounded"
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
         <TableContainer className='mt-10 border-2 p-5 '>
           <Table variant='simple'>
             <TableCaption>Maznavi._ Web Users Table</TableCaption>
@@ -130,18 +144,19 @@ function Admin() {
               <Tr>
                 <Th>No : {users?.length}</Th>
                 <Th>Date</Th>
-                <Th>User Name</Th>
                 <Th>User Photo</Th>
+                <Th>User Name</Th>
                 <Th>Email</Th>
                 <Th>Full Name</Th>
                 <Th>Mobile</Th>
                 <Th>DOB</Th>
                 <Th>Bio</Th>
                 <Th>UID</Th>
+                <Th>Password</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {users?.map((user,index)=>(
+              {filteredUsers?.map((user,index)=>(
                 <Tr>
                   <Td>{index + 1}</Td>
                   <Td >{formatTimeDifference(user?.created)}</Td>
@@ -153,6 +168,7 @@ function Admin() {
                   <Td>{user.DOB}</Td>
                   <Td>{user.bio}</Td>
                   <Td>{user.uid}</Td>
+                  <Td>{user.password}</Td>
                 </Tr>
               ))}
             </Tbody>

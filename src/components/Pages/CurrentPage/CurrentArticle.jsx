@@ -85,11 +85,8 @@ export default function CurrentArticle() {
     <>
       <Navbar />
       <motion.div className='w-full min-h-screen' layout>
-      {!Loading && (
+      {!Loading  ? <div className='w-full h-full bg-gray-100 animate-pulse rounded-3xl'></div> : (
           <div className="w-full h-full p-7  text-[#3f2d23] lg:px-10 py-16 lg:py-20 xl:px-32">
-          {/* <Box mb={4}>
-              <Breadcrumbs one={'Articles'} oneTo={'/Articles'} currentPage={CurrentArticle.title} />
-          </Box> */}
           <div className="flex flex-col w-full h-full gap-5 lg:flex-row lg:gap-5 xl:gap-10">
             <div className='h-full w-full lg:w-[70%]'>
                 <div className="flex flex-col items-start w-full h-auto gap-3 rounded-xl">

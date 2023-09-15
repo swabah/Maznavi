@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useDisclosure } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react"; 
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Pages/Home";
@@ -14,8 +13,7 @@ import CurrentPoem from "./components/Pages/CurrentPage/CurrentPoem";
 import CurrentArticle from "./components/Pages/CurrentPage/CurrentArticle";
 import CurrentTopic from "./components/Pages/CurrentPage/CurrentTopic";
 import Blogs from "./components/Pages/Blogs";
-import MainLoader from "./assets/MainLoader";
-import Donate from "./assets/Donate";
+import MainLoader from "./assets/MainLoader"; 
 import CurrentProfile from "./components/Pages/CurrentPage/CurrentProfile";
 import WhatsNew from "./components/Pages/WhatsNew";
 
@@ -32,16 +30,12 @@ export const WHATSNEW = "/WhatsNew";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
-    setTimeout(() => {
-      onOpen()
-    }, 10000);
-  }, [onOpen,setTimeout]);
+    }, 3000); 
+  }, []);
 
   return (
     <>
@@ -86,7 +80,6 @@ const { isOpen, onOpen, onClose } = useDisclosure();
               <Route path={ADMIN} element={<Admin/>} />
         </Routes>
     </Router>
-    <Donate isOpen={isOpen} onClose={onClose}/>
     </> 
     }
     </>

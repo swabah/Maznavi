@@ -16,7 +16,7 @@ function SinglePoem({ Poem,Loading,key }) {
       >
         <div className="w-full text-start justify-start flex flex-col h-full grid-item">
           <div className="mb-2 ">
-            <Link to={`/${Poem?.author}`} >
+            <Link onClick={() => { window.scrollTo({top: 0, left: 0, behavior: 'smooth'});}} to={`/${Poem?.author}`} >
              <p className="text-sm text-[#462e21] ">{Poem?.author}</p>
             </Link>
             <p className="text-xs text-[#3f2d23] ">{formatTime(Poem?.created)}</p>

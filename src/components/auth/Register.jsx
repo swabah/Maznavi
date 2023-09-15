@@ -11,8 +11,7 @@ import { isUsernameExists } from "../../utils/isCheck";
 export default function Register() {
   const [userName, setUserName] = useState("");
   const [fullName, setFullName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [InstagramLink, setInstagramLink] = useState("");
+  const [userEmail, setUserEmail] = useState(""); 
   const [DOB, setDOB] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [userBio, setUserBio] = useState("");
@@ -60,8 +59,7 @@ export default function Register() {
               bio: userBio,
               mobNumber: userMobNumber,
               userPhoto: result.user?.photoURL,
-              DOB:DOB,
-              InstagramLink: InstagramLink,
+              DOB:DOB, 
               LastLogin: "",
               created: new Date(),
             });
@@ -136,14 +134,7 @@ export default function Register() {
             required
             onChange={(e) => setUserBio(e.target.value)}
             className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
-          />
-          <input
-            type="url"
-            placeholder="Enter Instagram LInk"
-            value={InstagramLink}
-            onChange={(e) => setInstagramLink(e.target.value)}
-            className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"
-          />
+          /> 
           <button
             type="submit"
             className={`text-sm md:text-base ring-[#3f2d23da] my-8 text-[#3f2d23da] bg-transparent ring-1 rounded-3xl py-2 px-4 ${

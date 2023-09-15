@@ -43,7 +43,7 @@ export default function Articles() {
                     {!searchQuery &&
                     <>
                         <div className='relative  w-full  h-72 md:h-96 lg:h-[90vh]'>
-                            {!isArticleLoading ? (
+                            {isArticleLoading ? (
                                 <div className="w-full h-full rounded-3xl animate-pulse bg-gray-100"></div>
                             ) : (
                                 Articles?.slice(0,1).map(Article => (
