@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import { uuidv4 } from "@firebase/util";
-import {  arrayRemove, arrayUnion, collection, deleteDoc, doc, orderBy, query, setDoc, updateDoc, where } from "firebase/firestore";
-import { useState } from "react";
+import {  arrayRemove, arrayUnion, collection, deleteDoc, doc, getDocs, orderBy, query, setDoc, updateDoc, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { db } from "../lib/firebase";
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
@@ -17,7 +17,7 @@ export function useAddQuote() {
         await setDoc(doc(db, "quotes", id), {
             ...Quote,
             id,
-            date: Date.now(),
+            created:new Date(),
             likes: [],
         });
         toast({
@@ -57,6 +57,12 @@ export function useStories(uid = null) {
     if (isError) throw isError;
     return { stories, isStoryLoading ,isError};
 }
+export function useWhatsNew( ) {
+    const q =  query(collection(db, "whatsnew"), orderBy("created", "desc"));
+    const [whatsNew, iswhatsNewLoading, isError] = useCollectionData(q);
+    if (isError) throw isError;
+    return { whatsNew, iswhatsNewLoading ,isError};
+}
 export function useArticles(uid = null) {
     const q = uid
       ? query(
@@ -76,7 +82,7 @@ export function useQuotes(uid = null) {
           orderBy('date', 'desc'),
           where('uid', '==', uid)
         )
-      : query(collection(db, 'quotes'), orderBy('date', 'desc'));
+      : query(collection(db, 'quotes'), orderBy('created', 'desc'));
     const [quotes, isLoading, error] = useCollectionData(q);
     const transformedQuotes = quotes ? quotes.map(quotes => ({
         id: quotes.id,
@@ -88,50 +94,34 @@ export function useQuotes(uid = null) {
       if (error) throw error;
       return { quotes: transformedQuotes, isLoading };
   }
-export function usePoems(uid = null) {
-    const q = uid
-      ? query(
-          collection(db, 'Poems'),
-          orderBy('created', 'desc'),
-          where('uid', '==', uid)
-        )
-      : query(collection(db, 'Poems'), orderBy('created', 'desc'));
-    const [Poems, isPoemLoading, error] = useCollectionData(q);
-    const transformedPoems = Poems ? Poems.map(Poem => ({
-        uid: Poem.uid,
-        author: Poem.author,
-        poemTitle: Poem.poemTitle,
-        poemDesc: Poem.poemDesc,
-        PhotoUrl : Poem.PhotoUrl,
-        created: Poem.created,
-        // ... include other properties if needed
-      })) : [];
-    
-      if (error) throw error;
-      return { Poems: transformedPoems, isPoemLoading };
+export function usePoems() {
+    const [Poems, setPoems] = useState([]);
+    const [isPoemLoading, setIsPoemLoading] = useState(true);
+    const [error, setError] = useState(null);
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const q = query(collection(db, 'Poems'), orderBy('created', 'desc'));
+          const querySnapshot = await getDocs(q);
+          const poemsData = querySnapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+          setPoems(poemsData);
+          setIsPoemLoading(false);
+        } catch (err) {
+          setError(err);
+          setIsPoemLoading(false);
+        }
+      };
+  
+      fetchData();
+    }, []);
+  
+    return { Poems, isPoemLoading, error };
   }
-export function usePoemsDemo(uid = null) {
-    const q = uid
-      ? query(
-          collection(db, 'PoemsDemo'),
-          orderBy('created', 'desc'),
-          where('uid', '==', uid)
-        )
-      : query(collection(db, 'PoemsDemo'), orderBy('created', 'desc'));
-    const [PoemsDemo, isPoemLoading, error] = useCollectionData(q);
-    const transformedPoemsDemo = PoemsDemo ? PoemsDemo.map(Poem => ({
-        uid: Poem.uid,
-        author: Poem.author,
-        poemTitle: Poem.poemTitle,
-        poemDesc: Poem.poemDesc,
-        PhotoUrl : Poem.PhotoUrl,
-        created: Poem.created,
-        // ... include other properties if needed
-      })) : [];
-    
-      if (error) throw error;
-      return { PoemsDemo: transformedPoemsDemo, isPoemLoading };
-  }
+  
 
 
 export function useBlogToggleLike({ id, isLiked, uid }) {

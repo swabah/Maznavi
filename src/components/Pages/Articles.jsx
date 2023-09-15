@@ -42,9 +42,9 @@ export default function Articles() {
                     />
                     {!searchQuery &&
                     <>
-                        <div className='relative  w-full bg-gray-100 h-72 md:h-96 lg:h-[90vh]'>
-                            {isArticleLoading ? (
-                                <PostsDemo h='h-72 md:h-96 lg:h-[90vh]' count={1} />
+                        <div className='relative  w-full  h-72 md:h-96 lg:h-[90vh]'>
+                            {!isArticleLoading ? (
+                                <div className="w-full h-full rounded-3xl animate-pulse bg-gray-100"></div>
                             ) : (
                                 Articles?.slice(0,1).map(Article => (
                                     <>

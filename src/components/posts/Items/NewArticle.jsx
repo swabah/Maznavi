@@ -18,6 +18,7 @@ import { doc, setDoc } from 'firebase/firestore'; // Import setDoc
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { db, storage } from '../../../lib/firebase';
 import { useAuth } from '../../../hooks/auths';
+import { isWriter_nameExists } from '../../../utils/isCheck';
 
 function NewArticle() {
   const [loading, setLoading] = useState(false);
@@ -57,36 +58,48 @@ function NewArticle() {
       await uploadBytes(imageRef, selectedImage);
       const imageUrl = await getDownloadURL(imageRef);
 
-      const date = new Date();
+      const Writer_nameExists = isWriter_nameExists()
 
-      await setDoc(doc(db, "Articles", id), {  // Using setDoc correctly
-        uid: user.id,
-        id,
-        imageUrl,
-        created: new Date(),
-        content: data.content,
-        title: data.title,
-        socialLinks: {
-          instagram: data.instagram || ''
-        },
-        writer : {
-          writer_name :data.writer_name ,
-          writer_link :data.writer_link ,
-        },
-        likes: [],
-      });
+      if (Writer_nameExists) {
+        toast({
+          title: "Username already exists",
+          status: "error",
+          isClosable: true,
+          position: "top",
+          duration: 5000,
+        });
+        setLoading(false);
+      }else{
+        await setDoc(doc(db, "Articles", id), {  // Using setDoc correctly
+          uid: user.id,
+          id,
+          imageUrl,
+          created: new Date(),
+          content: data.content,
+          title: data.title,
+          socialLinks: {
+            instagram: data.instagram || ''
+          },
+          writer : {
+            writer_name :data.writer_name ,
+            writer_link :data.writer_link ,
+          },
+          likes: [],
+        });
+  
+        setSelectedImage(null);
+        reset();
+        toast({
+          title: 'Article added successfully!',
+          status: 'success',
+          isClosable: true,
+          position: 'top',
+          duration: 5000,
+        });
+        setLoading(false);
+      }
 
-      setSelectedImage(null);
-      reset();
-      toast({
-        title: 'Article added successfully!',
-        status: 'success',
-        isClosable: true,
-        position: 'top',
-        duration: 5000,
-      });
 
-      setLoading(false);
     } catch (error) {
       console.error('Error adding Article:', error);
       toast({

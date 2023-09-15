@@ -85,9 +85,7 @@ export default function CurrentArticle() {
     <>
       <Navbar />
       <motion.div className='w-full min-h-screen' layout>
-      {Loading ? (
-         <PostsDemo h="h-full" count={1} />
-        ) : (
+      {!Loading && (
           <div className="w-full h-full p-7  text-[#3f2d23] lg:px-10 py-16 lg:py-20 xl:px-32">
           {/* <Box mb={4}>
               <Breadcrumbs one={'Articles'} oneTo={'/Articles'} currentPage={CurrentArticle.title} />
@@ -99,6 +97,10 @@ export default function CurrentArticle() {
                       <h2 className="font-medium uppercase md:text-lg ">{CurrentArticle.topic}</h2>
                       </Link>
                     <h2 className="mt-1 text-3xl font-medium md:text-4xl xl:text-5xl">{CurrentArticle.title}</h2>                  
+                   {/* <div className='  md:text-lg z-20 w-auto h-auto text-[#000] flex items-center gap-2 py-2 md:py-3'>
+                      <AiOutlineRead/>
+                      <h2 className='font-sans text-sm font-extralight'>{readtime}</h2>
+                    </div>*/}
                     <div className='flex items-center justify-between w-full pt-7'>
                       <div className='md:w-1/2 flex items-center gap-1.5 md:gap-5' textDecoration="none" _hover={{ textDecoration: "none" }}>
                         <div className='w-8 h-8 bg-black md:w-12 rounded-3xl md:h-12'></div>

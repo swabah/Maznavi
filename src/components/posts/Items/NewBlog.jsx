@@ -40,7 +40,7 @@ function NewBlog() {
     const BlogImgUrl = await getDownloadURL(BlogImgRef);
 
       await setDoc(doc(db, "blogs", id), {
-        uid: user.id,
+        uid: user.uid,
         id,
         BlogImgUrl: BlogImgUrl,
         created:new Date(),

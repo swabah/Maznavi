@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../lib/firebase';
 import { useToast } from '@chakra-ui/react';
-import { isUsernameExists } from '../../../utils/isCheck';
 
 function UpdateProfile({ user }) {
   const toast = useToast()
@@ -28,20 +27,9 @@ function UpdateProfile({ user }) {
     e.preventDefault();
     setIsLoading(true);
 
-    const userNameExists = await isUsernameExists(formData.username);
 
     const userRef = doc(db, 'users', user?.uid);
 
-    if (userNameExists) {
-      toast({
-        title: "Username already exists",
-        status: "error",
-        isClosable: true,
-        position: "top",
-        duration: 5000,
-      });
-      setIsLoading(false);
-    }else{
         try {
           await updateDoc(userRef, formData);
           setIsLoading(false);
@@ -62,7 +50,6 @@ function UpdateProfile({ user }) {
           });
           setIsLoading(false);
         }
-    }
   };
 
   return (

@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link as routerLink, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { db } from "../../../lib/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { AiFillCopy, AiOutlineShareAlt } from "react-icons/ai";
 import Navbar from "../../layout/Navbar";
 import MazButton from "../../../assets/MazButton";
 import Footer from "../../layout/Footer";
-import { Box, Divider, Link, useToast } from "@chakra-ui/react";
+import { Box, Divider, useToast } from "@chakra-ui/react";
 import { usePoems } from "../../../hooks/posts";
 import Breadcrumbs from "../../../assets/Breadcrumbs";
 import { FaQuoteLeft } from "react-icons/fa";
-import PostsDemo from "../../Demo/PostsDemo";
 import { motion } from "framer-motion";
 import { PiWhatsappLogoLight } from "react-icons/pi";
 
@@ -89,7 +88,6 @@ export default function CurrentPoem() {
                 </div>
                 <h2 className="text-4xl font-medium pt-3">{currentPoem.poemTitle}</h2>
                 <Link
-                  as={routerLink}
                   to={`/${currentPoem?.author}`}
                   onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
                   key={currentPoem?.id}
@@ -120,8 +118,7 @@ export default function CurrentPoem() {
                   <div className="space-y-4">
                     {Poems.slice(0, 5).map((Poem) => (
                       <Link
-                        as={routerLink}
-                        to={`/Poems/id/${Poem?.uid}`}
+                        to={`/Poems/id/${Poem?.id}`}
                         onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
                         key={Poem?.id}
                       >

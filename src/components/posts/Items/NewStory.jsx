@@ -32,12 +32,9 @@ function NewStory() {
       await uploadBytes(fileRef, selectedFile);
       const fileUrl = await getDownloadURL(fileRef);
 
-      const date = new Date();
-      const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-      const formattedTime = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-
+     
       await setDoc(doc(db, "stories", id), {
-        uid: user.id,
+        uid: user.uid,
         id,
         FileUrl: fileUrl, 
         created:new Date(),

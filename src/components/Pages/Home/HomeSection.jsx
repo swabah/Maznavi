@@ -1,20 +1,12 @@
 import React from "react";
-import { AUTHORS, ARTICLES,BLOGS, POEMS, STORIES, REGISTER } from "../../../App";
+import {  ARTICLES, POEMS, REGISTER } from "../../../App";
 import { Link } from "react-router-dom";
 import {Typewriter} from 'react-simple-typewriter'
+import { useAuth } from "../../../hooks/auths";
 
 export default function HomeSection() {
-  const items = [
-    {
-      img : 'https://img.freepik.com/free-photo/female-tourists-spread-their-arms-held-their-wings_1150-7462.jpg?w=1060&t=st=1692131149~exp=1692131749~hmac=614aeccc6a23b5d2df231149e30aece044db9f4b4fed8e81902bdd735f8721b0',
-      Which : 'Blogs',
-      url : BLOGS
-    },
-    {
-      img : 'https://img.freepik.com/free-photo/creative-reels-composition_23-2149711507.jpg?w=1060&t=st=1692130595~exp=1692131195~hmac=8d08e95504f8b6d3393f331d747dec93cb89e45916a14bc7923c290a2f6c1060',
-      Which : 'Stories',
-      url : STORIES
-    },
+  const {user} = useAuth()
+  const items = [ 
     {
       img : 'https://img.freepik.com/free-photo/social-media-concept-composition_23-2150169158.jpg?w=900&t=st=1692130930~exp=1692131530~hmac=15e420d0237a2cd32e330e9e5b5e0f788cd916f2223ff52f470485a9826ca336',
       Which : 'Poems',
@@ -24,12 +16,7 @@ export default function HomeSection() {
       img : 'https://img.freepik.com/free-photo/worker-reading-news-with-tablet_1162-83.jpg?w=1060&t=st=1692131217~exp=1692131817~hmac=f896bfc6dc4ce39a982f3c0fbb0dfbed8291d40b14b9135991f211e154d1ddc8',
       Which : 'Articles',
       url: ARTICLES
-    },
-    {
-      img : 'https://img.freepik.com/free-photo/writer-work-handsome-young-writer-sitting-table-writing-something-his-sketchpad-home_155003-16691.jpg?w=1060&t=st=1692131002~exp=1692131602~hmac=9e82258cd3a1d373d999ed46f17592e9d1936833541fbe98d84c70c63cc8f14e',
-      Which : 'Authors',
-      url:AUTHORS
-    },
+    }, 
   ]
   return (
     <div className='w-full relative  text-[#3f2d23] min-h-screen h-full flex flex-col items-center justify-start text-center gap-10   p-7 lg:px-10  md:py-12 xl:py-6 xl:px-32'>
@@ -48,14 +35,16 @@ export default function HomeSection() {
             />
           </p>
         </div>
-        <div className="flex items-center flex-col justify-between md:flex-row gap-3 md:gap-4 mt-5">
-          <Link to={REGISTER}>
-          <div className="tracking-wide uppercase p-1 lg:p-3  px-2 lg:px-4 text-xs lg:text-sm text-white bg-green-600 rounded-md border-2 border-green-600 md:border-green-600">get started for free</div>
-          </Link>
-          <a href="https://wa.me/+918714398351" className="tracking-wide uppercase p-1 lg:p-3  px-2 lg:px-4 text-xs lg:text-sm text-green-600 bg-tranparent border md:border-2 border-green-600 rounded-md">join our community</a>
-        </div>
+        {!user && 
+          <div className="flex items-center flex-col justify-between md:flex-row gap-3 md:gap-4 mt-5">
+            <Link to={REGISTER}>
+            <div className="tracking-wide uppercase p-2 lg:p-3  px-3 lg:px-4 text-sm text-white bg-green-600 rounded-md border border-green-600 md:border-green-600">get started for free</div>
+            </Link>
+            <a href="https://wa.me/+918714398351" className="tracking-wide uppercase p-2 lg:p-3  px-3 lg:px-4 text-sm text-green-600 bg-tranparent border border-green-600 rounded-md">join our community</a>
+          </div>
+        }
       </div>
-      {/*<div className='z-20 lg:pt-16 w-full flex items-center overflow-hidden overflow-x-visible h-auto py-2 px-3 space-x-5 justify-between'>
+      <div className='md:hidden z-20 lg:pt-16 w-full flex items-center overflow-hidden overflow-x-visible h-auto py-2 px-3 space-x-5 justify-between'>
         {items.map((item,index)=>(
           <Link to={item.url}>
             <div key={index} className="w-full h-full hover:text-green-600 text-[#3f2d23] flex flex-col items-center gap-3 md:gap-5">
@@ -66,7 +55,7 @@ export default function HomeSection() {
             </div>
           </Link>
         ))}
-      </div>*/}
+      </div>
     </div>
   );
 }

@@ -13,7 +13,9 @@ function ViewProfile({user}) {
               {user?.InstagramLink && (<a className='text-2xl lg:text-3xl' href={user?.InstagramLink}>  <FaInstagram  /></a>)}
             </div>
             <p className='text-sm md:text-base capitalize font-semibold'>{user?.fullName}</p>
-            <p className='text-sm md:text-base capitalize font-medium'>DOB : {user?.DOB}</p>
+            {user?.DOB && (
+              <p className='text-sm md:text-base capitalize font-medium'>DOB : {user?.DOB}</p>
+            )}
             <p className='w-full text-sm md:text-base  whitespace-pre-line '>{user?.bio}</p>
         </div>
     </div>

@@ -37,6 +37,8 @@ import NewQuote from '../posts/Items/NewQuote';
 import NewBlog from '../posts/Items/NewBlog';
 import { useUsers } from '../../hooks/auths';
 import formatTimeDifference from '../../assets/formatTime' 
+import { Link } from 'react-router-dom';
+import NewWhatsNew from '../posts/Items/NewWhatsNew';
 
 const adminItems = [
   { key: 'story', label: 'New Story', component: <NewStory/> },
@@ -44,6 +46,7 @@ const adminItems = [
   { key: 'Article', label: 'New Article', component: <NewArticle/> },
   { key: 'quote', label: 'New Quote', component: <NewQuote/> },
   { key: 'blog', label: 'New Blog', component: <NewBlog/> },
+  { key: 'WhatsNew', label: "What's New", component: <NewWhatsNew/> },
 ];
 
 const stats = [
@@ -143,7 +146,7 @@ function Admin() {
                   <Td>{index + 1}</Td>
                   <Td >{formatTimeDifference(user?.created)}</Td>
                   <Td><img className='w-10 h-10' src={user?.userPhoto}/></Td>
-                  <Td>{user.username}</Td>
+                  <Td> <Link onClick={() => { window.scrollTo({top: 0, left: 0, behavior: 'smooth'});}} to={`/${user.username}`}>{user.username}</Link></Td>
                   <Td>{user.email}</Td>
                   <Td>{user.fullName}</Td>
                   <Td>{user.mobNumber}</Td>

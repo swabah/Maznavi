@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
-  Link,
   useDisclosure,
   AlertDialog,
   AlertDialogBody,
@@ -23,15 +22,16 @@ import {
   MenuGroup,
   MenuDivider,
 } from "@chakra-ui/react";
-import { CiMenuKebab } from "react-icons/ci";
 import LogoSecondary from "../../assets/Images/Logo_secendary.png";
 import LogoThird from "../../assets/Images/Logo_third.png";
 import { useAuth } from "../../hooks/auths";
-import { HOME, STORIES, ARTICLES, LOGIN, AUTHORS, POEMS, BLOGS, ADMIN } from "../../App";
+import { HOME, STORIES, ARTICLES, LOGIN, AUTHORS, POEMS, BLOGS, ADMIN, WHATSNEW } from "../../App";
 import { signOut } from "firebase/auth";
 import { auth } from "../../lib/firebase";
 import Donate from "../../assets/Donate";
 import { ifUserAdmin } from "../../utils/isCheck";
+import userDemo from '../../assets/Images/user.png'
+import {CiMenuKebab} from 'react-icons/ci'
 
 export default function Navbar() {
   const { user } = useAuth();
@@ -65,12 +65,11 @@ export default function Navbar() {
   }, []);
 
   const links = [
-    { path: HOME, name: "Home" },
     // { path: BLOGS, name: "Blogs" },
     // { path: STORIES, name: "Stories" },
+    { path: HOME, name: "Home" },
     { path: POEMS, name: "Poems" },
-    { path: ARTICLES, name: "Articles"},
-    { path: AUTHORS, name: "Authors" },
+    { path: ARTICLES, name: "Articles"}
   ];
 
   if (!user) {
@@ -81,59 +80,30 @@ export default function Navbar() {
 
   const renderLinks = () => {
     return links.map((link, index) => (
-      <RouterLink to={link?.path} className="decoration-none" key={index}>
-        <li
-          className={`text-lg tracking-wide cursor-pointer ${
-            location.pathname === "/"
-              ? "hover:text-green-600"
-              : "hover:text-[#ffffffa5]"
-          } transition font-normal drop-shadow-sm capitalize`}
-          onClick={() =>
-            window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
-          }
-        >
+      <Link to={link?.path} className="hidden lg:flex decoration-none" key={index}>
+        <li className={`text-lg tracking-wide cursor-pointer ${ location.pathname === "/" ? "hover:text-green-600" : "hover:text-[#ffffffa5]" } transition font-normal drop-shadow-sm capitalize`} onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) } >
           {link.name}
         </li>
-      </RouterLink>
+      </Link>
     ));
   };
 
   return (
-    <header
-      className={`w-full z-50 text-[#3f2d23] ${fix? "bg-white shadow-md": `${location.pathname === "/"? "fixed left-0 top-0 bg-transparent" : "bg-[#3f2d23] text-[#fff]"} `} ${location.pathname === "/" ? "fixed left-0 top-0" : ""} py-1 md:h-20 lg:h-24 p-3 px-7 lg:px-10 md:py-10 xl:px-32 flex items-center justify-between`}>
-      <Link as={RouterLink} to={HOME}>
-        <img
-          src={location.pathname === "/" ? LogoThird : LogoSecondary}
-          className="w-[4.5rem] md:w-20"
-          alt="MAZNAVI._"
-        />
-      </Link>
-      <nav className="flex space-x-6 items-center justify-center">
-        <ul className="items-center hidden w-full h-auto space-x-6 lg:flex">
+    <header className={`w-full z-50 text-[#3f2d23] ${fix? "bg-white shadow-md": `${location.pathname === "/"? "fixed left-0 top-0 bg-transparent" : "bg-[#3f2d23] text-[#fff]"} `} ${location.pathname === "/" ? "fixed left-0 top-0" : ""}  md:h-20 lg:h-24 py-3 px-7 lg:px-10 md:py-10 xl:px-32 flex items-center justify-between`}>
+    <Link as={Link} to={HOME}>
+      <img
+        src={location.pathname === "/" ? LogoThird : LogoSecondary}
+        className=" h-12 w-12 lg:w-20 lg:h-20"
+        alt="MAZNAVI._"
+      />
+    </Link>
+    <nav className="flex gap-2 lg:gap-6 items-center justify-center">
+        <ul className="items-center flex w-full h-auto space-x-6">
           {renderLinks()}
-          {/*{user && <MenuDropdown openAlert={openAlert} user={user} />}*/}
-          {user && (
-              <h2  className={`text-lg tracking-wide cursor-pointer ${
-                location.pathname === "/"
-                  ? "hover:text-green-600"
-                  : "hover:text-[#ffffffa5]"
-              } transition font-normal drop-shadow-sm capitalize`} onClick={openAlert} >Logout</h2>
-            )}
+          {user && <MenuDropdown links={links} openAlert={openAlert} user={user} />}
         </ul>
         <div className="flex lg:hidden">
-          <button
-            type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-            onClick={openDrawer}
-          >
-            <span className="sr-only">Open main menu</span>
-            <CiMenuKebab
-              className={`h-6 w-6 ${
-                location.pathname === "/" ? "text-[#3f2d23]" : "text-[#fff]"
-              }`}
-              aria-hidden="true"
-            />
-          </button>
+           <CiMenuKebab onClick={openDrawer} className={`text-2xl ${ location.pathname === "/" ? "text-[#3f2d23]" : "text-[#fff]" }`} aria-hidden="true" />
         </div>
       </nav>
       <LogoutAlertDialog isOpen={isAlertOpen} onClose={closeAlert} logout={handleLogout} />
@@ -177,13 +147,13 @@ function MobileDrawer({ isOpen, onClose, links, user, isAdmin,openAlert }) {
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton m={2} fontSize={"lg"} className="text-[#3f2d23]" />
-        <img src={LogoThird} className="w-[4.5rem] md:w-20 ml-4" alt="" />
+        <img src={LogoThird} className=" h-12 w-12 lg:w-20 lg:h-20 mt-2 ml-4" alt="" />
         <DrawerBody>
           <ul className="flex flex-col w-full h-full space-y-3">
             {links.map((link, index) => (
-              <RouterLink to={link?.path} className="decoration-none" key={index}>
+              <Link to={link?.path} className="decoration-none" key={index}>
                 <li className={`text-lg tracking-wide cursor-pointer text-[#3f2d23] active:text-[#3f2d239a] transition font-normal drop-shadow-sm capitalize`}>{link.name}</li>
-              </RouterLink>
+              </Link>
             ))}
             {user && (
                 <h2  className="text-[#3f2d23] w-full text-lg" onClick={openAlert} >Logout</h2>
@@ -205,24 +175,36 @@ function MenuDropdown({ user , openAlert}) {
   const navigate = useNavigate();
   const location = useLocation();
 
+
   return (
     <Menu>
       <MenuButton>
         {user?.userPhoto ? (
           <img
             src={user?.userPhoto}
-            className={`w-12 p-1 h-12 object-cover ${location.pathname === "/" ? 'bg-transparent':'bg-white '} rounded-full`}
+            className={` h-10 w-10 lg:w-12 lg:h-12 p-1 object-cover ${location.pathname === "/" ? 'bg-transparent':'bg-white '} rounded-full`}
             alt=""
           />
         ) : (
-          <div className={` ${location.pathname === "/" ? 'bg-[#3f2d23dc]' : 'bg-[#fff]'} w-10 h-10  rounded-full`}></div>
+          <img className='h-10 w-10 lg:w-12 lg:h-12  object-cover p-1 rounded-full' src={userDemo} alt='Current User Profile Picture' />
         )}
       </MenuButton>
       <MenuList>
         <MenuGroup>
-            {isAdmin && 
+            {user && 
               <MenuItem>
-                <h2  className="text-[#3f2d23] w-full text-lg " onClick={() => navigate(`/${user.username}`)}> {user.username}'s Profile  </h2>
+                <div className='w-full flex items-center justify-start gap-3 '>
+                  {user?.userPhoto ? (
+                    <img
+                      src={user?.userPhoto}
+                      className={` h-6 w-6 lg:w-7 lg:h-7 object-cover ${location.pathname === "/" ? 'bg-transparent':'bg-white '} rounded-full`}
+                      alt=""
+                    />
+                  ) : (
+                    <img className=' h-6 w-6 lg:w-7 lg:h-7 object-cover   rounded-full' src={userDemo} alt='Current User Profile Picture' />
+                  )}
+                 <h2  className="text-[#3f2d23] text-lg " onClick={() => navigate(`/${user.username}`)}>  Profile  </h2>
+                </div>
               </MenuItem>
             }
             {isAdmin && (
@@ -231,8 +213,13 @@ function MenuDropdown({ user , openAlert}) {
             </MenuItem>
             )}
             {user && (
+            <MenuItem> 
+             <h2  className="text-[#3f2d23] w-full text-lg" onClick={() => navigate(WHATSNEW)} > What's New</h2>
+            </MenuItem>
+            )}
+            {user && (
             <MenuItem>
-              <h2  className="text-[#3f2d23] w-full text-lg" onClick={openAlert} >Logout</h2>
+                <h2  className="text-[#3f2d23] w-full text-lg" onClick={openAlert} >Logout</h2>
             </MenuItem>
             )}
             <MenuDivider/>

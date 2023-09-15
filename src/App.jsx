@@ -17,6 +17,7 @@ import Blogs from "./components/Pages/Blogs";
 import MainLoader from "./assets/MainLoader";
 import Donate from "./assets/Donate";
 import CurrentProfile from "./components/Pages/CurrentPage/CurrentProfile";
+import WhatsNew from "./components/Pages/WhatsNew";
 
 export const HOME = "/";
 export const LOGIN = "/login";
@@ -27,6 +28,7 @@ export const POEMS = "/Poems";
 export const STORIES = "/stories";
 export const BLOGS = "/Blogs";
 export const ARTICLES = "/Articles";
+export const WHATSNEW = "/WhatsNew";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -58,6 +60,9 @@ const { isOpen, onOpen, onClose } = useDisclosure();
 
               {/* Authors */}
               <Route  path={AUTHORS} element={<Authors/>} />
+
+              {/* WHATSNEW */}
+              <Route  path={WHATSNEW} element={<WhatsNew/>} />
 
               {/* Poems */}
               <Route  path={POEMS} element={<Poems/>} />

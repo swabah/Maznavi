@@ -14,13 +14,13 @@ import { FiTrendingUp } from "react-icons/fi";
           <p className='text-base md:text-lg lg:text-2xl uppercase bg-[#3f2d23] -skew-x-12 text-white font-medium gap-3 w-auto text-center md:text-start flex items-center p-1 px-3 tracking-wider '><FiTrendingUp />Trending</p>
           <div className="h-[1px] bg-[#3f2d239e] w-full"></div>
         </div>
-            <div
+          <div
                 className='grid grid-cols-1 gap-3 md:gap-6 md:grid-cols-2 lg:grid-cols-4'
             >
                {Poems?.slice(0,4).map((Poem) => (
                   <SinglePoem Loading={isPoemLoading} key={Poem.id} Poem={Poem}/>
                 ))}
-            </div>
+          </div>
       </div>
     );
   }
