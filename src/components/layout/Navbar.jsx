@@ -193,7 +193,7 @@ function MenuDropdown({ user , openAlert}) {
         <MenuGroup>
             {user && 
               <MenuItem>
-                <div className='w-full flex items-center justify-start gap-3 '>
+                <div className='text-[#3f2d23] text-lg w-full flex items-center justify-start gap-3 ' onClick={() => navigate(`/${user.username}`)}>
                   {user?.userPhoto ? (
                     <img
                       src={user?.userPhoto}
@@ -203,7 +203,7 @@ function MenuDropdown({ user , openAlert}) {
                   ) : (
                     <img className=' h-6 w-6 lg:w-7 lg:h-7 object-cover   rounded-full' src={userDemo} alt='Current User Profile Picture' />
                   )}
-                 <h2  className="text-[#3f2d23] text-lg " onClick={() => navigate(`/${user.username}`)}>  Profile  </h2>
+                 <h2 >  Profile  </h2>
                 </div>
               </MenuItem>
             }
