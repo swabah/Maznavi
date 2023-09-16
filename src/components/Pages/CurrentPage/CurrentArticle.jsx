@@ -1,13 +1,22 @@
 import React, {useEffect, useState} from "react";
 import {
+  Button,
   Divider,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import {motion} from "framer-motion";
 import { Link, useLocation, useParams} from "react-router-dom";
 import {db} from "../../../lib/firebase";
 import {doc, onSnapshot} from "firebase/firestore";
-import {AiFillCopy,  AiOutlineRead,  AiOutlineShareAlt} from "react-icons/ai";
+import {AiFillCopy,  AiFillEdit,  AiOutlineRead,  AiOutlineShareAlt} from "react-icons/ai";
 import Navbar from "../../layout/Navbar";
 import MazButton from "../../../assets/MazButton";
 import {FaFacebook, FaInstagram } from "react-icons/fa";
@@ -17,12 +26,19 @@ import { useArticles } from "../../../hooks/posts";
 import { CgPentagonBottomLeft } from "react-icons/cg";
 import { PiWhatsappLogoLight } from "react-icons/pi";
 import formatTime from "../../../assets/formatTime";
+import { useAuth } from "../../../hooks/auths";
+import EditArticle from "../../posts/Items/EditArticle";
+import { ifUserAdmin } from "../../../utils/isCheck";
 
 export default function CurrentArticle() {
+  const {user} =useAuth()
   const {ArticleId} = useParams();
   const { Articles } = useArticles();
   const [CurrentArticle, setCurrentArticle] = useState([]);
   const [Loading, setLoading] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+
   useEffect(() => {
     setLoading(true)
     onSnapshot(doc(db, "Articles", ArticleId), snapshot => {
@@ -57,6 +73,8 @@ export default function CurrentArticle() {
     })
   }
 
+  const isAdmin = ifUserAdmin(user)
+
      const scriptURL = 'https://script.google.com/macros/s/AKfycby5saW9JJ2p8uJ5mcGWhyubFMEPwmhWikMf7jaIa836nVt7YKhmjpHgosbh08-1dtN5/exec';
     const [email, setEmail] = useState('');
     const [subscribed, setSubscribed] = useState(false);
@@ -85,7 +103,7 @@ export default function CurrentArticle() {
     <>
       <Navbar />
       <motion.div className='w-full min-h-screen' layout>
-      {!Loading  ? <div className='w-full h-full bg-gray-100 animate-pulse rounded-3xl'></div> : (
+      {Loading  ? <div className='w-full h-full bg-gray-100 animate-pulse rounded-3xl'></div> : (
           <div className="w-full h-full p-7  text-[#3f2d23] lg:px-10 py-16 lg:py-20 xl:px-32">
           <div className="flex flex-col w-full h-full gap-5 lg:flex-row lg:gap-5 xl:gap-10">
             <div className='h-full w-full lg:w-[70%]'>
@@ -110,6 +128,9 @@ export default function CurrentArticle() {
                       <div className="md:w-1/2 flex items-start text-[#3f2d23] gap-4 rounded-xl ">
                         <MazButton Link={ShareArticleUrl} Icon={<AiOutlineShareAlt className="text-xl md:text-2xl font-thin  text-[#3f2d23]"/>}/>
                         <MazButton Link={copyArticleUrl} Icon={<AiFillCopy className="text-xl md:text-2xl font-thin  text-[#3f2d23] "/>}/>
+                        {isAdmin && 
+                          <MazButton Link={onOpen} Icon={<AiFillEdit className="text-xl md:text-2xl font-thin  text-[#3f2d23] " />} />
+                        }
                       </div>
                       </Link>
                     </div>
@@ -189,6 +210,19 @@ export default function CurrentArticle() {
           </div>
       )}
       </motion.div>
+      <Modal isOpen={isOpen} size={"full"} onClose={onClose}>
+      <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
+      <ModalContent>
+        <ModalHeader><h2 className='text-2xl lg:text-4xl font-normal'>Edit Article</h2></ModalHeader>
+        <ModalCloseButton />
+        <ModalBody py={5}>
+          <EditArticle onClose={onClose} user={CurrentArticle}/>
+        </ModalBody>
+        <ModalFooter>
+          <Button onClick={onClose}>Close</Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
       <Footer/>
     </>
   );

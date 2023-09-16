@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid'; // Update the import
 import { doc,  setDoc } from 'firebase/firestore';
 import { db } from '../../../lib/firebase';
 import { useToast } from '@chakra-ui/react';
-import { isUsernameExists } from '../../../utils/isCheck';
 
 
 
@@ -25,12 +24,11 @@ function NewPoem() {
     setLoading(true);
 
     try {
-        const date = new Date();  
 
       const PoemDocData = {
         uid: user?.uid ,
         id: uuidv4(),
-        created: date,
+        created: new Date(),
         poemTitle: title,
         poemDesc: desc,
         author: username,

@@ -1,35 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { db } from "../../../lib/firebase";
-import { doc, onSnapshot } from "firebase/firestore";
-import { AiFillCopy, AiOutlineShareAlt } from "react-icons/ai";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { AiFillCopy, AiFillEdit, AiOutlineShareAlt } from "react-icons/ai";
 import Navbar from "../../layout/Navbar";
 import MazButton from "../../../assets/MazButton";
 import Footer from "../../layout/Footer";
-import { Box, Divider, useToast } from "@chakra-ui/react";
+import { Box, Button, Divider, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, useToast } from "@chakra-ui/react";
 import { usePoems } from "../../../hooks/posts";
 import Breadcrumbs from "../../../assets/Breadcrumbs";
 import { FaQuoteLeft } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { PiWhatsappLogoLight } from "react-icons/pi";
+import EditPoem from "../../posts/Items/EditPoem";
+import { ifUserAdmin } from "../../../utils/isCheck";
+import { useAuth } from "../../../hooks/auths";
 
 export default function CurrentPoem() {
+  const {user} =useAuth()
   const { PoemId } = useParams();
   const [currentPoem, setCurrentPoem] = useState({});
   const { Poems, isPoemLoading } = usePoems();
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  const fullPath = useLocation();
+  const scriptURL = 'https://script.google.com/macros/s/AKfycby5saW9JJ2p8uJ5mcGWhyubFMEPwmhWikMf7jaIa836nVt7YKhmjpHgosbh08-1dtN5/exec';
 
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(doc(db, "Poems", PoemId), (snapshot) => {
-      setCurrentPoem({ ...snapshot.data(), id: snapshot.id });
-    });
+    const fetchPoem = async () => {
+      try {
+        const snapshot = await getDoc(doc(db, "Poems", PoemId));
+        setCurrentPoem({ ...snapshot.data(), id: snapshot.id });
+      } catch (error) {
+        console.error('Error fetching poem', error);
+      }
+    };
 
-    return () => unsubscribe();
+    fetchPoem();
   }, [PoemId]);
-
-  const fullPath = useLocation();
 
   const copyPoemUrl = () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -49,10 +60,6 @@ export default function CurrentPoem() {
     });
   };
 
-  const scriptURL = 'https://script.google.com/macros/s/AKfycby5saW9JJ2p8uJ5mcGWhyubFMEPwmhWikMf7jaIa836nVt7YKhmjpHgosbh08-1dtN5/exec';
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -71,6 +78,9 @@ export default function CurrentPoem() {
       console.error('Error sending email', error);
     }
   };
+
+  const isAdmin = ifUserAdmin(user)
+
 
   return (
     <>
@@ -100,6 +110,9 @@ export default function CurrentPoem() {
                     <div className="flex items-start gap-4 rounded-xl  ">
                       <MazButton Link={sharePoemUrl} Icon={<AiOutlineShareAlt className="text-xl md:text-2xl font-thin  text-[#3f2d23] " />} />
                       <MazButton Link={copyPoemUrl} Icon={<AiFillCopy className="text-xl md:text-2xl font-thin  text-[#3f2d23] " />} />
+                      {isAdmin && 
+                        <MazButton Link={onOpen} Icon={<AiFillEdit className="text-xl md:text-2xl font-thin  text-[#3f2d23] " />} />
+                      }
                     </div>
                   </Link>
                 </Box>
@@ -166,7 +179,20 @@ export default function CurrentPoem() {
             </div>
           </div>
         </div>
-      </motion.div>
+        </motion.div>
+        <Modal isOpen={isOpen} size={"full"} onClose={onClose}>
+          <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
+          <ModalContent>
+            <ModalHeader><h2 className='text-2xl lg:text-4xl font-normal'>Edit Poem</h2></ModalHeader>
+            <ModalCloseButton />
+            <ModalBody py={5}>
+              <EditPoem onClose={onClose} user={currentPoem}/>
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={onClose}>Close</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       <Footer />
     </>
   );

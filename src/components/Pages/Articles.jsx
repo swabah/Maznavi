@@ -42,7 +42,7 @@ export default function Articles() {
                     />
                     {!searchQuery &&
                     <>
-                        <div className='relative  w-full  h-72 md:h-96 lg:h-[90vh]'>
+                        <div className='relative  w-full  h-96  lg:h-[90vh]'>
                             {isArticleLoading ? (
                                 <div className="w-full h-full rounded-3xl animate-pulse bg-gray-100"></div>
                             ) : (
@@ -68,9 +68,9 @@ export default function Articles() {
                                         to={`/Articles/id/${Article?.id}`}
                                         onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})}
                                         >
-                                            <h2 className="text-xl font-semibold lg:text-3xl hover:underline">{Article.title}</h2>
+                                            <h2 className="text-xl font-semibold lg:text-3xl hover:underline line-clamp-2">{Article.title}</h2>
                                         </Link>
-                                        <p className="text-base leading-tight tracking-wider capitalize lg:text-base line-clamp-2">{Article.content}</p>
+                                        <p className="text-base leading-tight tracking-wider capitalize lg:text-base line-clamp-1">{Article.content}</p>
                                         <div className="flex item-center text-sm lg:text-base mt-2 lg:mt-5 text-[#ffff] gap-3">
                                             <Link onClick={()=>window.scrollTo({top: 0, left: 0, behavior: 'smooth'})} to={`/Articles/${Article?.topic}`}>
                                             <div className="rounded-3xl bg-white hover:bg-opacity-10 uppercase font-medium tracking-wider cursor-pointer bg-opacity-0 border-[0.2px] p-0.5 lg:p-1 px-4 lg:px-6">{Article.topic}</div>
