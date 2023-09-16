@@ -18,7 +18,6 @@ import { doc, setDoc } from 'firebase/firestore'; // Import setDoc
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { db, storage } from '../../../lib/firebase';
 import { useAuth } from '../../../hooks/auths';
-import { isWriter_nameExists } from '../../../utils/isCheck';
 
 function NewArticle() {
   const [loading, setLoading] = useState(false);
@@ -58,18 +57,6 @@ function NewArticle() {
       await uploadBytes(imageRef, selectedImage);
       const imageUrl = await getDownloadURL(imageRef);
 
-      const Writer_nameExists = isWriter_nameExists()
-
-      if (Writer_nameExists) {
-        toast({
-          title: "Username already exists",
-          status: "error",
-          isClosable: true,
-          position: "top",
-          duration: 5000,
-        });
-        setLoading(false);
-      }else{
         await setDoc(doc(db, "Articles", id), {  // Using setDoc correctly
           uid: user.id,
           id,
@@ -97,7 +84,7 @@ function NewArticle() {
           duration: 5000,
         });
         setLoading(false);
-      }
+      
 
 
     } catch (error) {

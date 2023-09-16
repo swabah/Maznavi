@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaInstagram } from 'react-icons/fa'
+import userDemo from '../../../assets/Images/user.png'
 
 function ViewProfile({user}) {
   return (
@@ -7,8 +8,15 @@ function ViewProfile({user}) {
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium">@ {user.username}</h2>
         <div className='w-full flex items-center gap-2 justify-start flex-col '>
             <div className='w-20  h-20 lg:w24 lg:h-24 xl:w-28 xl:h-28 rounded-full p-1 bg-gray-100'>
-             <img className='w-full h-full object-cover rounded-full' src={user.userPhoto} />
-            </div>
+              {user?.userPhoto ? (
+                <img
+                  src={user?.userPhoto}
+                  className={` h-full w-full object-cover  rounded-full`}
+                  alt=""
+                />
+              ) : (
+                <img className=' h-full w-full object-cover   rounded-full' src={userDemo} alt='Current User Profile Picture' />
+              )}            </div>
             <div className='flex gap-2 items-center  py-5 '>
               {user?.InstagramLink && (<a className='text-2xl lg:text-3xl' href={user?.InstagramLink}>  <FaInstagram  /></a>)}
             </div>
