@@ -36,7 +36,7 @@ export default function HomeTwo() {
   return (
     <div style={{ backgroundImage: `url(${jungle})` }} className="relative bg-no-repeat bg-center w-full bg-white text-[#120f08] flex items-center justify-center shadow-sm ">
     <div className="w-full bg-black opacity-50 h-full absolute inset-0"></div>
-    <div className=" z-10  md:h-[90vh] relative w-full text-white  flex text-center items-center justify-center py-16 md:py-12 lg:px-10 xl:px-32">
+    <div className=" z-10  lg:h-[90vh] relative w-full text-white  flex text-center items-center justify-center py-16 md:py-12 lg:px-10 xl:px-32">
     {isLoading ? <div className="w-full  h-[60vh] rounded-3xl animate-pulse bg-[#ffffff4d]"></div> : <>
       <div className="w-full rounded-t-md  h-full flex flex-row items-center p-3 md:p-8 lg:px-10 justify-center md:justify-between">
           <button

@@ -10,6 +10,7 @@ import HomeSix from "./Home/HomeSix";
 export default function Home() {
   return (
     <div>
+     
       <Navbar/>
        <HomeSection />
        {/*<HomeOne/>*/}

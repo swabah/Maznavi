@@ -84,6 +84,7 @@ export default function Register() {
             type="text"
             placeholder="Enter User Name"
             value={userName}
+            pattern="[a-zA-Z0-9_.]{4,30}$"
             required
             onChange={(e) => setUserName(e.target.value)}
             className="w-full text-sm md:text-base font-thin outline-none ring-black ring-1 rounded-3xl py-2 px-4"

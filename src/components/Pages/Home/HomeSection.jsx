@@ -19,7 +19,7 @@ export default function HomeSection() {
     }, 
   ]
   return (
-    <div className='w-full relative  text-[#3f2d23] min-h-screen h-full flex flex-col items-center justify-start text-center gap-10   p-7 lg:px-10  md:py-12 xl:py-6 xl:px-32'>
+    <div   className='w-full bg-no-repeat relative  text-[#3f2d23] min-h-auto lg:min-h-screen h-full flex flex-col items-center justify-start text-center gap-10   p-7 lg:px-10  md:py-12 xl:py-6 xl:px-32'>
       <div className="h-full flex flex-col items-center justify-start text-center w-full gap-3 md:gap-4 pt-24 md:pt-32 xl:pt-44">
         <h2 className='md:w-11/12 lg:w-9/12 text-5xl lg:text-6xl xl:text-7xl font-medium '>Exploring Lifе's Corе: Maznavi._ Guidеs You to Essеncе</h2>
         <div className=" uppercase text-base xl:text-xl font-extralight traking-wide">
