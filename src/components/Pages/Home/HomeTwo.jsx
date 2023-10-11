@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useQuotes } from "../../../hooks/posts";
-import { useAuth } from "../../../hooks/auths";
+import { useQuotes } from "../../../hooks/posts"; 
 import jungle from '../../../assets/Images/jungle-parliament-thumb.jpg'
 import { PiArrowRightThin,PiArrowLeftThin, PiQuotesDuotone } from "react-icons/pi";
 

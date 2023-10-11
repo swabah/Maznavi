@@ -13,7 +13,6 @@ export default function Home() {
      
       <Navbar/>
        <HomeSection />
-       {/*<HomeOne/>*/}
        <HomeTwo/>
       <HomeFive/>
       <HomeThree/>

@@ -5,7 +5,6 @@ import Home from "./components/Pages/Home";
 import Login from "./components/auth/Login";
 import Authors from "./components/Pages/Authors";
 import Poems from "./components/Pages/Poems";
-import Stories from "./components/Pages/Stories";
 import Articles from "./components/Pages/Articles";
 import Register from "./components/auth/Register";
 import Admin from "./components/Pages/Admin";
@@ -16,6 +15,7 @@ import Blogs from "./components/Pages/Blogs";
 import MainLoader from "./assets/MainLoader"; 
 import CurrentProfile from "./components/Pages/CurrentPage/CurrentProfile";
 import WhatsNew from "./components/Pages/WhatsNew";
+import { ifUserAdmin } from "./utils/isCheck";
 
 export const HOME = "/";
 export const LOGIN = "/login";
@@ -23,7 +23,6 @@ export const REGISTER = "/register";
 export const ADMIN = "/Admin";
 export const AUTHORS = "/authors";
 export const POEMS = "/Poems";
-export const STORIES = "/stories";
 export const BLOGS = "/Blogs";
 export const ARTICLES = "/Articles";
 export const WHATSNEW = "/WhatsNew";
@@ -67,9 +66,6 @@ function App() {
               <Route path={`${ARTICLES}/id/:ArticleId`} element={<CurrentArticle/>} />
               <Route path={`${ARTICLES}/:Topic`} element={<CurrentTopic/>} />
 
-              {/* Stories */}
-              <Route path={STORIES} element={<Stories/>} />
-
               {/* Blogs */}
               <Route path={BLOGS} element={<Blogs/>} />
 
@@ -77,7 +73,9 @@ function App() {
               <Route path={REGISTER} element={<Register/>} />
 
               {/* Admin */}
-              <Route path={ADMIN} element={<Admin/>} />
+              {ifUserAdmin && 
+                <Route path={ADMIN} element={<Admin/>} />
+              }
         </Routes>
     </Router>
     </> 

@@ -45,18 +45,6 @@ export function useBlogs(uid = null) {
     if (isError) throw isError;
     return { Blogs, isBlogLoading ,isError};
 }
-export function useStories(uid = null) {
-    const q = uid
-        ? query(
-            collection(db, "stories"),
-            orderBy("created", "desc"),
-            where("uid", "==", uid)
-        )
-        : query(collection(db, "stories"), orderBy("created", "desc"));
-    const [stories, isStoryLoading, isError] = useCollectionData(q);
-    if (isError) throw isError;
-    return { stories, isStoryLoading ,isError};
-}
 export function useWhatsNew( ) {
     const q =  query(collection(db, "whatsnew"), orderBy("created", "desc"));
     const [whatsNew, iswhatsNewLoading, isError] = useCollectionData(q);
@@ -203,7 +191,7 @@ export function useDeleteBlog(id) {
         if (res) {
             setLoading(true);
             // Delete Poem document
-            await deleteDoc(doc(db, "stories", id));
+            await deleteDoc(doc(db, "blogs", id));
             toast({
                 title: "Blog deleted!",
                 status: "info",
@@ -215,28 +203,7 @@ export function useDeleteBlog(id) {
         }
     }
     return { deleteBlog, isLoading };
-}
-export function useDeleteStory(id) {
-    const [isLoading, setLoading] = useState(false);
-    const toast = useToast();
-    async function deleteStory() {
-        const res = window.confirm("Are you sure you want to delete this Story?");
-        if (res) {
-            setLoading(true);
-            // Delete Poem document
-            await deleteDoc(doc(db, "stories", id));
-            toast({
-                title: "Story deleted!",
-                status: "info",
-                isClosable: true,
-                position: "top",
-                duration: 5000,
-            });
-            setLoading(false);
-        }
-    }
-    return { deleteStory, isLoading };
-}
+} 
 export function useDeleteArticle(id) {
     const [isLoading, setLoading] = useState(false);
     const toast = useToast();
