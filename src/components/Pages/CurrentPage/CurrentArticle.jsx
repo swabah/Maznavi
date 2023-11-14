@@ -39,6 +39,7 @@ import { ifUserAdmin } from "../../../utils/isCheck";
 import { ARTICLES } from "../../../App";
 import AlertDialogButton from "../../../assets/AlertDialog";
 import { db } from "../../../lib/firebase";
+import { Helmet } from "react-helmet-async";
 
 export default function CurrentArticle() {
   const { user } = useAuth();
@@ -136,6 +137,12 @@ export default function CurrentArticle() {
   return (
     <>
       <Navbar />
+      <Helmet>
+        <title>{currentArticle?.title}</title>
+        <meta name="description" content={currentArticle?.content} />
+        <link rel="canonical" href={fullPath.pathname} />
+        <meta property="og:image" content={currentArticle?.imageUrl} />
+      </Helmet>
       <motion.div className="w-full min-h-screen" layout>
         {loading ? (
           <div className="w-full h-full bg-gray-100 animate-pulse rounded-3xl"></div>
@@ -156,7 +163,7 @@ export default function CurrentArticle() {
                   <h2 className="mt-1 text-3xl font-medium md:text-4xl xl:text-5xl">
                     {currentArticle.title}
                   </h2>
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full pt-7">
+                  <div className="flex flex-col w-full md:flex-row md:items-center md:justify-between pt-7">
                     <div className="w-full md:w-1/2 flex items-center gap-1.5 md:gap-5">
                       <div className="w-8 h-8 bg-black md:w-12 rounded-3xl md:h-12"></div>
                       <Link className="flex flex-col text-[#3f2d23] ">
@@ -238,9 +245,9 @@ export default function CurrentArticle() {
                 <a href="https://wa.me/+918714398351" className="w-full h-full bg-[#3f2d2311] gap-5 p-6 xl:px-10 flex items-center md:col-span-2 rounded-xl">
                   <PiWhatsappLogoLight className="text-3xl md:text-5xl xl:text-6xl" />
                   <div className="flex flex-col items-start">
-                    <p className="text-base lg:text-lg font-thin">Join Our</p>
+                    <p className="text-base font-thin lg:text-lg">Join Our</p>
                     <h2 className="text-xl md:text-3xl xl:text-4xl">WhatsApp Group</h2>
-                    <p className="text-base  xl:text-lg font-thin">To get instant updates.</p>
+                    <p className="text-base font-thin xl:text-lg">To get instant updates.</p>
                   </div>
                 </a>
                 <form onSubmit={handleSubmit} className="bg-[#3f2d2311] h-auto w-full gap-y-1.5 rounded-xl p-6 flex flex-col items-center">
@@ -269,7 +276,7 @@ export default function CurrentArticle() {
       <Modal isOpen={isOpen} size={"full"} onClose={onClose}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px) hue-rotate(90deg)" />
         <ModalContent>
-          <ModalHeader><h2 className="text-2xl lg:text-4xl font-normal">Edit Article</h2></ModalHeader>
+          <ModalHeader><h2 className="text-2xl font-normal lg:text-4xl">Edit Article</h2></ModalHeader>
           <ModalCloseButton />
           <ModalBody py={5}>
             <EditArticle onClose={onClose} user={currentArticle} />

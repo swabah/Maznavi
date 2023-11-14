@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   deleteDoc,
   doc,
-  getDoc, 
+  getDoc,
 } from "firebase/firestore";
 import {
   AiFillCopy,
@@ -40,6 +40,7 @@ import { useAuth } from "../../../hooks/auths";
 import { POEMS } from "../../../App";
 import { db } from "../../../lib/firebase";
 import AlertDialogButton from "../../../assets/AlertDialog";
+import { Helmet } from "react-helmet-async";
 
 export default function CurrentPoem() {
   const { user } = useAuth();
@@ -120,7 +121,7 @@ export default function CurrentPoem() {
         position: "top",
         duration: 2000,
       });
-        navigate(POEMS);
+      navigate(POEMS);
     } catch (error) {
       toast({
         title: "Error Deleting Poem",
@@ -135,7 +136,13 @@ export default function CurrentPoem() {
   return (
     <>
       <Navbar />
-      <motion.div className="min-h-screen w-full" layout>
+      <Helmet>
+        <title>{currentPoem?.poemTitle}</title>
+        <meta name="description" content={currentPoem?.poemDesc} />
+        <link rel="canonical" href={location.pathname} />
+      </Helmet>
+
+      <motion.div className="w-full min-h-screen" layout>
         <div className="w-full h-full p-7 text-[#3f2d23] lg:px-10 py-16 lg:py-20 xl:px-32">
           <Box mb={4}>
             <Breadcrumbs
@@ -144,13 +151,13 @@ export default function CurrentPoem() {
               currentPage={currentPoem.author}
             />
           </Box>
-          <div className="w-full h-full flex flex-col lg:flex-row gap-5 md:gap-3 lg:gap-5 xl:gap-10">
+          <div className="flex flex-col w-full h-full gap-5 lg:flex-row md:gap-3 lg:gap-5 xl:gap-10">
             <div className="h-full w-full lg:w-[70%]">
               <div className="bg-[#3f2d2311] h-auto w-full gap-y-3 rounded-xl p-5 md:p-8 flex flex-col items-start">
                 <div className="rounded-full p-4 text-xl font-bold text-[#3f2d23] bg-white">
                   <FaQuoteLeft />
                 </div>
-                <h2 className="text-4xl font-medium pt-3">
+                <h2 className="pt-3 text-4xl font-medium">
                   {currentPoem.poemTitle}
                 </h2>
                 <Link
@@ -170,7 +177,7 @@ export default function CurrentPoem() {
                     textDecoration="none"
                     _hover={{ textDecoration: "none" }}
                   >
-                    <div className="flex items-start gap-4 rounded-xl  ">
+                    <div className="flex items-start gap-4 rounded-xl ">
                       <MazButton
                         Link={sharePoemUrl}
                         Icon={
@@ -203,7 +210,7 @@ export default function CurrentPoem() {
                   </Link>
                 </Box>
               </div>
-              <p className="text-lg tracking-wide pt-10 w-full text-start">
+              <p className="w-full pt-10 text-lg tracking-wide text-start">
                 {currentPoem?.poemDesc?.split("\n").map((line, index) => (
                   <p key={index}>{line}</p>
                 ))}
@@ -211,11 +218,11 @@ export default function CurrentPoem() {
             </div>
             <div className="h-full w-full lg:w-[30%] flex flex-col gap-y-3 pt-5 lg:pt-0 lg:gap-y-5">
               <div className="bg-[#3f2d2311] rounded-xl p-6 flex flex-col md:flex-row items-center justify-between">
-                <div className="text-start md:text-left w-full">
-                  <h2 className="text-2xl font-semibold w-full text-center">
+                <div className="w-full text-start md:text-left">
+                  <h2 className="w-full text-2xl font-semibold text-center">
                     Popular on Poems
                   </h2>
-                  <hr className="border-gray-200 w-full my-4" />
+                  <hr className="w-full my-4 border-gray-200" />
                   <div className="space-y-4">
                     {Poems.slice(0, 5).map((Poem) => (
                       <Link
@@ -226,7 +233,7 @@ export default function CurrentPoem() {
                         key={Poem?.id}
                       >
                         <div className="p-2 rounded-md active:shadow-sm">
-                          <h3 className="text-md font-medium mb-1">
+                          <h3 className="mb-1 font-medium text-md">
                             {Poem.poemTitle}
                           </h3>
                           <h4 className="text-sm text-gray-600">{Poem.author}</h4>
@@ -242,19 +249,19 @@ export default function CurrentPoem() {
               >
                 <PiWhatsappLogoLight className="text-3xl md:text-5xl lg:text-6xl" />
                 <div className="flex flex-col items-start">
-                  <p className="text-sm md:text-lg font-thin">Join Our</p>
+                  <p className="text-sm font-thin md:text-lg">Join Our</p>
                   <h2 className="text-xl md:text-2xl lg:text-4xl">WhatsApp Group</h2>
-                  <p className="text-sm md:text-lg font-thin">To get instant updates.</p>
+                  <p className="text-sm font-thin md:text-lg">To get instant updates.</p>
                 </div>
               </a>
               <form
                 onSubmit={handleSubmit}
                 className="bg-[#3f2d2311] h-auto w-full gap-y-1.5  rounded-xl p-6 flex flex-col items-center"
               >
-                <h2 className="text-2xl font-semibold w-full text-center">
+                <h2 className="w-full text-2xl font-semibold text-center">
                   Never miss an Update!
                 </h2>
-                <p className="text-base w-full text-center ">
+                <p className="w-full text-base text-center ">
                   Sign up for free and be the first to <br /> get notified about updates.
                 </p>
                 <input
@@ -273,7 +280,7 @@ export default function CurrentPoem() {
                   className="border-[#3f2d2319] bg-[#3f2d230c] active:bg-[#3f2d2319] border-2 font-medium rounded-3xl text-lg py-1 w-full mt-3 items-center justify-center flex h-auto"
                 >
                   {subscribed ? (
-                    <p className="text-base py-1">Thanks For Your Subscription!</p>
+                    <p className="py-1 text-base">Thanks For Your Subscription!</p>
                   ) : (
                     <h2>Submit</h2>
                   )}
@@ -287,7 +294,7 @@ export default function CurrentPoem() {
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px) hue-rotate(90deg)" />
         <ModalContent>
           <ModalHeader>
-            <h2 className="text-2xl lg:text-4xl font-normal">Edit Poem</h2>
+            <h2 className="text-2xl font-normal lg:text-4xl">Edit Poem</h2>
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody py={5}>
