@@ -7,13 +7,15 @@ function EditArticle({ user, onClose }) {
   const toast = useToast();
 
   const [formData, setFormData] = useState({
-    title: user?.title ,
-    content: user?.content ,
+    title: user?.title,
+    content: user?.content,
+    writer_name: user?.writer?.writer_name,
+    writer_link: user?.writer?.writer_link
   });
   const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e) => {
-    const {  name, value } = e.target ;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
@@ -28,7 +30,15 @@ function EditArticle({ user, onClose }) {
     const userRef = doc(db, 'Articles', user?.id);
 
     try {
-      await updateDoc(userRef, formData);
+      await updateDoc(userRef, {
+        updated: new Date(),
+        content: formData.content,
+        title: formData.title,
+        writer: {
+          writer_name: formData.writer_name,
+          writer_link: formData.writer_link,
+        },
+      });
       setIsLoading(false);
       showToast('Article Updated Successfully.', 'success');
       setTimeout(() => {
@@ -54,7 +64,24 @@ function EditArticle({ user, onClose }) {
     <form
       onSubmit={updateArticle}
       className="md:border md:p-5 lg:p-10 xl:p-16 flex flex-col gap-5 lg:gap-10 h-full md:bg-gray-50 w-full"
-    > 
+    >
+      <input
+        required
+        type='text'
+        name="writer_name"
+        className="text-lg lg:text-xl outline-none w-full md:w-1/2 px-3 p-2 lg:p-5 bg-white rounded-md border"
+        value={formData.writer_name}
+        onChange={handleInputChange}
+        placeholder="Edit Writer Name"
+      />
+      <input
+        type='text'
+        name="writer_link"
+        className="text-lg lg:text-xl outline-none w-full md:w-1/2 px-3 p-2 lg:p-5 bg-white rounded-md border"
+        value={formData.writer_link}
+        onChange={handleInputChange}
+        placeholder="Edit Writer Link"
+      />
       <input
         required
         type='text'
@@ -73,9 +100,8 @@ function EditArticle({ user, onClose }) {
       ></textarea>
       <button
         type="submit"
-        className={`text-sm md:text-base ring-[#3f2d23da] my-8 text-[#3f2d23da] bg-transparent ring-1 rounded-3xl py-2 px-4 ${
-          isLoading && 'opacity-75 cursor-not-allowed'
-        }`}
+        className={`text-sm md:text-base ring-[#3f2d23da] my-8 text-[#3f2d23da] bg-transparent ring-1 rounded-3xl py-2 px-4 ${isLoading && 'opacity-75 cursor-not-allowed'
+          }`}
         disabled={isLoading}
       >
         {isLoading ? 'Loading...' : 'UPDATE ARTICLE'}

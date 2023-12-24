@@ -88,8 +88,7 @@ export default function CurrentArticle() {
 
   const isAdmin = ifUserAdmin(user);
 
-  const scriptURL =
-    "https://script.google.com/macros/s/AKfycby5saW9JJ2p8uJ5mcGWhyubFMEPwmhWikMf7jaIa836nVt7YKhmjpHgosbh08-1dtN5/exec";
+  const scriptURL = "https://script.google.com/macros/s/AKfycby5saW9JJ2p8uJ5mcGWhyubFMEPwmhWikMf7jaIa836nVt7YKhmjpHgosbh08-1dtN5/exec";
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
@@ -122,7 +121,7 @@ export default function CurrentArticle() {
         position: "top",
         duration: 2000,
       });
-        navigate(ARTICLES);
+      navigate(ARTICLES);
     } catch (error) {
       toast({
         title: "Error Deleting Article",
