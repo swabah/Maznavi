@@ -5,16 +5,13 @@ function Metatag({ title, description, url, imageUrl, children }) {
     return (
         <>
             <Helmet>
-                {/* Title */}
-                <title>മസ്നവി 💛(60k)</title>
-                {/* meta SEO Tag */}
-                <meta name={title} content={description} />
-                <meta property="og:url" content={url} />
-                {/* <meta property="og:type" content="article" /> */}
-                <meta property="og:title" content={title} />
-                <meta property="og:description" content={description} />
-                <meta property="og:image" content={imageUrl} />
-                <meta name="twitter:card" content={imageUrl} />
+                <title>{title || "മസ്നവി 💛(60k)"}</title>
+                {description && <meta name="മസ്നവി" content={description} />}
+                {url && <meta property="og:url" content={url} />}
+                {title && <meta property="og:title" content={title} />}
+                {description && <meta property="og:description" content={description} />}
+                {imageUrl && <meta property="og:image" content={imageUrl} />}
+                {imageUrl && <meta name="twitter:card" content={imageUrl} />}
             </Helmet>
             {children}
         </>
