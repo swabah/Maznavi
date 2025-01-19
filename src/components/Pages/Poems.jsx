@@ -6,7 +6,6 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import SinglePoem from "../posts/SinglePoem";
-import Metatag from "../layout/Meta-tag";
 
 export default function Poems() {
   const { Poems, isPoemLoading } = usePoems();
@@ -20,7 +19,6 @@ export default function Poems() {
 
   return (
     <>
-      <Metatag title="മസ്നവി 💛(60k) - Poems" description='' url={window.location.href} />
       <Navbar />
       <div className="w-full h-full bg-white text-[#3f2d23] min-h-screen shadow-sm p-7 py-12 lg:px-10 md:py-20 xl:px-32 ">
         <div className='h-auto py-5  relative w-full flex flex-col text-center gap-3 items-center justify-center '>

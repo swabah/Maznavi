@@ -5,18 +5,12 @@ import App from "./App";
 import './index.css'
 import { Analytics } from '@vercel/analytics/react';
 import { ChakraProvider } from "@chakra-ui/react";
-import { HelmetProvider } from "react-helmet-async";
 
-const helmetContext = {}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <HelmetProvider context={helmetContext}>
-      <ChakraProvider>
-        <App />
-        <Analytics />
-      </ChakraProvider>
-    </HelmetProvider>
-  </React.StrictMode>
+  <ChakraProvider>
+    <App />
+    <Analytics />
+  </ChakraProvider>
 );

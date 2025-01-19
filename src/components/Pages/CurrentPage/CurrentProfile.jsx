@@ -17,7 +17,6 @@ import { usePoems } from '../../../hooks/posts';
 import { POEMS } from '../../../App';
 import SinglePoem from '../../posts/SinglePoem';
 import userDemo from '../../../assets/Images/user.png'
-import Metatag from '../../layout/Meta-tag';
 
 function ModalComponent({ isOpen, onClose, children }) {
   return (
@@ -164,7 +163,6 @@ function CurrentProfile() {
       </div>
       {CurrentUser.map((CurrentUser) => (
         <>
-          <Metatag title={CurrentUser?.fullName} imageUrl={CurrentUser?.userPhoto} description={CurrentUser?.bio} url={window.location.href} />
           <ModalComponent isOpen={isUpdateOpen} onClose={onUpdateClose}>
             <UpdateProfile user={user} />
           </ModalComponent>

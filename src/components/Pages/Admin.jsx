@@ -41,11 +41,9 @@ import { Link } from 'react-router-dom';
 import NewWhatsNew from '../posts/Items/NewWhatsNew';
 import { useArticles, usePoems, useQuotes } from '../../hooks/posts';
 import { AiFillDelete } from 'react-icons/ai';
-import MazButton from '../../assets/MazButton';
 import AlertDialogButton from '../../assets/AlertDialog';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
-import Metatag from '../layout/Meta-tag';
 
 const adminItems = [
   { key: 'Poem', label: 'New Poem', component: <NewPoem /> },
@@ -134,7 +132,6 @@ function Admin() {
 
   return (
     <>
-      <Metatag title="മസ്നവി 💛(60k) - Whats New" description='' url={window.location.href} />
       <Navbar />
       <div className='w-full h-full min-h-screen bg-white text-[#3f2d23] shadow-sm py-10 p-3 lg:px-10 md:py-12 xl:px-32'>
         <div
