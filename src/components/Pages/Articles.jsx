@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { AiOutlineRead } from "react-icons/ai";
 import formatTime from "../../assets/formatTime";
+import Metatag from "../layout/Meta-tag";
 
 
 export default function Articles() {
@@ -24,6 +25,7 @@ export default function Articles() {
 
     return (
         <>
+            <Metatag title={"Articles"} />
             <Navbar />
             <div className="w-full h-full min-h-screen py-12 bg-white shadow-sm p-7 lg:px-10 md:py-20 xl:px-32 ">
                 <div className='relative flex flex-col items-center justify-center w-full h-auto gap-3 py-5 text-center '>

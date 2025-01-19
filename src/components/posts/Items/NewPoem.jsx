@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../../hooks/auths';
 import { v4 as uuidv4 } from 'uuid'; // Update the import
-import { doc,  setDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../../lib/firebase';
 import { useToast } from '@chakra-ui/react';
 
@@ -17,8 +17,6 @@ function NewPoem() {
 
   // Example date and time
 
-
-
   const handleAddPoemDemo = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -26,7 +24,7 @@ function NewPoem() {
     try {
 
       const PoemDocData = {
-        uid: user?.uid ,
+        uid: user?.uid,
         id: uuidv4(),
         created: new Date(),
         poemTitle: title,
@@ -35,16 +33,16 @@ function NewPoem() {
         likes: [],
       };
 
-        // Create a reference to the user's document
-        await setDoc(doc(db, "Poems", uuidv4()), PoemDocData);
-        toast({
-          title: 'Poem added successfully!',
-          status: 'success',
-          isClosable: true,
-          position: 'top',
-          duration: 5000,
-        });
-        setLoading(false);
+      // Create a reference to the user's document
+      await setDoc(doc(db, "Poems", uuidv4()), PoemDocData);
+      toast({
+        title: 'Poem added successfully!',
+        status: 'success',
+        isClosable: true,
+        position: 'top',
+        duration: 5000,
+      });
+      setLoading(false);
     } catch (error) {
       console.error('Firestore Error:', error);
       toast({

@@ -17,6 +17,7 @@ import { usePoems } from '../../../hooks/posts';
 import { POEMS } from '../../../App';
 import SinglePoem from '../../posts/SinglePoem';
 import userDemo from '../../../assets/Images/user.png'
+import Metatag from '../../layout/Meta-tag';
 
 function ModalComponent({ isOpen, onClose, children }) {
   return (
@@ -31,7 +32,7 @@ function ModalComponent({ isOpen, onClose, children }) {
 }
 
 function CurrentProfile() {
-  const { profileName } = useParams();
+  const { author } = useParams();
   const { user, isLoading } = useAuth();
   const [UserPoems, setUserPoems] = useState([]);
   const [CurrentUser, setCurrentUser] = useState([]);
@@ -45,17 +46,17 @@ function CurrentProfile() {
   useEffect(() => {
     const fetchUserPoems = async () => {
       const PoemsRef = collection(db, "Poems");
-      const q = query(PoemsRef, where("author", "==", profileName));
+      const q = query(PoemsRef, where("author", "==", author));
       const Poems = await getDocs(q);
       setUserPoems(Poems.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
       const CurrentUserRef = collection(db, "users");
-      const CurrentUserq = query(CurrentUserRef, where("username", "==", profileName));
+      const CurrentUserq = query(CurrentUserRef, where("username", "==", author));
       const querySnapshot = await getDocs(CurrentUserq);
       setCurrentUser(querySnapshot.docs.map((doc) => doc.data()))
     };
     fetchUserPoems()
-  }, [profileName]);
+  }, [author]);
 
   // console.log('UserPoems' , UserPoems);
   // console.log('user' , user);
@@ -71,7 +72,7 @@ function CurrentProfile() {
       <div className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 text-[#120f08] bg-[#fff] min-h-screen h-full p-7 lg:px-10 py-8 md:py-16 xl:px-32'>
         <div className='flex flex-col w-full h-auto col-span-1 gap-16 md:order-1 md:col-span-2 lg:col-span-3'>
           {isLoading ? (
-            <div className='w-full h-full bg-gray-100 animate-pulse rounded-3xl'></div>
+            <div className='w-full h-52 bg-red-600 animate-pulse rounded-3xl'></div>
           ) : (
             CurrentUser.map((currentUser) => (
               <div key={currentUser.id} className='flex flex-col items-start justify-start w-full h-auto gap-5 md:flex-row md:gap-8 lg:gap-10 md:p-5 lg:p-8 md:py-12 rounded-3xl md:border md:shadow-md'>
@@ -95,7 +96,7 @@ function CurrentProfile() {
                 <div className='flex flex-col items-start w-full gap-4 md:w-2/3 lg:w-3/4'>
                   <div className='w-full'>
                     <div className='flex items-center w-full gap-3 pb-3 text-2xl'>
-                      <h2>{profileName}</h2>
+                      <h2>{author}</h2>
                       {currentUser.InstagramLink && (
                         <a href={currentUser.InstagramLink}> <FaInstagram /></a>
                       )}
@@ -125,7 +126,7 @@ function CurrentProfile() {
           ) : (
             UserPoems.length > 0 &&
             <div className='w-full h-full'>
-              <h2 className='text-2xl font-medium'>{profileName}'s Poems</h2>
+              <h2 className='text-2xl font-medium'>{author}'s Poems</h2>
               <Divider my={3} />
               <div className='grid w-full h-auto grid-cols-1 gap-5 pt-2 md:grid-cols-2 '>
                 {UserPoems.slice(0, 6).map((poem, index) => (
@@ -163,6 +164,7 @@ function CurrentProfile() {
       </div>
       {CurrentUser.map((CurrentUser) => (
         <>
+          <Metatag name={CurrentUser.fullName} description={CurrentUser.bio} url={window.location.href} imageUrl={CurrentUser.userPhoto} />
           <ModalComponent isOpen={isUpdateOpen} onClose={onUpdateClose}>
             <UpdateProfile user={user} />
           </ModalComponent>

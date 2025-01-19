@@ -44,9 +44,8 @@ function App() {
             <Routes>
               {/* Home */}
               <Route exact path={HOME} element={<Home />} />
-
               {/* Profile */}
-              <Route path={`${HOME}:profileName`} element={<CurrentProfile />} />
+              <Route path={`${HOME}:author`} element={<CurrentProfile />} />
 
               {/* Login */}
               <Route path={LOGIN} element={<Login />} />

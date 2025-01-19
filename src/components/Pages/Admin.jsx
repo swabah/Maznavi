@@ -132,6 +132,7 @@ function Admin() {
 
   return (
     <>
+
       <Navbar />
       <div className='w-full h-full min-h-screen bg-white text-[#3f2d23] shadow-sm py-10 p-3 lg:px-10 md:py-12 xl:px-32'>
         <div

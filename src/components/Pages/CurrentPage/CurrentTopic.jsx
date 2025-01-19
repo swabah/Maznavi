@@ -7,6 +7,7 @@ import Footer from "../../layout/Footer";
 import { SingleArticle } from "../../posts/SingleArticle";
 import PostsDemo from "../../Demo/PostsDemo";
 import { motion } from "framer-motion";
+import Metatag from "../../layout/Meta-tag";
 
 export default function CurrentTopic() {
   const { Topic } = useParams();
@@ -36,6 +37,7 @@ export default function CurrentTopic() {
 
   return (
     <>
+      <Metatag title={Topic} />
       <Navbar />
       <div className="w-full h-full min-h-screen bg-white shadow-sm py-12 p-7 lg:px-10 md:py-20 xl:px-32 ">
         <input

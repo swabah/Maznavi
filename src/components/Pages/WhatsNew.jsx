@@ -4,11 +4,13 @@ import Footer from '../layout/Footer'
 import { useWhatsNew } from '../../hooks/posts'
 import formatTime from '../../assets/formatTime'
 import { Divider } from '@chakra-ui/react'
+import Metatag from '../layout/Meta-tag'
 
 function WhatsNew() {
     const { whatsNew, iswhatsNewLoading } = useWhatsNew()
     return (
         <>
+            <Metatag title={"What's New "} />
             <Navbar />
             <div className='min-h-screen w-full gap-16 flex flex-col items-center justify-start p-7 text-[#3f2d23] lg:px-10 py-16 lg:py-20 xl:px-32'>
                 <h2 className='text-3xl lg:text-5xl font-medium capitalize'>📢 What's New</h2>

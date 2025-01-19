@@ -40,6 +40,7 @@ import { useAuth } from "../../../hooks/auths";
 import { POEMS } from "../../../App";
 import { db } from "../../../lib/firebase";
 import AlertDialogButton from "../../../assets/AlertDialog";
+import Metatag from "../../layout/Meta-tag";
 
 export default function CurrentPoem() {
   const { user } = useAuth();
@@ -134,6 +135,7 @@ export default function CurrentPoem() {
 
   return (
     <>
+      <Metatag title={currentPoem.poemTitle} description={currentPoem.poemDesc} />
       <Navbar />
       <motion.div className="w-full min-h-screen" layout>
         <div className="w-full h-full p-7 text-[#3f2d23] lg:px-10 py-16 lg:py-20 xl:px-32">

@@ -10,7 +10,7 @@ import Metatag from "../layout/Meta-tag";
 
 export default function Home() {
   return (
-    <Metatag >
+    <Metatag description={"Exploring Lifе's Corе: Maznavi._ Guidеs You to Essеncе"} title={"മസ്നവി 💛(60k)"}>
       <>
         <div>
           <Navbar />
