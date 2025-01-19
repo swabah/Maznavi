@@ -39,7 +39,7 @@ import { ifUserAdmin } from "../../../utils/isCheck";
 import { ARTICLES } from "../../../App";
 import AlertDialogButton from "../../../assets/AlertDialog";
 import { db } from "../../../lib/firebase";
-import { Helmet } from "react-helmet-async";
+import Metatag from "../../layout/Meta-tag";
 
 export default function CurrentArticle() {
   const { user } = useAuth();
@@ -136,12 +136,7 @@ export default function CurrentArticle() {
   return (
     <>
       <Navbar />
-      <Helmet>
-        <title>{currentArticle?.title}</title>
-        <meta name="description" content={currentArticle?.content} />
-        <link rel="canonical" href={fullPath.pathname} />
-        <meta property="og:image" content={currentArticle?.imageUrl} />
-      </Helmet>
+      <Metatag title={currentArticle?.title} imageUrl={currentArticle?.imageUrl} description={currentArticle?.content} url={window.location.href} />
       <motion.div className="w-full min-h-screen" layout>
         {loading ? (
           <div className="w-full h-full bg-gray-100 animate-pulse rounded-3xl"></div>

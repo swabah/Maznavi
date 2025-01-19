@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Pages/Home";
@@ -12,7 +12,7 @@ import CurrentPoem from "./components/Pages/CurrentPage/CurrentPoem";
 import CurrentArticle from "./components/Pages/CurrentPage/CurrentArticle";
 import CurrentTopic from "./components/Pages/CurrentPage/CurrentTopic";
 import Blogs from "./components/Pages/Blogs";
-import MainLoader from "./assets/MainLoader"; 
+import MainLoader from "./assets/MainLoader";
 import CurrentProfile from "./components/Pages/CurrentPage/CurrentProfile";
 import WhatsNew from "./components/Pages/WhatsNew";
 import { ifUserAdmin } from "./utils/isCheck";
@@ -33,53 +33,53 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 30); 
+    }, 1000);
   }, []);
 
   return (
     <>
-    {isLoading ? (<MainLoader/>) :
-    <>
-    <Router>
-        <Routes>
+      {isLoading ? (<MainLoader />) :
+        <>
+          <Router>
+            <Routes>
               {/* Home */}
-              <Route exact path={HOME} element={<Home/>} />
+              <Route exact path={HOME} element={<Home />} />
 
               {/* Profile */}
-              <Route path={`${HOME}:profileName`} element={<CurrentProfile/>}/>
+              <Route path={`${HOME}:profileName`} element={<CurrentProfile />} />
 
               {/* Login */}
-              <Route path={LOGIN} element={<Login/>} />
+              <Route path={LOGIN} element={<Login />} />
 
               {/* Authors */}
-              <Route  path={AUTHORS} element={<Authors/>} />
+              <Route path={AUTHORS} element={<Authors />} />
 
               {/* WHATSNEW */}
-              <Route  path={WHATSNEW} element={<WhatsNew/>} />
+              <Route path={WHATSNEW} element={<WhatsNew />} />
 
               {/* Poems */}
-              <Route  path={POEMS} element={<Poems/>} />
-              <Route path={`${POEMS}/id/:PoemId`} element={<CurrentPoem/>} />
+              <Route path={POEMS} element={<Poems />} />
+              <Route path={`${POEMS}/id/:PoemId`} element={<CurrentPoem />} />
 
               {/* Articles */}
-              <Route  path={ARTICLES} element={<Articles/>} />
-              <Route path={`${ARTICLES}/id/:ArticleId`} element={<CurrentArticle/>} />
-              <Route path={`${ARTICLES}/:Topic`} element={<CurrentTopic/>} />
+              <Route path={ARTICLES} element={<Articles />} />
+              <Route path={`${ARTICLES}/id/:ArticleId`} element={<CurrentArticle />} />
+              <Route path={`${ARTICLES}/:Topic`} element={<CurrentTopic />} />
 
               {/* Blogs */}
-              <Route path={BLOGS} element={<Blogs/>} />
+              <Route path={BLOGS} element={<Blogs />} />
 
               {/* Register */}
-              <Route path={REGISTER} element={<Register/>} />
+              <Route path={REGISTER} element={<Register />} />
 
               {/* Admin */}
-              {ifUserAdmin && 
-                <Route path={ADMIN} element={<Admin/>} />
+              {ifUserAdmin &&
+                <Route path={ADMIN} element={<Admin />} />
               }
-        </Routes>
-    </Router>
-    </> 
-    }
+            </Routes>
+          </Router>
+        </>
+      }
     </>
   );
 }

@@ -6,6 +6,7 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import SinglePoem from "../posts/SinglePoem";
+import Metatag from "../layout/Meta-tag";
 
 export default function Poems() {
   const { Poems, isPoemLoading } = usePoems();
@@ -15,17 +16,20 @@ export default function Poems() {
     poem.author.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+
+
   return (
     <>
-    <Navbar />
+      <Metatag title="മസ്നവി 💛(60k) - Poems" description='' url={window.location.href} />
+      <Navbar />
       <div className="w-full h-full bg-white text-[#3f2d23] min-h-screen shadow-sm p-7 py-12 lg:px-10 md:py-20 xl:px-32 ">
-          <div className='h-auto py-5  relative w-full flex flex-col text-center gap-3 items-center justify-center '>
-              <h2 className='text-3xl lg:text-4xl xl:text-5xl tracking-wider font-semibold'>
-                  <span className='text-[#3f2d23]'>Fuel Your Creativity</span> <br /> with Our Engaging Poems
-              </h2>
-              <p className='text-base lg:text-lg'> Discover Compelling Narratives, Beautiful Poetry, and Enthralling Articles Crafted Just for You.</p>
-          </div>
-          <Divider marginTop='5' />
+        <div className='h-auto py-5  relative w-full flex flex-col text-center gap-3 items-center justify-center '>
+          <h2 className='text-3xl lg:text-4xl xl:text-5xl tracking-wider font-semibold'>
+            <span className='text-[#3f2d23]'>Fuel Your Creativity</span> <br /> with Our Engaging Poems
+          </h2>
+          <p className='text-base lg:text-lg'> Discover Compelling Narratives, Beautiful Poetry, and Enthralling Articles Crafted Just for You.</p>
+        </div>
+        <Divider marginTop='5' />
         <input
           placeholder="🔍 Explore Poems by Authors"
           value={searchQuery}
@@ -34,8 +38,8 @@ export default function Poems() {
         />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {filteredPoems?.map((Poem) => (
-              <SinglePoem Loading={isPoemLoading} key={Poem.id} Poem={Poem}/>
-            ))}
+            <SinglePoem Loading={isPoemLoading} key={Poem.id} Poem={Poem} />
+          ))}
         </div>
       </div>
       <Footer />

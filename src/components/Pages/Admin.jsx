@@ -27,25 +27,32 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  useToast,
 } from '@chakra-ui/react';
 import { FiPlus } from 'react-icons/fi';
-import { MdAdminPanelSettings } from 'react-icons/md' 
+import { MdAdminPanelSettings } from 'react-icons/md'
 import NewArticle from '../posts/Items/NewArticle';
 import NewPoem from '../posts/Items/NewPoem';
 import NewQuote from '../posts/Items/NewQuote';
 import NewBlog from '../posts/Items/NewBlog';
 import { useUsers } from '../../hooks/auths';
-import formatTimeDifference from '../../assets/formatTime' 
+import formatTimeDifference from '../../assets/formatTime'
 import { Link } from 'react-router-dom';
 import NewWhatsNew from '../posts/Items/NewWhatsNew';
 import { useArticles, usePoems, useQuotes } from '../../hooks/posts';
+import { AiFillDelete } from 'react-icons/ai';
+import MazButton from '../../assets/MazButton';
+import AlertDialogButton from '../../assets/AlertDialog';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { db } from '../../lib/firebase';
+import Metatag from '../layout/Meta-tag';
 
 const adminItems = [
-  { key: 'Poem', label: 'New Poem', component: <NewPoem/> },
-  { key: 'Article', label: 'New Article', component: <NewArticle/> },
-  { key: 'quote', label: 'New Quote', component: <NewQuote/> },
-  { key: 'blog', label: 'New Blog', component: <NewBlog/> },
-  { key: 'WhatsNew', label: "What's New", component: <NewWhatsNew/> },
+  { key: 'Poem', label: 'New Poem', component: <NewPoem /> },
+  { key: 'Article', label: 'New Article', component: <NewArticle /> },
+  { key: 'quote', label: 'New Quote', component: <NewQuote /> },
+  { key: 'blog', label: 'New Blog', component: <NewBlog /> },
+  { key: 'WhatsNew', label: "What's New", component: <NewWhatsNew /> },
 ];
 
 
@@ -67,15 +74,18 @@ function AdminItem({ item, onClick }) {
 
 function Admin() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isDeleteOpen, onOpen: onDeleteOpen, onClose: onDeleteClose } =
+    useDisclosure();
   const [selectedItem, setSelectedItem] = useState(null);
-  const {users} = useUsers()
+  const { users } = useUsers()
+  const toast = useToast()
   const [searchQuery, setSearchQuery] = useState("");
 
-    const filteredUsers = users?.filter((user) =>
+  const filteredUsers = users?.filter((user) =>
     [user.username, user.fullName].some(field =>
       field.toLowerCase().includes(searchQuery.toLowerCase())
-    )   
-    );
+    )
+  );
 
 
   const openModal = (itemKey) => {
@@ -88,21 +98,43 @@ function Admin() {
     onClose();
   };
 
-  
-  const {quotes} = useQuotes()
-  const {Poems} = usePoems()
-  const {Articles} = useArticles()
 
-  
+  const { quotes } = useQuotes()
+  const { Poems } = usePoems()
+  const { Articles } = useArticles()
+
+
   const stats = [
-    { label: 'Quotes', total: quotes?.length , percentage: '30%' },
+    { label: 'Quotes', total: quotes?.length, percentage: '30%' },
     { label: 'Poems', total: Poems?.length, percentage: '16%' },
     { label: 'Articles', total: Articles?.length, percentage: '8%' },
     // Add more stats if needed
   ];
 
+  const handleDelete = async (quote) => {
+    try {
+      await deleteDoc(doc(db, "quotes", quote));
+      toast({
+        title: "Quote Deleted",
+        status: "success",
+        isClosable: true,
+        position: "top",
+        duration: 2000,
+      });
+    } catch (error) {
+      toast({
+        title: "Error Deleting Quote",
+        status: "error",
+        isClosable: true,
+        position: "top",
+        duration: 2000,
+      });
+    }
+  };
+
   return (
     <>
+      <Metatag title="മസ്നവി 💛(60k) - Whats New" description='' url={window.location.href} />
       <Navbar />
       <div className='w-full h-full min-h-screen bg-white text-[#3f2d23] shadow-sm py-10 p-3 lg:px-10 md:py-12 xl:px-32'>
         <div
@@ -152,12 +184,12 @@ function Admin() {
               </Tr>
             </Thead>
             <Tbody>
-              {filteredUsers?.map((user,index)=>(
+              {filteredUsers?.map((user, index) => (
                 <Tr>
                   <Td>{index + 1}</Td>
                   <Td >{formatTimeDifference(user?.created)}</Td>
-                  <Td><img className='w-10 h-10' src={user?.userPhoto}/></Td>
-                  <Td> <Link onClick={() => { window.scrollTo({top: 0, left: 0, behavior: 'smooth'});}} to={`/${user.username}`}>{user.username}</Link></Td>
+                  <Td><img className='w-10 h-10' src={user?.userPhoto} /></Td>
+                  <Td> <Link onClick={() => { window.scrollTo({ top: 0, left: 0, behavior: 'smooth' }); }} to={`/${user.username}`}>{user.username}</Link></Td>
                   <Td>{user.email}</Td>
                   <Td>{user.fullName}</Td>
                   <Td>{user.mobNumber}</Td>
@@ -171,55 +203,56 @@ function Admin() {
           </Table>
         </TableContainer>
         <div className='w-full pt-20 '>
-          <Accordion allowToggle> 
-              <AccordionItem >
-                <h2>
-                  <AccordionButton>
-                    <Box as="span" flex='1' textAlign='left'>
-                      Quotes
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                </h2>
-                {quotes?.map((item)=>(
-                  <AccordionPanel p={2}>
+          <Accordion allowToggle>
+            <AccordionItem >
+              <h2>
+                <AccordionButton>
+                  <Box as="span" flex='1' textAlign='left'>
+                    Quotes
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              {quotes?.map((item) => (
+                <AccordionPanel className='w-full justify-between border-b-[0.4px] border-black flex items-center'>
                   <h2 className='line-clamp-1 '>{item.quote}</h2>
-                  </AccordionPanel>
-                ))}
-                    
-              </AccordionItem>
-              <AccordionItem >
-                <h2>
-                  <AccordionButton>
-                    <Box as="span" flex='1' textAlign='left'>
-                      Poems
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                </h2>
-                {Poems?.map((item)=>(
-                  <AccordionPanel p={2}>
-                   <h2 className='line-clamp-1 '> {item.poemDesc}</h2>
-                  </AccordionPanel>
-                ))}
-                    
-              </AccordionItem>
-              <AccordionItem >
-                <h2>
-                  <AccordionButton>
-                    <Box as="span" flex='1' textAlign='left'>
-                      Articles
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                </h2>
-                {Articles?.map((item)=>(
-                  <AccordionPanel p={2}>
+                  <button onClick={() => handleDelete(item?.id)}><AiFillDelete /></button>
+                </AccordionPanel>
+              ))}
+
+            </AccordionItem>
+            <AccordionItem >
+              <h2>
+                <AccordionButton>
+                  <Box as="span" flex='1' textAlign='left'>
+                    Poems
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              {Poems?.map((item) => (
+                <AccordionPanel p={2}>
+                  <h2 className='line-clamp-1 '> {item.poemDesc}</h2>
+                </AccordionPanel>
+              ))}
+
+            </AccordionItem>
+            <AccordionItem >
+              <h2>
+                <AccordionButton>
+                  <Box as="span" flex='1' textAlign='left'>
+                    Articles
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              {Articles?.map((item) => (
+                <AccordionPanel p={2}>
                   <h2 className='line-clamp-1 '>{item.title}</h2>
-                  </AccordionPanel>
-                ))}
-                    
-              </AccordionItem>
+                </AccordionPanel>
+              ))}
+
+            </AccordionItem>
           </Accordion>
         </div>
         <Modal isOpen={isOpen} onClose={closeModal}>
@@ -232,6 +265,12 @@ function Admin() {
           </ModalContent>
         </Modal>
       </div>
+      <AlertDialogButton
+        onDelete={handleDelete}
+        onClose={onDeleteClose}
+        isOpen={isDeleteOpen}
+        type='poem'
+      />
       <Footer />
     </>
   );

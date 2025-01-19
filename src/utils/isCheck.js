@@ -17,5 +17,5 @@ export async function isWriter_nameExists(writer_name) {
 
 // Check if a user is an admin
 export function ifUserAdmin(user) {
-  return (user?.email === "maznaviofficial@gmail.com" || "ajmalfaiz5@gmail.com") && user?.password === "maznavi786";
+  return (user?.email === "maznaviofficial@gmail.com") && user?.password === "maznavi786";
 }

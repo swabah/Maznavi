@@ -7,14 +7,12 @@ import HomeThree from "./Home/HomeThree";
 import HomeFive from "./Home/HomeFive";
 import HomeSix from "./Home/HomeSix";
 import { Helmet } from "react-helmet-async";
+import Metatag from "../layout/Meta-tag";
 
 export default function Home() {
   return (
     <div>
-      <Helmet>
-        <title>മസ്നവി 💛(60k) </title>
-        <meta name="description" content="Exploring Lifе's Corе: Maznavi._ Guidеs You to Essеncе" />
-      </Helmet>
+      <Metatag title="മസ്നവി 💛(60k)" description='' url={window.location.href} />
       <Navbar />
       <HomeSection />
       <HomeTwo />

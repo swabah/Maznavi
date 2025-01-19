@@ -40,7 +40,7 @@ import { useAuth } from "../../../hooks/auths";
 import { POEMS } from "../../../App";
 import { db } from "../../../lib/firebase";
 import AlertDialogButton from "../../../assets/AlertDialog";
-import { Helmet } from "react-helmet-async";
+import Metatag from "../../layout/Meta-tag";
 
 export default function CurrentPoem() {
   const { user } = useAuth();
@@ -136,12 +136,7 @@ export default function CurrentPoem() {
   return (
     <>
       <Navbar />
-      <Helmet>
-        <title>{currentPoem?.poemTitle}</title>
-        <meta name="description" content={currentPoem?.poemDesc} />
-        <link rel="canonical" href={location.pathname} />
-      </Helmet>
-
+      <Metatag title={currentPoem?.poemTitle} description={currentPoem?.poemDesc} url={window.location.href} />
       <motion.div className="w-full min-h-screen" layout>
         <div className="w-full h-full p-7 text-[#3f2d23] lg:px-10 py-16 lg:py-20 xl:px-32">
           <Box mb={4}>
